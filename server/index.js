@@ -149,6 +149,21 @@ async function optimize(req, res) {
 }
 function clean(t) { return String(t).replace(/<think>[\s\S]*?<\/think>/g, "").trim(); }
 
+/* ---------- data manifest: kept in sync with the Data-Sources release ---------- */
+const MANIFEST_URL = process.env.DATA_MANIFEST_URL || "https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json";
+let liveManifest = null;   // JSON string, refreshed every 6 hours; falls back to the bundled data-manifest.json
+async function refreshManifest() {
+  try {
+    const r = await fetch(MANIFEST_URL, { signal: AbortSignal.timeout(20000), headers: { "User-Agent": "ai-in-action-website" } });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const m = await r.json();
+    if (!Array.isArray(m.datasets) || !m.datasets.length) throw new Error("no datasets");
+    liveManifest = JSON.stringify(m);
+    console.log(`[data] manifest refreshed: ${m.datasets.length} datasets`);
+  } catch (e) { console.warn(`[data] manifest refresh failed (${e.message}); serving the bundled copy`); }
+}
+if (process.env.DATA_MANIFEST_SYNC !== "off") { refreshManifest(); setInterval(refreshManifest, 6 * 3600e3).unref(); }
+
 /* ---------- static files ---------- */
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json; charset=utf-8",
   ".md": "text/markdown; charset=utf-8", ".txt": "text/plain; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
@@ -181,6 +196,10 @@ const server = http.createServer((req, res) => {
     return optimize(req, res).catch((e) => { console.error(e); if (!res.headersSent) json(res, 500, { error: "server_error", message: "Something went wrong. Use the template." }); else res.end(); });
   }
   if (req.method !== "GET" && req.method !== "HEAD") return json(res, 405, { error: "method_not_allowed" });
+  if (url.pathname === "/data-manifest.json" && liveManifest) {
+    res.writeHead(200, Object.assign({ "Content-Type": "application/json; charset=utf-8", "Cache-Control": "public, max-age=300" }, SEC_HEADERS));
+    return res.end(req.method === "HEAD" ? undefined : liveManifest);
+  }
   serveStatic(req, res, url.pathname);
 });
 server.requestTimeout = 120000;

@@ -931,6 +931,7 @@ TEMPLATE = r'''<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="stylesheet" href="assets/ai-optimizer.css">
+<link rel="stylesheet" href="assets/get-data.css">
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -1094,6 +1095,27 @@ TEMPLATE = r'''<!doctype html>
     <div class="sec-head"><p class="kicker">Datasets</p><h2 id="data-h">Practice on synthetic data. <em>Work with real public sources.</em></h2>
     <p class="sec-sub">All datasets now live in their own repository, <a href="{DS_URL}" target="_blank" rel="noopener">Open-Medical-Affairs/Data-Sources</a>, in two halves that are never mixed. Copy a raw link for your agent, or a whole pack at once. Machine-readable: <a href="datasets.json">datasets.json</a>.</p></div>
     {ds_repos_html}
+    <div class="gd" id="get-data" aria-labelledby="gd-h">
+      <div class="gd-head"><p class="kicker">Get the data</p><h3 class="ds-h" id="gd-h">One dataset, or everything at once.</h3>
+      <p class="muted">Free, no account needed. Synthetic files are fictional and safe to practise on. Public sources are real: we link to the official source and show the licence, and <strong>Link only</strong> sources must be used at the source, never copied.</p></div>
+      <div class="gd-big">
+        <div class="gd-card gd-card--syn">
+          <a class="gd-btn" href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic-data.zip"><span class="gd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg></span><span><span class="gd-btn-t">Download all synthetic data (.zip)</span><span class="gd-btn-s">Every synthetic file: 3 product packs, the practice CRM and its SQLite file</span></span></a>
+          <p class="gd-alt"><span class="badge badge--syn">Synthetic</span> Also as <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic.jsonl">one JSONL file</a> · <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic-combined-csv.zip">combined CSVs</a> · one pack: <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/synthetic-oncology-mm.zip">oncology</a>, <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/synthetic-immunology-ad.zip">immunology</a>, <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/synthetic-cardiometabolic-obesity.zip">cardiometabolic</a>, <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/synthetic-connected.zip">practice CRM</a></p>
+        </div>
+        <div class="gd-card gd-card--cat">
+          <a class="gd-btn gd-btn--light" href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-data-catalog.zip"><span class="gd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 10h14M5 15h9M5 20h6"/></svg></span><span><span class="gd-btn-t">Download full catalog (.json/.csv)</span><span class="gd-btn-s">Every dataset with licence and links, 52 public sources and real paper examples (.zip)</span></span></a>
+          <p class="gd-alt">Just the list: <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json">manifest.json</a> · <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.csv">manifest.csv</a> (opens in Excel) · script: <a href="https://github.com/Open-Medical-Affairs/Data-Sources/blob/HEAD/tools/fetch_all.py" target="_blank" rel="noopener">fetch_all.py</a></p>
+        </div>
+      </div>
+      <div class="gd-tools">
+        <label class="search gd-search"><span class="sr">Search datasets</span><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg><input id="gd-q" type="search" placeholder="Search, e.g. enquiries, label, payments" autocomplete="off"></label>
+        <div class="gd-filters" role="radiogroup" aria-label="Show"><button type="button" role="radio" class="gd-f" data-f="all" aria-checked="true">All</button><button type="button" role="radio" class="gd-f" data-f="synthetic" aria-checked="false">Synthetic</button><button type="button" role="radio" class="gd-f" data-f="public" aria-checked="false">Public</button><button type="button" role="radio" class="gd-f" data-f="direct" aria-checked="false">Direct download</button><button type="button" role="radio" class="gd-f" data-f="linkonly" aria-checked="false">Link only</button></div>
+        <span class="gd-count" id="gd-count" aria-live="polite"></span>
+      </div>
+      <div class="gd-list" id="gd-list" data-manifest="data-manifest.json"><p class="muted">Loading the dataset list… If it does not appear, open <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.csv">manifest.csv</a>.</p></div>
+      <button type="button" class="btn-ghost gd-more" id="gd-more" hidden>Show all</button>
+    </div>
     <div class="syn-head"><p class="kicker">Synthetic datasets · fictional</p><h3 class="ds-h">A pretend company to practise on <span class="badge badge--syn">Synthetic</span></h3>
     <p class="muted">SYNTHETIC — fictional data for training and workshops, not real patients or products. Nordvant Biopharma, NORVANTIB, DERMALYX and ADIPOSYN do not exist. Safe to use in the room.</p></div>
     <div class="packs">{tabs}{panels}</div>
@@ -1175,6 +1197,7 @@ TEMPLATE = r'''<!doctype html>
 <script src="assets/app.js" defer></script>
 <script src="assets/optimizer-data.js" defer></script>
 <script src="assets/ai-optimizer.js" defer></script>
+<script src="assets/get-data.js" defer></script>
 </body>
 </html>
 '''

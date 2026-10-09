@@ -13,7 +13,7 @@ This is the website that goes with **AI in Action for Medical Affairs** (October
 - **Start in three steps.** Copy a link, give it to your agent, then review what it makes.
 - **Missions.** Ready-made workshop exercises (field insights, congress, launch planning and more) that use fictional, clearly labelled **synthetic** data.
 - **Prompt Optimizer.** Type a short goal such as *"Build a launch plan for ADIPOSYN"* and get back a full, goal-oriented assignment for Grok Bot. It can also set up a whole **agent swarm**: a coordinator, worker agents and an independent reviewer, with you as the final judge.
-- **Data.** Links to the [Data-Sources](https://github.com/Open-Medical-Affairs/Data-Sources) repository: synthetic practice data and a catalog of public sources.
+- **Get the data.** Two big buttons: *Download all synthetic data (.zip)* and *Download full catalog (.json/.csv)*. Below them is a searchable list of every dataset (167), each with a Synthetic or Public badge, its licence, and Download / Open source buttons. Link-only sources are clearly marked. Everything comes from the [Data-Sources](https://github.com/Open-Medical-Affairs/Data-Sources) repository.
 - **Grok Bot install.** Step-by-step setup. Sign-up links and credit codes are *shared at the conference*.
 - **Agent-ready.** AI agents can read `agents.md`, `llms.txt` and the `.json` files to do everything the [skills library](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills) supports.
 
@@ -77,6 +77,7 @@ curl -N -X POST https://<your-domain>/api/optimize \
 | `assets/optimizer-data.js` | Starters, products and skill names, shared by browser and server. Edit starters here |
 | `server/index.js` | Tiny Node server: static files, `POST /api/optimize`, `GET /healthz` |
 | `server/prompts.js` | The optimizer's system prompt (single task and agent swarm modes) |
+| `assets/get-data.js`, `assets/get-data.css`, `data-manifest.json` | The "Get the data" list. It reads `data-manifest.json`, which the server refreshes every 6 hours from the Data-Sources release (`DATA_MANIFEST_SYNC=off` to disable). For static hosting, run `python3 tools/sync_data_manifest.py` |
 | `site.config.json` | Links and placeholders. Edit, then run `python3 build.py` |
 | `build.py` | Re-renders `index.html`, `agents.md`, `llms.txt` and the `.json` files (Python 3, standard library only) |
 | `railway.json`, `Procfile`, `package.json` | Deployment |
