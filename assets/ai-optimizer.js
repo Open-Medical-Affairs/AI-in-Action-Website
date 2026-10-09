@@ -69,7 +69,7 @@
     goL.textContent = on ? "Optimize with AI" : "Generate prompt";
   }
   setBadge(false);
-  fetch("healthz", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+  fetch("/healthz", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
     .then(function (j) { setBadge(!!(j && j.ai)); }).catch(function () { setBadge(false); });
 
   function show(text) {
@@ -100,7 +100,7 @@
     if (window.innerWidth < 980) $(".aiopt-out").scrollIntoView({ behavior: "smooth", block: "start" });
     status.textContent = "Writing your assignment…"; show("");
     var text = "";
-    fetch("api/optimize", { method: "POST", headers: { "Content-Type": "application/json" },
+    fetch("/api/optimize", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ goal: g, mode: mode, ta: taSel.value, starter: starter && starter.id, stream: true }) })
       .then(function (r) {
         var ct = r.headers.get("content-type") || "";

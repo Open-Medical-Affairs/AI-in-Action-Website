@@ -35,9 +35,9 @@
 
   /* ---------- nav state ---------- */
   var nav = $(".nav");
-  var onScroll = function () { nav.classList.toggle("is-scrolled", window.scrollY > 8); };
-  onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
-  var links = $$(".nav-links a");
+  if (nav) { var onScroll = function () { nav.classList.toggle("is-scrolled", window.scrollY > 8); };
+    onScroll(); window.addEventListener("scroll", onScroll, { passive: true }); }
+  var links = $$(".nav-links a").filter(function (a) { return /^#/.test(a.getAttribute("href") || ""); });
   if ("IntersectionObserver" in window) {
     var secObs = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
@@ -89,14 +89,14 @@
       say("Prompts now use " + TA_SHORT[ta] + " data");
       if (opt && opt.ta.value !== "own") { opt.ta.value = ta; opt.render(); }
     });
-    var saved = null; try { saved = localStorage.getItem("aia-ta"); } catch (e) {}
-    if (saved && TA_SHORT[saved] && saved !== "oncology-mm") applyTA(saved);
   }
+  var saved = null; try { saved = localStorage.getItem("aia-ta"); } catch (e) {}
+  if (saved && TA_SHORT[saved] && saved !== "oncology-mm") applyTA(saved);
 
   /* ---------- give-to-agent block uses this page's own address ---------- */
   var give = $("#give");
   if (give && /^https?:/.test(location.protocol)) {
-    var base = location.origin + location.pathname.replace(/[^/]*$/, "");
+    var base = location.origin + "/";
     $("code", give).textContent = give.getAttribute("data-site-template").split("{SITE}").join(base);
   }
 

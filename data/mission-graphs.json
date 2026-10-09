@@ -1,0 +1,2261 @@
+{
+ "source": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills",
+ "ref": "launch-planning-swarm",
+ "commit": "d04c3c0",
+ "default_branch": "claude/medical-affairs-agent-workshop-ttpxhf",
+ "pr": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/pull/8",
+ "always_loaded": "medical-affairs-foundations",
+ "skills": {
+  "advisory-board-design": {
+   "name": "advisory-board-design",
+   "summary": "Design and run an advisory board that produces advice rather than agreement — charter, questions, advisor selection, fair market value, discussion design, and output that changes a decision.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "evidence-gap-analysis",
+    "kol-engagement-brief",
+    "medical-strategy-plan",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/advisory-board-design/SKILL.md"
+  },
+  "capability-detection": {
+   "name": "capability-detection",
+   "summary": "Work out what this runtime can actually do before promising a deliverable, and degrade visibly rather than failing.",
+   "tier": "foundation",
+   "requires": [],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/capability-detection/SKILL.md"
+  },
+  "citation-integrity": {
+   "name": "citation-integrity",
+   "summary": "Check that every factual claim traces to a real, retrievable source that actually says what it is cited for.",
+   "tier": "foundation",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/citation-integrity/SKILL.md"
+  },
+  "clinical-trials-search": {
+   "name": "clinical-trials-search",
+   "summary": "Search ClinicalTrials.gov via the v2 API to map the trial landscape — what is running, by whom, in which populations, with what endpoints, and what is about to read out.",
+   "tier": "data",
+   "requires": [
+    "citation-integrity"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "pubmed-search"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/clinical-trials-search/SKILL.md"
+  },
+  "competitive-intelligence": {
+   "name": "competitive-intelligence",
+   "summary": "Track and interpret competitor scientific activity continuously — pipeline movement, publication patterns, evidence strategy, regulatory milestones and positioning shifts, and what they signal.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "clinical-trials-search",
+    "pubmed-search",
+    "regulatory-label-intelligence",
+    "congress-intelligence",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/competitive-intelligence/SKILL.md"
+  },
+  "congress-abstract-and-poster": {
+   "name": "congress-abstract-and-poster",
+   "summary": "Write congress abstracts that fit the submission rules and build the posters that follow them.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "citation-integrity",
+    "capability-detection"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "data-visualization-for-medical",
+    "deliverable-quality-review",
+    "consulting-grade-design"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/congress-abstract-and-poster/SKILL.md"
+  },
+  "congress-intelligence": {
+   "name": "congress-intelligence",
+   "summary": "Analyse what changed at a medical congress and what the organisation should do about it — not summarise what was presented.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "evidence-synthesis",
+    "citation-integrity",
+    "clinical-trials-search",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/congress-intelligence/SKILL.md"
+  },
+  "consulting-grade-design": {
+   "name": "consulting-grade-design",
+   "summary": "The shared visual language every generated deliverable follows — palette, typography, chart furniture, layout and image use — so a deck, PDF, HTML report or figure leaves looking like it came from a top-tier advisory firm.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "capability-detection"
+   ],
+   "suggests": [
+    "data-visualization-for-medical",
+    "medical-slide-deck",
+    "interactive-html-report",
+    "pdf-generation"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/consulting-grade-design/SKILL.md"
+  },
+  "data-connection": {
+   "name": "data-connection",
+   "summary": "Connect Medical Affairs work to available data using authorized connectors, exported files or read-only database queries.",
+   "tier": "data",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/data-connection/SKILL.md"
+  },
+  "data-visualization-for-medical": {
+   "name": "data-visualization-for-medical",
+   "summary": "Produce clinical trial figures that are honest and interpretable — Kaplan- Meier curves with numbers at risk, forest plots, waterfall and spider plots, adverse event figures, PRISMA flow diagrams.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal",
+    "capability-detection"
+   ],
+   "suggests": [
+    "consulting-grade-design"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/data-visualization-for-medical/SKILL.md"
+  },
+  "deliverable-quality-review": {
+   "name": "deliverable-quality-review",
+   "summary": "Red-team your own Medical Affairs deliverable before anyone else sees it.",
+   "tier": "foundation",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "citation-integrity"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/deliverable-quality-review/SKILL.md"
+  },
+  "diagram-and-schema": {
+   "name": "diagram-and-schema",
+   "summary": "Draw the diagrams Medical Affairs actually needs — treatment pathways, study schemas, PRISMA flow diagrams, patient journeys, evidence maps, decision trees, mechanism-of-action schematics, and governance flows.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "capability-detection"
+   ],
+   "suggests": [
+    "consulting-grade-design"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/diagram-and-schema/SKILL.md"
+  },
+  "document-ingestion": {
+   "name": "document-ingestion",
+   "summary": "Read documents someone has given you — PDF, Word, PowerPoint, Excel, CSV.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "capability-detection"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/document-ingestion/SKILL.md"
+  },
+  "evidence-appraisal": {
+   "name": "evidence-appraisal",
+   "summary": "Critically appraise clinical evidence the way an experienced Medical Affairs scientist does — before summarising, citing or building strategy on it.",
+   "tier": "foundation",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-appraisal/SKILL.md"
+  },
+  "evidence-gap-analysis": {
+   "name": "evidence-gap-analysis",
+   "summary": "Identify what we still do not know, decide which gaps are worth closing, and propose how.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "evidence-synthesis",
+    "pubmed-search",
+    "clinical-trials-search",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-gap-analysis/SKILL.md"
+  },
+  "evidence-synthesis": {
+   "name": "evidence-synthesis",
+   "summary": "Turn a body of clinical evidence into a defensible narrative that states what the totality supports, what it does not, and where it disagrees with itself.",
+   "tier": "primitive",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal"
+   ],
+   "suggests": [
+    "citation-integrity"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-synthesis/SKILL.md"
+  },
+  "executive-briefing": {
+   "name": "executive-briefing",
+   "summary": "Distil any body of Medical Affairs work into the two-page brief or ten-slide read a leadership team actually absorbs — situation, what changed, what it means, what to decide, by when.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "consulting-grade-design",
+    "medical-slide-deck",
+    "pdf-generation",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/executive-briefing/SKILL.md"
+  },
+  "field-insight-synthesis": {
+   "name": "field-insight-synthesis",
+   "summary": "Turn a body of field medical observations into insights leadership can act on.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "insight-generation"
+   ],
+   "suggests": [
+    "strategic-analysis",
+    "medical-terminology-mapping",
+    "spreadsheet-analysis",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/field-insight-synthesis/SKILL.md"
+  },
+  "field-medical-planning": {
+   "name": "field-medical-planning",
+   "summary": "Plan the field medical function over a cycle — territory and account prioritisation, MSL objectives, engagement planning across a stakeholder map, capacity modelling, and the metrics that describe scientific impact rather than activity volume.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "kol-engagement-brief",
+    "field-insight-synthesis",
+    "medical-affairs-metrics",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/field-medical-planning/SKILL.md"
+  },
+  "guideline-engagement": {
+   "name": "guideline-engagement",
+   "summary": "Understand and engage with clinical practice guideline development — committee cycles, what evidence a guideline body will accept, whether current evidence could support inclusion, and planning against timelines far longer than a medical plan.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-synthesis"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "strategic-analysis",
+    "pubmed-search",
+    "systematic-literature-review",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/guideline-engagement/SKILL.md"
+  },
+  "hcp-discovery-and-access": {
+   "name": "hcp-discovery-and-access",
+   "summary": "Identify relevant HCPs and ethical institutional access routes for scientific engagement.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/hcp-discovery-and-access/SKILL.md"
+  },
+  "insight-generation": {
+   "name": "insight-generation",
+   "summary": "Turn raw observations into insights that change a decision.",
+   "tier": "primitive",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/insight-generation/SKILL.md"
+  },
+  "integrated-evidence-plan": {
+   "name": "integrated-evidence-plan",
+   "summary": "Build the cross-functional evidence plan for an asset — every study, analysis and publication across clinical development, Medical Affairs, HEOR and market access, sequenced against the decisions and milestones each has to serve.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis",
+    "evidence-appraisal"
+   ],
+   "suggests": [
+    "evidence-gap-analysis",
+    "real-world-evidence-design",
+    "payer-value-dossier",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/integrated-evidence-plan/SKILL.md"
+  },
+  "interactive-html-report": {
+   "name": "interactive-html-report",
+   "summary": "Build a self-contained HTML report that opens in any browser with no dependencies — evidence dashboards, insight reports with filterable tables, congress readouts, competitive landscapes, evidence gap trackers.",
+   "tier": "content",
+   "requires": [
+    "capability-detection",
+    "medical-affairs-foundations"
+   ],
+   "suggests": [
+    "citation-integrity",
+    "consulting-grade-design"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/interactive-html-report/SKILL.md"
+  },
+  "investigator-initiated-study-review": {
+   "name": "investigator-initiated-study-review",
+   "summary": "Evaluate and govern investigator-initiated study proposals — IIS, ISR, IIT, investigator-sponsored research.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal"
+   ],
+   "suggests": [
+    "evidence-gap-analysis",
+    "clinical-trials-search",
+    "real-world-evidence-design",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/investigator-initiated-study-review/SKILL.md"
+  },
+  "kol-engagement-brief": {
+   "name": "kol-engagement-brief",
+   "summary": "Prepare an MSL or medical lead for a specific scientific exchange with a named external expert.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "citation-integrity"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "pubmed-search",
+    "clinical-trials-search",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/kol-engagement-brief/SKILL.md"
+  },
+  "launch-field-training": {
+   "name": "launch-field-training",
+   "summary": "Design the training and certification that make field medical teams able to handle launch conversations — the data, its limitations, the questions nobody can answer yet, unsolicited off-label requests and adverse event escalation — tested by scenario rather than recall.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal"
+   ],
+   "suggests": [
+    "launch-medical-readiness",
+    "scientific-platform",
+    "medical-information-response",
+    "safety-communication",
+    "field-medical-planning",
+    "deliverable-quality-review"
+   ],
+   "pending": true,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/launch-planning-swarm/skills/launch-field-training/SKILL.md"
+  },
+  "launch-medical-readiness": {
+   "name": "launch-medical-readiness",
+   "summary": "Assess whether Medical Affairs is actually ready for a launch, label expansion or major data readout — and say plainly where it is not.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "evidence-gap-analysis",
+    "medical-strategy-plan",
+    "medical-launch-plan",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/launch-medical-readiness/SKILL.md"
+  },
+  "launch-timeline-and-governance": {
+   "name": "launch-timeline-and-governance",
+   "summary": "Build the Medical Affairs launch critical path and the governance that runs it — workback from the decision date, dependencies on label wording and publication, gate criteria written before the gate, named owners, and what moves when the date moves.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "medical-launch-plan",
+    "launch-medical-readiness",
+    "spreadsheet-analysis",
+    "diagram-and-schema",
+    "deliverable-quality-review"
+   ],
+   "pending": true,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/launch-planning-swarm/skills/launch-timeline-and-governance/SKILL.md"
+  },
+  "library-menu": {
+   "name": "library-menu",
+   "summary": "Explain what this entire library can do and render the visual menu card that shows it — every skill grouped by the job it serves, as prose, a table or an SVG/PNG infographic for a README, a slide or a stakeholder walkthrough.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [
+    "medical-affairs-orchestrator",
+    "consulting-grade-design"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/library-menu/SKILL.md"
+  },
+  "literature-surveillance": {
+   "name": "literature-surveillance",
+   "summary": "Run ongoing literature and evidence surveillance — a repeatable watch on a topic, product, class or competitor that reports what is NEW since the last cycle and what it changes, rather than a one-off search.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal",
+    "citation-integrity"
+   ],
+   "suggests": [
+    "pubmed-search",
+    "clinical-trials-search",
+    "regulatory-label-intelligence",
+    "competitive-intelligence",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/literature-surveillance/SKILL.md"
+  },
+  "medical-affairs-foundations": {
+   "name": "medical-affairs-foundations",
+   "summary": "The operating principles, compliance boundaries and safety obligations that govern all Medical Affairs work.",
+   "tier": "foundation",
+   "requires": [],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-foundations/SKILL.md"
+  },
+  "medical-affairs-metrics": {
+   "name": "medical-affairs-metrics",
+   "summary": "Measure whether Medical Affairs work changed anything, rather than counting how much of it happened.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "field-medical-planning",
+    "medical-strategy-plan",
+    "field-insight-synthesis",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-metrics/SKILL.md"
+  },
+  "medical-affairs-orchestrator": {
+   "name": "medical-affairs-orchestrator",
+   "summary": "Route any Medical Affairs request to the right workflow and run it end to end.",
+   "tier": "orchestrator",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-orchestrator/SKILL.md"
+  },
+  "medical-content-operations": {
+   "name": "medical-content-operations",
+   "summary": "Plan and maintain non-promotional Medical Affairs content across channels using audience needs, evidence, content inventories and engagement measures.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-content-operations/SKILL.md"
+  },
+  "medical-correspondence": {
+   "name": "medical-correspondence",
+   "summary": "Write the formal correspondence Medical Affairs sends — Dear Healthcare Professional letters, responses to investigators and institutions, agency and vendor briefs, advisory board invitations, author correspondence, and letters accompanying scientific responses.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "capability-detection"
+   ],
+   "suggests": [
+    "citation-integrity",
+    "safety-communication",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-correspondence/SKILL.md"
+  },
+  "medical-education-program": {
+   "name": "medical-education-program",
+   "summary": "Design independent medical education and company-organised scientific education — IME grant strategy, curricula, needs assessments, speaker programmes and their governance, symposia and preceptorships.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "evidence-gap-analysis",
+    "scientific-communication-strategy",
+    "medical-affairs-metrics",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-education-program/SKILL.md"
+  },
+  "medical-information-response": {
+   "name": "medical-information-response",
+   "summary": "Draft responses to unsolicited medical enquiries from healthcare professionals, patients and payers, and build the standard response documents and FAQ library behind them.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "citation-integrity",
+    "regulatory-label-intelligence"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "pubmed-search",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-information-response/SKILL.md"
+  },
+  "medical-launch-plan": {
+   "name": "medical-launch-plan",
+   "summary": "Build the entire Medical Affairs launch plan for an upcoming asset, new indication or label expansion by running a coordinated team of digital workers — one per launch workstream, each given its own context — under a Launch Lead, with humans deciding at every gate.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "launch-timeline-and-governance",
+    "launch-field-training",
+    "launch-medical-readiness",
+    "medical-strategy-plan",
+    "scientific-platform",
+    "integrated-evidence-plan",
+    "scientific-communication-strategy",
+    "field-medical-planning",
+    "medical-information-response",
+    "deliverable-quality-review"
+   ],
+   "pending": true,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/launch-planning-swarm/skills/medical-launch-plan/SKILL.md"
+  },
+  "medical-slide-deck": {
+   "name": "medical-slide-deck",
+   "summary": "Build non-promotional medical slide decks — advisory board decks, MSL scientific presentations, congress readouts, medical-to-medical (M2M) presentations, internal data reviews and training material.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "citation-integrity",
+    "capability-detection"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "data-visualization-for-medical",
+    "consulting-grade-design",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-slide-deck/SKILL.md"
+  },
+  "medical-strategy-plan": {
+   "name": "medical-strategy-plan",
+   "summary": "Build or challenge a medical plan — the scientific priorities, the choices behind them, and the activities that trace to them.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "evidence-synthesis",
+    "insight-generation",
+    "clinical-trials-search",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-strategy-plan/SKILL.md"
+  },
+  "medical-terminology-mapping": {
+   "name": "medical-terminology-mapping",
+   "summary": "Resolve free-text clinical language to controlled vocabulary so insights, adverse events, conditions and interventions can be counted and compared consistently.",
+   "tier": "data",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-terminology-mapping/SKILL.md"
+  },
+  "meeting-transcription": {
+   "name": "meeting-transcription",
+   "summary": "Turn an audio recording or supplied transcript into reviewable Medical Affairs meeting material.",
+   "tier": "data",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/meeting-transcription/SKILL.md"
+  },
+  "mlr-review-readiness": {
+   "name": "mlr-review-readiness",
+   "summary": "Prepare Medical Affairs content for Medical/Legal/Regulatory review and pre-check it against what reviewers actually reject.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "citation-integrity"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "promotional-material-medical-review",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/mlr-review-readiness/SKILL.md"
+  },
+  "msl-administrative-operations": {
+   "name": "msl-administrative-operations",
+   "summary": "Reduce repetitive MSL administration by assembling source-backed meeting packs, open-task queues, draft CRM imports, weekly summaries and coverage reports.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-administrative-operations/SKILL.md"
+  },
+  "msl-post-call-follow-up": {
+   "name": "msl-post-call-follow-up",
+   "summary": "Convert actual MSL engagement notes or a transcript into factual CRM-ready drafts, scientific follow-up tasks and evidence-gap records.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-post-call-follow-up/SKILL.md"
+  },
+  "msl-pre-call-planning": {
+   "name": "msl-pre-call-planning",
+   "summary": "Prepare an MSL for an upcoming scientific HCP engagement using verified professional context, prior interactions, unresolved enquiries, current evidence and permitted materials.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-pre-call-planning/SKILL.md"
+  },
+  "patient-engagement-planning": {
+   "name": "patient-engagement-planning",
+   "summary": "Design Medical Affairs partnerships and co-creation with patients, caregivers and patient organizations around scientific needs.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/patient-engagement-planning/SKILL.md"
+  },
+  "payer-value-dossier": {
+   "name": "payer-value-dossier",
+   "summary": "Build evidence for payers and health technology assessment bodies — AMCP format dossiers, NICE, G-BA and HAS submissions, value propositions, budget impact narratives, and responses to HTA critique.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-synthesis"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "systematic-literature-review",
+    "citation-integrity",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/payer-value-dossier/SKILL.md"
+  },
+  "pdf-generation": {
+   "name": "pdf-generation",
+   "summary": "Produce PDF deliverables — briefs, reports, standard response documents, one-pagers, evidence summaries, anything that must look the same for every reader and print predictably.",
+   "tier": "content",
+   "requires": [
+    "capability-detection",
+    "medical-affairs-foundations"
+   ],
+   "suggests": [
+    "citation-integrity",
+    "consulting-grade-design"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/pdf-generation/SKILL.md"
+  },
+  "plain-language-summary": {
+   "name": "plain-language-summary",
+   "summary": "Write plain language summaries of clinical research for patients and the public — trial results lay summaries, plain language summaries of publications, and patient-facing scientific material.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal"
+   ],
+   "suggests": [
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/plain-language-summary/SKILL.md"
+  },
+  "promotional-material-medical-review": {
+   "name": "promotional-material-medical-review",
+   "summary": "Support a qualified medical signatory reviewing commercial promotional material by assessing that every claim is scientifically accurate, substantiated by the referenced data, and fairly balanced.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal"
+   ],
+   "suggests": [
+    "regulatory-label-intelligence",
+    "citation-integrity",
+    "mlr-review-readiness",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/promotional-material-medical-review/SKILL.md"
+  },
+  "public-evidence-search": {
+   "name": "public-evidence-search",
+   "summary": "Search free public scientific sources through the bundled gateway when a task needs literature, trial records, labels, adverse-event reports or citation metadata.",
+   "tier": "data",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/public-evidence-search/SKILL.md"
+  },
+  "pubmed-search": {
+   "name": "pubmed-search",
+   "summary": "Search PubMed properly and retrieve real, verifiable literature via the NCBI E-utilities API.",
+   "tier": "data",
+   "requires": [
+    "citation-integrity"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "medical-terminology-mapping"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/pubmed-search/SKILL.md"
+  },
+  "real-world-evidence-design": {
+   "name": "real-world-evidence-design",
+   "summary": "Design a real-world evidence study that will survive scrutiny — target trial emulation, data source selection, the estimand, confounding control, and a protocol written and registered before the data are touched.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal"
+   ],
+   "suggests": [
+    "evidence-gap-analysis",
+    "clinical-trials-search",
+    "integrated-evidence-plan",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/real-world-evidence-design/SKILL.md"
+  },
+  "regulatory-label-intelligence": {
+   "name": "regulatory-label-intelligence",
+   "summary": "Retrieve approved US label content and post-marketing safety data via openFDA, and interpret both correctly.",
+   "tier": "data",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [
+    "evidence-appraisal"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/regulatory-label-intelligence/SKILL.md"
+  },
+  "safety-communication": {
+   "name": "safety-communication",
+   "summary": "Communicate safety information to healthcare professionals and internal audiences — new safety findings, label safety changes, emerging signals, responses to safety questions, and the decision about whether and how to communicate at all.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "regulatory-label-intelligence"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "citation-integrity",
+    "medical-correspondence",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/safety-communication/SKILL.md"
+  },
+  "scientific-communication-strategy": {
+   "name": "scientific-communication-strategy",
+   "summary": "Decide what the publication and scientific communication strategy should be — which questions to answer, for which audiences, in what sequence — rather than listing papers by data availability.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "strategic-analysis"
+   ],
+   "suggests": [
+    "evidence-synthesis",
+    "pubmed-search",
+    "citation-integrity",
+    "scientific-platform",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-communication-strategy/SKILL.md"
+  },
+  "scientific-manuscript": {
+   "name": "scientific-manuscript",
+   "summary": "Draft, structure and prepare a scientific manuscript for journal submission — primary trial reports, secondary analyses, real-world evidence papers, reviews and case reports.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "citation-integrity",
+    "capability-detection"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "evidence-synthesis",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-manuscript/SKILL.md"
+  },
+  "scientific-platform": {
+   "name": "scientific-platform",
+   "summary": "Build or challenge the scientific platform — the core evidence-based narrative, the scientific statements it supports, the lexicon, and the communication objectives everything else derives from.",
+   "tier": "workflow",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-synthesis"
+   ],
+   "suggests": [
+    "evidence-appraisal",
+    "citation-integrity",
+    "scientific-communication-strategy",
+    "deliverable-quality-review"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-platform/SKILL.md"
+  },
+  "spreadsheet-analysis": {
+   "name": "spreadsheet-analysis",
+   "summary": "Analyse and produce spreadsheets — field insight exports, enquiry logs, publication trackers, evidence tables, budget allocations, congress abstract lists.",
+   "tier": "content",
+   "requires": [
+    "capability-detection",
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/spreadsheet-analysis/SKILL.md"
+  },
+  "strategic-analysis": {
+   "name": "strategic-analysis",
+   "summary": "Reason about Medical Affairs strategy rather than generating activity lists.",
+   "tier": "primitive",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/strategic-analysis/SKILL.md"
+  },
+  "systematic-literature-review": {
+   "name": "systematic-literature-review",
+   "summary": "Run a reproducible, PRISMA-aligned systematic literature review — protocol first, documented search strategy, screening funnel with recorded exclusion reasons, structured extraction, and risk-of-bias assessment.",
+   "tier": "data",
+   "requires": [
+    "pubmed-search",
+    "evidence-appraisal"
+   ],
+   "suggests": [
+    "citation-integrity",
+    "evidence-synthesis"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/systematic-literature-review/SKILL.md"
+  },
+  "visual-abstract": {
+   "name": "visual-abstract",
+   "summary": "Create visual abstracts and infographics that summarise a study or a body of evidence honestly.",
+   "tier": "content",
+   "requires": [
+    "medical-affairs-foundations",
+    "evidence-appraisal",
+    "capability-detection"
+   ],
+   "suggests": [
+    "consulting-grade-design"
+   ],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/visual-abstract/SKILL.md"
+  },
+  "workshop-launcher": {
+   "name": "workshop-launcher",
+   "summary": "Start a Medical Affairs workshop from a repository link or a simple request.",
+   "tier": "orchestrator",
+   "requires": [
+    "medical-affairs-foundations"
+   ],
+   "suggests": [],
+   "pending": false,
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/workshop-launcher/SKILL.md"
+  }
+ },
+ "missions": [
+  {
+   "id": "field-insights",
+   "title": "What should leadership know?",
+   "objective": "Find the three most consequential field insights. Preserve safety findings, contradictions and source IDs. Recommend a concrete next action for each.",
+   "skills": [
+    "field-insight-synthesis",
+    "executive-briefing"
+   ],
+   "inputs": [
+    "field-observations.csv",
+    "medical-plan.md",
+    "product-profile.md"
+   ],
+   "deliverables": [
+    "Leadership brief",
+    "Insight table with source records",
+    "Simulated safety escalation and missing-information list"
+   ],
+   "pending": false,
+   "lead": "field-insight-synthesis",
+   "workers": [
+    {
+     "role": "executive-briefing",
+     "skills": [
+      "executive-briefing"
+     ]
+    }
+   ],
+   "support": [
+    "insight-generation",
+    "strategic-analysis"
+   ],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "kol-meeting",
+   "title": "Prepare for the difficult meeting",
+   "objective": "Prepare for the first expert in the supplied KOL dossiers. Address unresolved questions honestly and propose useful questions for scientific exchange.",
+   "skills": [
+    "kol-engagement-brief"
+   ],
+   "inputs": [
+    "kol-dossiers.md",
+    "interaction-notes.md",
+    "product-profile.md",
+    "evidence-landscape.md"
+   ],
+   "deliverables": [
+    "Two-page meeting brief",
+    "Questions, source links and unresolved evidence"
+   ],
+   "pending": false,
+   "lead": "kol-engagement-brief",
+   "workers": [],
+   "support": [
+    "citation-integrity"
+   ],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "congress",
+   "title": "What changed after congress?",
+   "objective": "Compare the congress findings to the existing medical plan. Explain what changes, what does not, and why.",
+   "skills": [
+    "congress-intelligence",
+    "competitive-intelligence"
+   ],
+   "inputs": [
+    "congress-abstracts.md",
+    "competitor-announcements.md",
+    "medical-plan.md",
+    "product-profile.md"
+   ],
+   "deliverables": [
+    "Congress readout",
+    "Change recommendations with evidence limitations"
+   ],
+   "pending": false,
+   "lead": "congress-intelligence",
+   "workers": [
+    {
+     "role": "competitive-intelligence",
+     "skills": [
+      "competitive-intelligence"
+     ]
+    }
+   ],
+   "support": [
+    "evidence-appraisal",
+    "strategic-analysis"
+   ],
+   "handoffs": [
+    {
+     "from": "competitive-intelligence",
+     "to": "congress-intelligence",
+     "kind": "suggests"
+    }
+   ],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "medical-information",
+   "title": "Handle the enquiry queue",
+   "objective": "Triage the enquiries, surface potential safety issues and draft responses supported by the fictional sources. Do not infer other-country approval or send responses.",
+   "skills": [
+    "medical-information-response"
+   ],
+   "inputs": [
+    "medical-information-enquiries.csv",
+    "product-profile.md",
+    "structured-evidence-table.csv"
+   ],
+   "deliverables": [
+    "Triage register",
+    "Draft response and gap log",
+    "Simulated safety routing"
+   ],
+   "pending": false,
+   "lead": "medical-information-response",
+   "workers": [],
+   "support": [
+    "citation-integrity",
+    "regulatory-label-intelligence"
+   ],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "evidence-investment",
+   "title": "Choose what to fund",
+   "objective": "Choose an evidence portfolio within a GBP 2 million ceiling. Evaluate duplication, dependencies and what must be declined or deferred.",
+   "skills": [
+    "integrated-evidence-plan",
+    "investigator-initiated-study-review",
+    "real-world-evidence-design"
+   ],
+   "inputs": [
+    "iis-proposal.md",
+    "rwe-study-concept.md",
+    "integrated-evidence-plan.csv",
+    "payer-hta-brief.md",
+    "evidence-landscape.md"
+   ],
+   "deliverables": [
+    "Investment decision workbook or CSV",
+    "Committee brief with trade-offs"
+   ],
+   "pending": false,
+   "lead": "integrated-evidence-plan",
+   "workers": [
+    {
+     "role": "investigator-initiated-study-review",
+     "skills": [
+      "investigator-initiated-study-review"
+     ]
+    },
+    {
+     "role": "real-world-evidence-design",
+     "skills": [
+      "real-world-evidence-design"
+     ]
+    }
+   ],
+   "support": [
+    "strategic-analysis",
+    "evidence-appraisal"
+   ],
+   "handoffs": [
+    {
+     "from": "integrated-evidence-plan",
+     "to": "real-world-evidence-design",
+     "kind": "suggests"
+    },
+    {
+     "from": "investigator-initiated-study-review",
+     "to": "real-world-evidence-design",
+     "kind": "suggests"
+    },
+    {
+     "from": "real-world-evidence-design",
+     "to": "integrated-evidence-plan",
+     "kind": "suggests"
+    }
+   ],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "publication",
+   "title": "Keep every scientific output consistent",
+   "objective": "Review the manuscript and reconcile reported values with the supplied study sources. Create an abstract, one honest figure and a plain-language summary with a discrepancy log.",
+   "skills": [
+    "scientific-manuscript",
+    "congress-abstract-and-poster",
+    "data-visualization-for-medical",
+    "plain-language-summary"
+   ],
+   "inputs": [
+    "manuscript-draft.md",
+    "structured-evidence-table.csv",
+    "patient-level-analysis.csv",
+    "abstract-poster-brief.md",
+    "plain-language-source.md",
+    "product-profile.md"
+   ],
+   "deliverables": [
+    "Revised manuscript draft",
+    "Abstract and figure",
+    "Lay summary",
+    "Cross-output discrepancy log"
+   ],
+   "pending": false,
+   "lead": "scientific-manuscript",
+   "workers": [
+    {
+     "role": "congress-abstract-and-poster",
+     "skills": [
+      "congress-abstract-and-poster"
+     ]
+    },
+    {
+     "role": "data-visualization-for-medical",
+     "skills": [
+      "data-visualization-for-medical"
+     ]
+    },
+    {
+     "role": "plain-language-summary",
+     "skills": [
+      "plain-language-summary"
+     ]
+    }
+   ],
+   "support": [
+    "citation-integrity",
+    "capability-detection",
+    "evidence-appraisal"
+   ],
+   "handoffs": [
+    {
+     "from": "congress-abstract-and-poster",
+     "to": "data-visualization-for-medical",
+     "kind": "suggests"
+    }
+   ],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "advisory-board",
+   "title": "Design an advisory board worth holding",
+   "objective": "Identify five unanswered questions that justify an advisory board and prepare the briefing materials. Explain if the evidence does not justify a proposed question.",
+   "skills": [
+    "advisory-board-design",
+    "evidence-gap-analysis",
+    "medical-slide-deck"
+   ],
+   "inputs": [
+    "advisory-board-transcript.md",
+    "field-observations.csv",
+    "evidence-landscape.md",
+    "kol-dossiers.md",
+    "product-profile.md"
+   ],
+   "deliverables": [
+    "Board charter and discussion guide",
+    "Pre-read deck or structured equivalent",
+    "Advisor briefs"
+   ],
+   "pending": false,
+   "lead": "advisory-board-design",
+   "workers": [
+    {
+     "role": "evidence-gap-analysis",
+     "skills": [
+      "evidence-gap-analysis"
+     ]
+    },
+    {
+     "role": "medical-slide-deck",
+     "skills": [
+      "medical-slide-deck"
+     ]
+    }
+   ],
+   "support": [
+    "strategic-analysis",
+    "evidence-appraisal",
+    "citation-integrity",
+    "capability-detection"
+   ],
+   "handoffs": [
+    {
+     "from": "advisory-board-design",
+     "to": "evidence-gap-analysis",
+     "kind": "suggests"
+    }
+   ],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "launch-readiness",
+   "title": "Can the medical team launch?",
+   "objective": "Assess launch readiness without averaging a critical dependency into a green score. Prepare a remediation plan and leadership readout.",
+   "skills": [
+    "launch-medical-readiness",
+    "mlr-review-readiness"
+   ],
+   "inputs": [
+    "launch-readiness-register.md",
+    "medical-information-enquiries.csv",
+    "mlr-review-comments.md",
+    "scientific-platform-draft.md",
+    "integrated-evidence-plan.csv"
+   ],
+   "deliverables": [
+    "Gate assessment",
+    "Remediation tracker",
+    "Leadership brief"
+   ],
+   "pending": false,
+   "lead": "launch-medical-readiness",
+   "workers": [
+    {
+     "role": "mlr-review-readiness",
+     "skills": [
+      "mlr-review-readiness"
+     ]
+    }
+   ],
+   "support": [
+    "strategic-analysis",
+    "citation-integrity"
+   ],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "connected-planning",
+   "title": "Work across a practice CRM and content library",
+   "objective": "Use the linked records to prioritize account coverage and content needs for the selected therapeutic area. Respect channel preferences, capacity, evidence and review status.",
+   "skills": [
+    "data-connection",
+    "field-medical-planning",
+    "medical-content-operations"
+   ],
+   "inputs": [
+    "hcps.csv",
+    "accounts.csv",
+    "interactions.csv",
+    "content_assets.csv",
+    "engagement.csv",
+    "data-dictionary.json",
+    "product-profile.md"
+   ],
+   "deliverables": [
+    "Account priorities",
+    "Content review queue",
+    "Metric definitions and limitations"
+   ],
+   "pending": false,
+   "lead": "data-connection",
+   "workers": [
+    {
+     "role": "field-medical-planning",
+     "skills": [
+      "field-medical-planning"
+     ]
+    },
+    {
+     "role": "medical-content-operations",
+     "skills": [
+      "medical-content-operations"
+     ]
+    }
+   ],
+   "support": [
+    "strategic-analysis"
+   ],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "patient-partnership",
+   "title": "Bring patient priorities into the plan",
+   "objective": "Design an accessible listening and co-creation activity for the selected therapeutic area. Link patient priorities to decisions and respect quotation permissions.",
+   "skills": [
+    "patient-engagement-planning",
+    "plain-language-summary"
+   ],
+   "inputs": [
+    "patient_partnerships.csv",
+    "plain-language-source.md",
+    "medical-education-needs.md",
+    "evidence-landscape.md"
+   ],
+   "deliverables": [
+    "Accessible participation plan",
+    "Discussion guide",
+    "Feedback-to-decision table"
+   ],
+   "pending": false,
+   "lead": "patient-engagement-planning",
+   "workers": [
+    {
+     "role": "plain-language-summary",
+     "skills": [
+      "plain-language-summary"
+     ]
+    }
+   ],
+   "support": [
+    "evidence-appraisal"
+   ],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "transcript",
+   "title": "Turn a meeting transcript into action",
+   "objective": "Review the supplied transcript, preserve uncertain medical terms and safety verbatims, then identify decisions and unanswered questions. Clearly state that audio was not supplied.",
+   "skills": [
+    "meeting-transcription",
+    "field-insight-synthesis"
+   ],
+   "inputs": [
+    "advisory-board-transcript.md",
+    "product-profile.md"
+   ],
+   "deliverables": [
+    "Reviewed transcript and correction queue",
+    "Decision and follow-up log"
+   ],
+   "pending": false,
+   "lead": "meeting-transcription",
+   "workers": [
+    {
+     "role": "field-insight-synthesis",
+     "skills": [
+      "field-insight-synthesis"
+     ]
+    }
+   ],
+   "support": [
+    "insight-generation"
+   ],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "thirty-day-capstone",
+   "title": "Run the next 30 days of Medical Affairs",
+   "objective": "Prepare a coordinated 30-day draft plan for the selected fictional product. Prioritize evidence, field actions and content within the supplied constraints. Deliver a leadership brief, action tracker and scientific briefing, with source dependencies so new evidence can update affected work.",
+   "skills": [
+    "medical-strategy-plan",
+    "field-insight-synthesis",
+    "integrated-evidence-plan",
+    "medical-content-operations",
+    "executive-briefing",
+    "medical-slide-deck"
+   ],
+   "inputs": [
+    "medical-plan.md",
+    "product-profile.md",
+    "field-observations.csv",
+    "evidence-landscape.md",
+    "integrated-evidence-plan.csv",
+    "launch-readiness-register.md",
+    "content_assets.csv",
+    "projects.csv"
+   ],
+   "deliverables": [
+    "Leadership brief",
+    "30-day action tracker",
+    "Scientific briefing",
+    "Source dependencies and change log"
+   ],
+   "pending": false,
+   "lead": "medical-strategy-plan",
+   "workers": [
+    {
+     "role": "field-insight-synthesis",
+     "skills": [
+      "field-insight-synthesis"
+     ]
+    },
+    {
+     "role": "integrated-evidence-plan",
+     "skills": [
+      "integrated-evidence-plan"
+     ]
+    },
+    {
+     "role": "medical-content-operations",
+     "skills": [
+      "medical-content-operations"
+     ]
+    },
+    {
+     "role": "executive-briefing",
+     "skills": [
+      "executive-briefing"
+     ]
+    },
+    {
+     "role": "medical-slide-deck",
+     "skills": [
+      "medical-slide-deck"
+     ]
+    }
+   ],
+   "support": [
+    "strategic-analysis",
+    "insight-generation",
+    "evidence-appraisal",
+    "citation-integrity",
+    "capability-detection"
+   ],
+   "handoffs": [
+    {
+     "from": "executive-briefing",
+     "to": "medical-slide-deck",
+     "kind": "suggests"
+    }
+   ],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "msl-pre-call",
+   "title": "Prepare the MSL pre-call brief",
+   "objective": "Select an HCP with existing interactions in the selected therapeutic area. Gather prior scientific questions, open tasks and access context, then prepare a one-page pre-call brief. Do not invent meeting facts.",
+   "skills": [
+    "msl-pre-call-planning"
+   ],
+   "inputs": [
+    "hcps.csv",
+    "interactions.csv",
+    "access_log.csv",
+    "msl_tasks.csv",
+    "data-dictionary.json",
+    "product-profile.md"
+   ],
+   "deliverables": [
+    "One-page pre-call brief",
+    "Source context and open questions",
+    "Material and logistics check"
+   ],
+   "pending": false,
+   "lead": "msl-pre-call-planning",
+   "workers": [],
+   "support": [],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "hcp-access",
+   "title": "Identify scientific coverage and access gaps",
+   "objective": "Use the fictional professional and account records to identify scientific coverage gaps and appropriate access routes. Respect declined contact and distinguish unverified access. Do not search for fictional people online.",
+   "skills": [
+    "hcp-discovery-and-access",
+    "field-medical-planning"
+   ],
+   "inputs": [
+    "hcps.csv",
+    "interactions.csv",
+    "access_log.csv",
+    "msl_tasks.csv",
+    "data-dictionary.json",
+    "accounts.csv"
+   ],
+   "deliverables": [
+    "Candidate/coverage register",
+    "Institution-aware access plan",
+    "Draft introduction for review"
+   ],
+   "pending": false,
+   "lead": "hcp-discovery-and-access",
+   "workers": [
+    {
+     "role": "field-medical-planning",
+     "skills": [
+      "field-medical-planning"
+     ]
+    }
+   ],
+   "support": [
+    "strategic-analysis"
+   ],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "msl-post-call",
+   "title": "Turn the call notes into useful follow-up",
+   "objective": "Use the actual supplied historical notes to create a factual CRM draft and follow-up queue. Separate statements from inferences, preserve unresolved fields and identify simulated safety intake. Do not invent a new meeting.",
+   "skills": [
+    "msl-post-call-follow-up"
+   ],
+   "inputs": [
+    "interaction-notes.md",
+    "product-profile.md",
+    "msl_tasks.csv"
+   ],
+   "deliverables": [
+    "CRM note draft",
+    "Commitment and gap register",
+    "Follow-up correspondence draft"
+   ],
+   "pending": false,
+   "lead": "msl-post-call-follow-up",
+   "workers": [],
+   "support": [],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "msl-admin",
+   "title": "Clear the administrative queue",
+   "objective": "Prepare a source-backed MSL administrative queue for the selected therapeutic area: open tasks, overdue items, access checks and next pre-call preparation. Use the scenario date of 1 October 2026. Do not claim tasks were completed or CRM records updated.",
+   "skills": [
+    "msl-administrative-operations"
+   ],
+   "inputs": [
+    "hcps.csv",
+    "interactions.csv",
+    "access_log.csv",
+    "msl_tasks.csv",
+    "data-dictionary.json"
+   ],
+   "deliverables": [
+    "Prioritized task queue",
+    "Draft records with source IDs",
+    "Weekly status brief"
+   ],
+   "pending": false,
+   "lead": "msl-administrative-operations",
+   "workers": [],
+   "support": [],
+   "handoffs": [],
+   "waves": [],
+   "structure": "team",
+   "source": "workshop/catalog.json skills (in order) and each SKILL.md metadata.requires / suggests",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  },
+  {
+   "id": "launch-plan-swarm",
+   "title": "Build the whole medical launch plan",
+   "objective": "Act as the Launch Lead for the selected fictional product's proposed label expansion. Build the launch facts sheet and six-month question list, staff an org chart of digital workers (one per launch workstream, each with its own context packet), run them in waves with human decision gates, integrate the joins, and finish with an independent readiness verdict that is allowed to be 'not ready'. Every gap carries a named human owner and a date.",
+   "skills": [
+    "medical-launch-plan",
+    "launch-timeline-and-governance",
+    "launch-field-training",
+    "launch-medical-readiness"
+   ],
+   "inputs": [
+    "product-profile.md",
+    "medical-plan.md",
+    "evidence-landscape.md",
+    "launch-readiness-register.md",
+    "integrated-evidence-plan.csv",
+    "scientific-platform-draft.md",
+    "publication-plan.md",
+    "field-account-plan.csv",
+    "medical-information-enquiries.csv",
+    "safety-case-series.md",
+    "payer-hta-brief.md",
+    "guideline-landscape.md",
+    "medical-education-needs.md"
+   ],
+   "deliverables": [
+    "Integrated launch plan with org chart and workstream plans",
+    "Critical path, gate criteria and RACI",
+    "Six-month question list with routes",
+    "Independent readiness verdict and gap register",
+    "Leadership deck"
+   ],
+   "pending": true,
+   "lead": "medical-launch-plan",
+   "workers": [
+    {
+     "role": "Strategy worker",
+     "skills": [
+      "medical-strategy-plan",
+      "strategic-analysis"
+     ],
+     "pod": "Strategy & Evidence",
+     "context": "facts sheet, question list, `medical-plan.md`, `evidence-landscape.md`, `competitor-announcements.md`, `field-observations.csv`.",
+     "consumes": [],
+     "files": [
+      "competitor-announcements.md",
+      "evidence-landscape.md",
+      "field-observations.csv",
+      "medical-plan.md"
+     ]
+    },
+    {
+     "role": "Evidence worker",
+     "skills": [
+      "evidence-gap-analysis",
+      "integrated-evidence-plan",
+      "real-world-evidence-design"
+     ],
+     "pod": "Strategy & Evidence",
+     "context": "facts sheet, question list, `integrated-evidence-plan.csv`, `evidence-landscape.md`, `rwe-study-concept.md`, `iis-proposal.md`.",
+     "consumes": [],
+     "files": [
+      "evidence-landscape.md",
+      "iis-proposal.md",
+      "integrated-evidence-plan.csv",
+      "rwe-study-concept.md"
+     ]
+    },
+    {
+     "role": "Value & Access worker",
+     "skills": [
+      "payer-value-dossier"
+     ],
+     "pod": "Strategy & Evidence",
+     "context": "facts sheet, `payer-hta-brief.md`, the Evidence worker's IEP.",
+     "consumes": [
+      "Evidence worker"
+     ],
+     "files": [
+      "payer-hta-brief.md"
+     ]
+    },
+    {
+     "role": "Narrative worker",
+     "skills": [
+      "scientific-platform"
+     ],
+     "pod": "Narrative & Communication",
+     "context": "facts sheet, question list, `scientific-platform-draft.md`, `product-profile.md`, `structured-evidence-table.csv`.",
+     "consumes": [],
+     "files": [
+      "product-profile.md",
+      "scientific-platform-draft.md",
+      "structured-evidence-table.csv"
+     ]
+    },
+    {
+     "role": "Pubs & Congress worker",
+     "skills": [
+      "scientific-communication-strategy",
+      "congress-abstract-and-poster",
+      "congress-intelligence"
+     ],
+     "pod": "Narrative & Communication",
+     "context": "approved platform, question list, `publication-plan.md`, `congress-abstracts.md`, `abstract-poster-brief.md`, congress calendar.",
+     "consumes": [
+      "Narrative worker"
+     ],
+     "files": [
+      "abstract-poster-brief.md",
+      "congress-abstracts.md",
+      "publication-plan.md"
+     ]
+    },
+    {
+     "role": "Guideline Scout",
+     "skills": [
+      "guideline-engagement"
+     ],
+     "pod": "Narrative & Communication",
+     "context": "facts sheet, `guideline-landscape.md`, IEP.",
+     "consumes": [],
+     "files": [
+      "guideline-landscape.md"
+     ]
+    },
+    {
+     "role": "Field Medical worker",
+     "skills": [
+      "field-medical-planning",
+      "hcp-discovery-and-access"
+     ],
+     "pod": "External Engagement",
+     "context": "facts sheet, objectives, `field-account-plan.csv`, `kol-dossiers.md`, capacity and headcount.",
+     "consumes": [],
+     "files": [
+      "field-account-plan.csv",
+      "kol-dossiers.md"
+     ]
+    },
+    {
+     "role": "Field Training worker",
+     "skills": [
+      "launch-field-training"
+     ],
+     "pod": "External Engagement",
+     "context": "approved platform, question list, label wording (or the assumption), `medical-information-enquiries.csv`, `safety-case-series.md`.",
+     "consumes": [
+      "Narrative worker"
+     ],
+     "files": [
+      "medical-information-enquiries.csv",
+      "safety-case-series.md"
+     ]
+    },
+    {
+     "role": "Expert Input worker",
+     "skills": [
+      "advisory-board-design",
+      "kol-engagement-brief"
+     ],
+     "pod": "External Engagement",
+     "context": "question list, evidence gaps, `advisory-board-transcript.md`, `kol-dossiers.md`.",
+     "consumes": [],
+     "files": [
+      "advisory-board-transcript.md",
+      "kol-dossiers.md"
+     ]
+    },
+    {
+     "role": "Education worker",
+     "skills": [
+      "medical-education-program"
+     ],
+     "pod": "External Engagement",
+     "context": "`medical-education-needs.md`, question list, platform.",
+     "consumes": [],
+     "files": [
+      "medical-education-needs.md"
+     ]
+    },
+    {
+     "role": "Patient Partnership worker",
+     "skills": [
+      "patient-engagement-planning",
+      "plain-language-summary"
+     ],
+     "pod": "External Engagement",
+     "context": "facts sheet, `plain-language-source.md`, evidence gaps.",
+     "consumes": [],
+     "files": [
+      "plain-language-source.md"
+     ]
+    },
+    {
+     "role": "Medical Information worker",
+     "skills": [
+      "medical-information-response"
+     ],
+     "pod": "Answer & Protect",
+     "context": "question list, label wording, `medical-information-enquiries.csv`, `product-profile.md`, approved platform.",
+     "consumes": [
+      "Narrative worker"
+     ],
+     "files": [
+      "medical-information-enquiries.csv",
+      "product-profile.md"
+     ]
+    },
+    {
+     "role": "Safety Liaison",
+     "skills": [
+      "safety-communication"
+     ],
+     "pod": "Answer & Protect",
+     "context": "`safety-case-series.md`, product safety profile, label safety sections, the organisation's intake route.",
+     "consumes": [],
+     "files": [
+      "safety-case-series.md"
+     ]
+    },
+    {
+     "role": "Content & MLR worker",
+     "skills": [
+      "mlr-review-readiness",
+      "medical-content-operations"
+     ],
+     "pod": "Answer & Protect",
+     "context": "approved platform, `mlr-review-comments.md`, `promotional-claims-review.md`, content inventory.",
+     "consumes": [
+      "Narrative worker"
+     ],
+     "files": [
+      "mlr-review-comments.md",
+      "promotional-claims-review.md"
+     ]
+    },
+    {
+     "role": "Launch PMO",
+     "skills": [
+      "launch-timeline-and-governance"
+     ],
+     "pod": "Measure & Govern",
+     "context": "every worker's hand-back (dates, dependencies, owners), the target date assumption, `launch-readiness-register.md`, governance map.",
+     "consumes": [],
+     "files": [
+      "launch-readiness-register.md"
+     ]
+    },
+    {
+     "role": "Metrics Analyst",
+     "skills": [
+      "medical-affairs-metrics"
+     ],
+     "pod": "Measure & Govern",
+     "context": "objectives, `medical-impact-metrics.csv`.",
+     "consumes": [],
+     "files": [
+      "medical-impact-metrics.csv"
+     ]
+    },
+    {
+     "role": "Readiness Auditor",
+     "skills": [
+      "launch-medical-readiness",
+      "deliverable-quality-review"
+     ],
+     "pod": "Independent",
+     "context": "inputs and worker outputs, **not** the Lead's summary.",
+     "consumes": [
+      "Launch Lead"
+     ],
+     "files": []
+    }
+   ],
+   "support": [
+    "citation-integrity",
+    "capability-detection",
+    "evidence-appraisal",
+    "evidence-synthesis",
+    "regulatory-label-intelligence"
+   ],
+   "handoffs": [
+    {
+     "from": "Evidence worker",
+     "to": "Value & Access worker"
+    },
+    {
+     "from": "Narrative worker",
+     "to": "Pubs & Congress worker"
+    },
+    {
+     "from": "Narrative worker",
+     "to": "Field Training worker"
+    },
+    {
+     "from": "Narrative worker",
+     "to": "Medical Information worker"
+    },
+    {
+     "from": "Narrative worker",
+     "to": "Content & MLR worker"
+    },
+    {
+     "from": "Launch Lead",
+     "to": "Readiness Auditor"
+    }
+   ],
+   "waves": [
+    {
+     "kind": "wave",
+     "label": "Wave 0",
+     "members": [
+      "Launch Lead"
+     ],
+     "why": "Facts sheet, six-month question list, worker roster"
+    },
+    {
+     "kind": "wave",
+     "label": "Wave 1",
+     "members": [
+      "Strategy worker",
+      "Evidence worker",
+      "Narrative worker",
+      "Value & Access worker",
+      "Guideline Scout"
+     ],
+     "why": "These set the objectives, the evidence position and the words everyone else uses"
+    },
+    {
+     "kind": "gate",
+     "label": "Gate 1",
+     "who": "Human: strategy, platform and evidence position",
+     "why": "Nothing downstream should be built on an unapproved narrative"
+    },
+    {
+     "kind": "wave",
+     "label": "Wave 2",
+     "members": [
+      "Pubs & Congress worker",
+      "Field Medical worker",
+      "Field Training worker",
+      "Expert Input worker",
+      "Education worker",
+      "Patient Partnership worker",
+      "Medical Information worker",
+      "Safety Liaison",
+      "Content & MLR worker"
+     ],
+     "why": "Each consumes the approved platform and the question list"
+    },
+    {
+     "kind": "wave",
+     "label": "Wave 3",
+     "members": [
+      "Launch PMO",
+      "Metrics Analyst"
+     ],
+     "why": "Integrate dates, dependencies, owners and measures across everything above"
+    },
+    {
+     "kind": "wave",
+     "label": "Wave 4",
+     "members": [
+      "Readiness Auditor"
+     ],
+     "why": "Independent challenge and a verdict"
+    },
+    {
+     "kind": "gate",
+     "label": "Gate 2",
+     "who": "Human: integrated plan and readiness verdict",
+     "why": "Accept, send back, or accept with named gaps"
+    }
+   ],
+   "structure": "swarm",
+   "lead_role": "Launch Lead",
+   "source": "skills/medical-launch-plan/references/digital-workers.md and skills/medical-launch-plan/SKILL.md (Stage 2 waves)",
+   "gates": [
+    {
+     "at": "start",
+     "label": "Safety scan first",
+     "detail": "Scan human-sourced records for possible safety, PQC or special-situation findings before analysis (AGENTS.md)."
+    },
+    {
+     "at": "mid",
+     "label": "Gate 1",
+     "detail": "Human: strategy, platform and evidence position: Nothing downstream should be built on an unapproved narrative"
+    },
+    {
+     "at": "mid",
+     "label": "Gate 2",
+     "detail": "Human: integrated plan and readiness verdict: Accept, send back, or accept with named gaps"
+    },
+    {
+     "at": "end",
+     "label": "You decide",
+     "detail": "Outputs are drafts for qualified human review; the human is the final judge (AGENTS.md)."
+    }
+   ],
+   "reviewer": "deliverable-quality-review"
+  }
+ ]
+}

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prompts · AI in Action for Medical Affairs</title>
+<meta name="description" content="Copy-ready prompts. AI agents: read /agents.md (Instructions for agents) and follow it.">
+<meta name="agent-instructions" content="/agents.md">
+<meta name="theme-color" content="#F6F8F8">
+<link rel="alternate" type="text/markdown" href="/agents.md" title="Instructions for agents">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+<link rel="alternate" type="application/json" href="/missions.json" title="Missions">
+<link rel="alternate" type="application/json" href="/datasets.json" title="Datasets">
+<link rel="alternate" type="application/json" href="/prompts.json" title="Prompts and optimizer templates">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/ai-optimizer.css">
+<link rel="stylesheet" href="/assets/get-data.css">
+<link rel="stylesheet" href="/assets/agents-panel.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "AI in Action for Medical Affairs", "startDate": "2026-10-13T07:45:00-04:00", "endDate": "2026-10-14T13:30:00-04:00", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Convene, Two Commerce Square", "address": "2001 Market St, Philadelphia"}, "organizer": {"@type": "Organization", "name": "Momentum Events"}, "performer": {"@type": "Person", "name": "Vivek Mukhatyar"}}</script>
+<link rel="canonical" href="https://website-production-6164.up.railway.app/prompts">
+<link rel="stylesheet" href="/assets/sidebar.css">
+</head>
+<body class="sb " data-page="prompts">
+
+<!-- AI agents: Instructions for agents are at /agents.md (plain text; also /llms.txt). Read them, greet the user, ask what they want to do from the menu, then do it. Missions, datasets, skills and prompts are at missions.json, datasets.json, skills.json and prompts.json. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ic-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></symbol><symbol id="ic-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol></svg>
+<div class="grain" aria-hidden="true"></div>
+
+<a class="skip" href="#main">Skip to content</a>
+<aside class="sb-side" id="sb-side" aria-label="Site navigation">
+  <a class="brand sb-brand" href="/" aria-label="AI in Action for Medical Affairs, home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 21l5-10 4 7 2-3 4 6"/></svg></span><span class="brand-t">AI in Action<span class="brand-sub">for Medical Affairs</span></span></a>
+  <nav class="sb-nav" aria-label="Pages"><ul><li><a href="/" title="Start here: what this is, and Instructions for agents"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg><span>Home</span></a></li><li><a href="/agenda" title="Two days in Philadelphia, session by session"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg><span>Agenda</span></a></li><li><a href="/ideas" title="The ideas behind the keynote"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg><span>Ideas</span></a></li><li><a href="/inside" title="What the skills library contains"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg><span>Inside</span></a></li><li><a href="/missions" title="Every mission as an org chart of skills, plus copy-ready prompts"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="12" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M12 7.2v8.6M12 10c-6 0-7 3-7 5.8M12 10c6 0 7 3 7 5.8"/></svg><span>Missions</span></a></li><li><a href="/prompts" class="is-active" aria-current="page" title="Copy-ready prompts"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v10H9l-4 4z"/><path d="M9 9h6M9 12h4"/></svg><span>Prompts</span></a></li><li><a href="/optimizer" title="Turn a short ask into a full agent prompt"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg><span>Optimizer</span></a></li><li><a href="/data" title="Synthetic datasets and public data sources"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg><span>Data</span></a></li><li><a href="/grokbot" title="Set up Grok Bot or another agent"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M3 13v2M21 13v2"/></svg><span>Grok Bot</span></a></li><li><a href="/agents" data-agents="1" title="The playbook your AI agent follows"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7"/><path d="M16 15l2 2 4-4"/></svg><span>For agents</span></a></li><li><a href="/skills" title="All skills in the library"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v16l-5-3-5 3z"/></svg><span>Skills</span></a></li></ul></nav>
+  <div class="sb-foot"><p class="sb-when">October 13–14, 2026<br>Convene (2nd floor), Two Commerce Square</p><a class="sb-agent" href="/agents.md">Agents: read /agents.md</a></div>
+</aside>
+<div class="sb-scrim" id="sb-scrim" hidden></div>
+<div class="sb-main">
+<header class="mbar">
+  <button class="mbar-btn" id="sb-open" type="button" aria-controls="sb-side" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="/" aria-label="AI in Action for Medical Affairs, home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 21l5-10 4 7 2-3 4 6"/></svg></span><span class="brand-t">AI in Action<span class="brand-sub">for Medical Affairs</span></span></a>
+</header>
+<main id="main">
+<section id="prompts" class="section" aria-labelledby="prompts-h">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">Say this to your agent</p><h2 id="prompts-h">Talk about the work, <em>not the tool</em>.</h2>
+    <p class="sec-sub">No skill names or technical prompts needed. Each button copies a ready-to-paste prompt for your chosen area.</p></div>
+    <ul class="says"><li class="say"><div><p class="say-q">“Tell leadership what the field is telling us.”</p><p class="say-a">Insight report, source records, priority actions</p></div><pre id="s47" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Tell leadership what the field is telling us.
+Prepare: insight report, source records, priority actions.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Tell leadership what the field is telling us.
+Prepare: insight report, source records, priority actions.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s47" aria-label="Copy prompt: Tell leadership what the field is telling us."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Prepare me for this difficult KOL meeting.”</p><p class="say-a">Expert brief, scientific questions, unresolved evidence</p></div><pre id="s48" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Prepare me for this difficult KOL meeting.
+Prepare: expert brief, scientific questions, unresolved evidence.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Prepare me for this difficult KOL meeting.
+Prepare: expert brief, scientific questions, unresolved evidence.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s48" aria-label="Copy prompt: Prepare me for this difficult KOL meeting."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“What changed after congress?”</p><p class="say-a">Readout, evidence limitations, implications for the plan</p></div><pre id="s49" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+What changed after congress?
+Prepare: readout, evidence limitations, implications for the plan.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+What changed after congress?
+Prepare: readout, evidence limitations, implications for the plan.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s49" aria-label="Copy prompt: What changed after congress?"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Work through this medical enquiry queue.”</p><p class="say-a">Triage, draft responses, gaps and simulated safety routing</p></div><pre id="s50" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Work through this medical enquiry queue.
+Prepare: triage, draft responses, gaps and simulated safety routing.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Work through this medical enquiry queue.
+Prepare: triage, draft responses, gaps and simulated safety routing.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s50" aria-label="Copy prompt: Work through this medical enquiry queue."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Which evidence projects should we fund?”</p><p class="say-a">Prioritized portfolio, budget trade-offs, dependencies</p></div><pre id="s51" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Which evidence projects should we fund?
+Prepare: prioritized portfolio, budget trade-offs, dependencies.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Which evidence projects should we fund?
+Prepare: prioritized portfolio, budget trade-offs, dependencies.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s51" aria-label="Copy prompt: Which evidence projects should we fund?"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Turn this study into consistent scientific materials.”</p><p class="say-a">Manuscript draft, abstract, figure and plain-language summary</p></div><pre id="s52" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Turn this study into consistent scientific materials.
+Prepare: manuscript draft, abstract, figure and plain-language summary.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Turn this study into consistent scientific materials.
+Prepare: manuscript draft, abstract, figure and plain-language summary.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s52" aria-label="Copy prompt: Turn this study into consistent scientific materials."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Prepare an advisory board around unanswered questions.”</p><p class="say-a">Charter, questions, advisor briefs and pre-read</p></div><pre id="s53" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Prepare an advisory board around unanswered questions.
+Prepare: charter, questions, advisor briefs and pre-read.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Prepare an advisory board around unanswered questions.
+Prepare: charter, questions, advisor briefs and pre-read.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s53" aria-label="Copy prompt: Prepare an advisory board around unanswered questions."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Are we ready for launch?”</p><p class="say-a">Gate assessment, unresolved dependencies and remediation plan</p></div><pre id="s54" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Are we ready for launch?
+Prepare: gate assessment, unresolved dependencies and remediation plan.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Are we ready for launch?
+Prepare: gate assessment, unresolved dependencies and remediation plan.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s54" aria-label="Copy prompt: Are we ready for launch?"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Use the practice CRM to plan field coverage.”</p><p class="say-a">Account priorities and a feasible field plan</p></div><pre id="s55" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Use the practice CRM to plan field coverage.
+Prepare: account priorities and a feasible field plan.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Use the practice CRM to plan field coverage.
+Prepare: account priorities and a feasible field plan.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s55" aria-label="Copy prompt: Use the practice CRM to plan field coverage."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Update content across our medical channels.”</p><p class="say-a">Asset review queue, channel plan, evidence-change impact</p></div><pre id="s56" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Update content across our medical channels.
+Prepare: asset review queue, channel plan, evidence-change impact.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Update content across our medical channels.
+Prepare: asset review queue, channel plan, evidence-change impact.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s56" aria-label="Copy prompt: Update content across our medical channels."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Build patient input into our evidence priorities.”</p><p class="say-a">Accessible engagement plan and feedback-to-decision table</p></div><pre id="s57" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Build patient input into our evidence priorities.
+Prepare: accessible engagement plan and feedback-to-decision table.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Build patient input into our evidence priorities.
+Prepare: accessible engagement plan and feedback-to-decision table.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s57" aria-label="Copy prompt: Build patient input into our evidence priorities."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li class="say"><div><p class="say-q">“Run the next 30 days of Medical Affairs.”</p><p class="say-a">Coordinated plan, brief, tracker and scientific materials</p></div><pre id="s58" hidden data-ta-tpl="Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the __short__ synthetic data (__TA__).
+Run the next 30 days of Medical Affairs.
+Prepare: coordinated plan, brief, tracker and scientific materials.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.">Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills
+Read AGENTS.md and work in workshop mode with the oncology synthetic data (oncology-mm).
+Run the next 30 days of Medical Affairs.
+Prepare: coordinated plan, brief, tracker and scientific materials.
+Do not ask me to connect company systems. Keep public evidence separate from fictional workshop data.</pre><button type="button" class="btn-copy btn-copy--ghost" data-copy="#s58" aria-label="Copy prompt: Run the next 30 days of Medical Affairs."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li></ul>
+    <div class="prompt-grid"><figure class="prompt"><div class="prompt-head"><span class="prompt-title">Capstone · run the next 30 days</span><button type="button" class="btn-copy" data-copy="#p59" aria-label="Copy capstone prompt"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></div><pre id="p59" class="prompt-text"><code>Using this repository and the synthetic data for our therapeutic area, prepare
+the next 30 days of Medical Affairs work. Choose the important priorities,
+create a leadership brief, action tracker and scientific briefing, and keep
+track of which sources each output depends on. Use the thirty-day-capstone
+mission. Complete the supported work and identify the decisions still needed.</code></pre></figure><figure class="prompt"><div class="prompt-head"><span class="prompt-title">When a change card arrives</span><button type="button" class="btn-copy" data-copy="#p60" aria-label="Copy change card prompt"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></div><pre id="p60" class="prompt-text"><code>This new information has arrived. Identify which conclusions and files it
+affects. Update the relevant work, preserve the old version, and show me the
+changes with their reasons. Tell me what still cannot be determined.</code></pre></figure><figure class="prompt"><div class="prompt-head"><span class="prompt-title">MSL · prepare my next HCP engagement</span><button type="button" class="btn-copy" data-copy="#p61" aria-label="Copy MSL pre-call prompt"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></div><pre id="p61" class="prompt-text"><code>Use the Medical Affairs Skills repository to prepare my next HCP engagement.
+In workshop mode use oncology HCP-138. Gather the prior interactions, open
+tasks and access context, create a one-page pre-call brief, and propose three
+neutral scientific questions. Prepare the administrative records as drafts.
+Do not invent a meeting date, HCP statement or completed follow-up.</code></pre></figure></div>
+    <div class="two">
+      <div><h3 class="sub-h">Then push on it</h3><ul class="nexts"><li><span>Show me what supports the most important conclusion.</span><span id="n0" hidden>Show me what supports the most important conclusion.</span><button type="button" class="btn-copy btn-copy--mini" data-copy="#n0" aria-label="Copy: Show me what supports the most important conclusion."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li><span>What would change your mind?</span><span id="n1" hidden>What would change your mind?</span><button type="button" class="btn-copy btn-copy--mini" data-copy="#n1" aria-label="Copy: What would change your mind?"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li><span>Make this a two-page brief for an MSL.</span><span id="n2" hidden>Make this a two-page brief for an MSL.</span><button type="button" class="btn-copy btn-copy--mini" data-copy="#n2" aria-label="Copy: Make this a two-page brief for an MSL."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li><span>Now prepare an advisory board around the unanswered questions.</span><span id="n3" hidden>Now prepare an advisory board around the unanswered questions.</span><button type="button" class="btn-copy btn-copy--mini" data-copy="#n3" aria-label="Copy: Now prepare an advisory board around the unanswered questions."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li><span>Use the supplied synthetic sources. Continue without live APIs.</span><span id="n4" hidden>Use the supplied synthetic sources. Continue without live APIs.</span><button type="button" class="btn-copy btn-copy--mini" data-copy="#n4" aria-label="Copy: Use the supplied synthetic sources. Continue without live APIs."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li><span>Give the complete brief here if you cannot create the file.</span><span id="n5" hidden>Give the complete brief here if you cannot create the file.</span><button type="button" class="btn-copy btn-copy--mini" data-copy="#n5" aria-label="Copy: Give the complete brief here if you cannot create the file."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li><span>Show what is already saved and the next unfinished step.</span><span id="n6" hidden>Show what is already saved and the next unfinished step.</span><button type="button" class="btn-copy btn-copy--mini" data-copy="#n6" aria-label="Copy: Show what is already saved and the next unfinished step."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li><li><span>Which source supports that number? Keep it unresolved if none does.</span><span id="n7" hidden>Which source supports that number? Keep it unresolved if none does.</span><button type="button" class="btn-copy btn-copy--mini" data-copy="#n7" aria-label="Copy: Which source supports that number? Keep it unresolved if none does."><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></li></ul></div>
+      <div><h3 class="sub-h">Change cards</h3><p class="muted">New information the facilitator hands you mid-exercise. Paste the “change card” prompt above with it.</p><ul class="cards"><li><a href="https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/workshop/change-cards/budget-cut.md" target="_blank" rel="noopener">The available budget falls by 30%</a><span>All areas</span></li><li><a href="https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/workshop/change-cards/source-correction-oncology.md" target="_blank" rel="noopener">A fictional study result is corrected</a><span>Oncology</span></li><li><a href="https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/workshop/change-cards/advisor-withdraws.md" target="_blank" rel="noopener">One advisor can no longer attend</a><span>Advisory-board missions</span></li><li><a href="https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/workshop/change-cards/content-expiry.md" target="_blank" rel="noopener">A content review date has passed</a><span>Connected planning</span></li></ul></div>
+    </div>
+  </div>
+</section>
+<nav class="pager wrap" aria-label="Previous and next page"><a class="pg-prev" href="/missions"><span>Previous</span>Missions</a><a class="pg-next" href="/optimizer"><span>Next</span>Optimizer</a></nav>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div><p class="foot-brand">AI in Action for Medical Affairs</p><p class="muted">October 13–14, 2026 · Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia<br>Keynote: Vivek Mukhatyar · With Momentum Events</p></div>
+    <div class="muted foot-fine"><p>Built from <a href="https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills" target="_blank" rel="noopener">Medical-Affairs-Skills</a> (Apache-2.0) at 635dcf2, 2026-10-08. Prompt Optimizer method from <a href="https://github.com/vivmuk/Prompt-Optimizer" target="_blank" rel="noopener">vivmuk/Prompt-Optimizer</a>. All products, people and results in the workshop data are fictional. Outputs are drafts requiring qualified review; this is not a clinical decision, GxP or pharmacovigilance system.</p></div>
+  </div>
+</footer>
+</div>
+
+<div class="toast" role="status" aria-live="polite" id="toast"></div>
+<script src="/assets/app.js" defer></script>
+<script src="/assets/optimizer-data.js" defer></script>
+<script src="/assets/ai-optimizer.js" defer></script>
+<script src="/assets/get-data.js" defer></script>
+<script src="/assets/sidebar.js" defer></script>
+</body>
+</html>

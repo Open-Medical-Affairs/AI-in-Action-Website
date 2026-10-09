@@ -13,6 +13,41 @@ Read what this site points to, greet the person, ASK what they want to do (offer
 - Data: <https://github.com/Open-Medical-Affairs/Data-Sources> . Manifest of every dataset (synthetic and public, with licence, access type and links): <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json> (also manifest.csv). Everything at once: <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic-data.zip>, <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic.jsonl>, <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-data-catalog.zip>.
 - Prompt optimizer: POST JSON {"goal": "<short goal>", "mode": "single" or "swarm", "ta": "oncology-mm|immunology-ad|cardiometabolic-obesity|own"} to <https://website-production-6164.up.railway.app/api/optimize> (streams Markdown; on error, use the optimizer structure in https://website-production-6164.up.railway.app/prompts.json).
 
+## Pages on this site
+Each section is its own page (deep-linkable):
+- Home: https://website-production-6164.up.railway.app/ (Start here: what this is, and Instructions for agents)
+- Agenda: https://website-production-6164.up.railway.app/agenda (Two days in Philadelphia, session by session)
+- Ideas: https://website-production-6164.up.railway.app/ideas (The ideas behind the keynote)
+- Inside: https://website-production-6164.up.railway.app/inside (What the skills library contains)
+- Missions: https://website-production-6164.up.railway.app/missions (Every mission as an org chart of skills, plus copy-ready prompts)
+- Prompts: https://website-production-6164.up.railway.app/prompts (Copy-ready prompts)
+- Optimizer: https://website-production-6164.up.railway.app/optimizer (Turn a short ask into a full agent prompt)
+- Data: https://website-production-6164.up.railway.app/data (Synthetic datasets and public data sources)
+- Grok Bot: https://website-production-6164.up.railway.app/grokbot (Set up Grok Bot or another agent)
+- For agents: https://website-production-6164.up.railway.app/agents (The playbook your AI agent follows)
+- Skills: https://website-production-6164.up.railway.app/skills (All skills in the library)
+
+Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints), one page per mission:
+- field-insights: https://website-production-6164.up.railway.app/missions/field-insights
+- kol-meeting: https://website-production-6164.up.railway.app/missions/kol-meeting
+- congress: https://website-production-6164.up.railway.app/missions/congress
+- medical-information: https://website-production-6164.up.railway.app/missions/medical-information
+- evidence-investment: https://website-production-6164.up.railway.app/missions/evidence-investment
+- publication: https://website-production-6164.up.railway.app/missions/publication
+- advisory-board: https://website-production-6164.up.railway.app/missions/advisory-board
+- launch-readiness: https://website-production-6164.up.railway.app/missions/launch-readiness
+- connected-planning: https://website-production-6164.up.railway.app/missions/connected-planning
+- patient-partnership: https://website-production-6164.up.railway.app/missions/patient-partnership
+- transcript: https://website-production-6164.up.railway.app/missions/transcript
+- thirty-day-capstone: https://website-production-6164.up.railway.app/missions/thirty-day-capstone
+- msl-pre-call: https://website-production-6164.up.railway.app/missions/msl-pre-call
+- hcp-access: https://website-production-6164.up.railway.app/missions/hcp-access
+- msl-post-call: https://website-production-6164.up.railway.app/missions/msl-post-call
+- msl-admin: https://website-production-6164.up.railway.app/missions/msl-admin
+- launch-plan-swarm: https://website-production-6164.up.railway.app/missions/launch-plan-swarm (pending merge, PR #8)
+- Machine-readable graph data: https://website-production-6164.up.railway.app/data/mission-graphs.json
+
+
 ## 2. Greet, then ask
 Say hello in one line, say you have read the AI in Action for Medical Affairs materials, then ask: "What would you like to do?" and offer this menu. Wait for the answer. Do not start work before they choose (if they already stated a goal, map it to an option and confirm).
 
@@ -32,13 +67,13 @@ Team missions for option 8: 1. Field Medical; 2. Field Insights; 3. Congress Int
 ## 3. Do it
 For every choice: restate the goal as an end state, list the skills and files you will use, give a short plan, then work. Pause at each human checkpoint.
 
-- Option 1 (set up an agent): follow <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/docs/agents.md>. Grok Bot is the event sandbox; sign-up links and credit codes are shared at the conference (see https://website-production-6164.up.railway.app/#grokbot). Other hosts: Claude Code (clone and read AGENTS.md, or `/plugin marketplace add Open-Medical-Affairs/Medical-Affairs-Skills`), Codex or Cursor (open the repository, read AGENTS.md), chat-only tools (upload a starter bundle from workshop/bundles/). For one agent per mission, use workshop/grokbot-agents.json and scripts/package_skills.py.
+- Option 1 (set up an agent): follow <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/docs/agents.md>. Grok Bot is the event sandbox; sign-up links and credit codes are shared at the conference (see https://website-production-6164.up.railway.app/grokbot). Other hosts: Claude Code (clone and read AGENTS.md, or `/plugin marketplace add Open-Medical-Affairs/Medical-Affairs-Skills`), Codex or Cursor (open the repository, read AGENTS.md), chat-only tools (upload a starter bundle from workshop/bundles/). For one agent per mission, use workshop/grokbot-agents.json and scripts/package_skills.py.
 - Option 2 (mission): ask which therapeutic area (default `oncology-mm`), then follow "Running a mission, step by step" below. Inputs and prompts per area: <https://website-production-6164.up.railway.app/missions.json>.
 - Option 3 (skill): load skills/<name>/SKILL.md plus medical-affairs-foundations and the skill's `requires`, and house-rules/<name>.md. Ask for the person's material or offer synthetic data.
 - Option 4 (launch swarm): run mission `launch-plan-swarm` (Build the whole medical launch plan). Skills: medical-launch-plan, launch-timeline-and-governance, launch-field-training, launch-medical-readiness. Act as coordinator: build a shared context brief first, give each worker agent only its context packet, merge, have an independent reviewer check, then hand the plan to the person. Default asset: ADIPOSYN (synthetic).
 - Option 5 (practise): pick the pack, filter <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json> by `group`, read only the files the task needs, and mark every output SYNTHETIC and DRAFT.
 - Option 6 (public data): choose sources from the manifest (`type: public`) by job; use `direct_url` for the official API/download, respect `rate_limit` and `data_policy`; for `link_only: true`, link to it and never copy its data.
-- Option 7 (prompt): ask for a one-line goal and single task vs swarm, call <https://website-production-6164.up.railway.app/api/optimize>, show the result, and offer to run it. Starter ideas are on <https://website-production-6164.up.railway.app/#optimizer>.
+- Option 7 (prompt): ask for a one-line goal and single task vs swarm, call <https://website-production-6164.up.railway.app/api/optimize>, show the result, and offer to run it. Starter ideas are on <https://website-production-6164.up.railway.app/optimizer>.
 - Option 8 (hackathon): ask which team mission, read its brief (missions.json `team_missions`), run it on synthetic data, and prepare the readout the team will present.
 - Option 9: map the request to the closest skills via medical-affairs-orchestrator, then proceed as above.
 

@@ -1297,7 +1297,12 @@ def main():
         cpath.write_text(json.dumps(content, indent=2, ensure_ascii=False), encoding="utf-8")
         print("extracted", cpath.relative_to(HERE))
     content = json.loads(cpath.read_text(encoding="utf-8"))
-    for name, text in render(content, load_cfg()).items():
+    cfg = load_cfg()
+    files = render(content, cfg)
+    import paginate  # separate pages + left sidebar + mission org charts (see paginate.py)
+    files = paginate.paginate(files, cfg)
+    for name, text in files.items():
+        (HERE / name).parent.mkdir(parents=True, exist_ok=True)
         (HERE / name).write_text(text, encoding="utf-8")
         print("wrote", name, f"{len(text):,} chars")
 

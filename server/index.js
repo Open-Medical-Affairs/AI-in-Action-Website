@@ -168,24 +168,37 @@ if (process.env.DATA_MANIFEST_SYNC !== "off") { refreshManifest(); setInterval(r
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json; charset=utf-8",
   ".md": "text/markdown; charset=utf-8", ".txt": "text/plain; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
   ".webp": "image/webp", ".ico": "image/x-icon", ".csv": "text/csv; charset=utf-8", ".pdf": "application/pdf", ".woff2": "font/woff2" };
-const BLOCKED = /^\/(server|node_modules|shots)(\/|$)|\/\.|^\/(package(-lock)?\.json|railway\.json|Procfile|build\.py)$/i;
+const BLOCKED = /^\/(server|node_modules|shots|tools|__pycache__)(\/|$)|\/\.|^\/(package(-lock)?\.json|railway\.json|Procfile|build\.py)$/i;
+function sendFile(req, res, file, st, status) {
+  const type = TYPES[path.extname(file).toLowerCase()];
+  const cache = /\.(html|json|md|txt)$/.test(file) ? "no-cache" : "public, max-age=3600";
+  res.writeHead(status || 200, Object.assign({ "Content-Type": type, "Content-Length": st.size, "Cache-Control": cache }, SEC_HEADERS));
+  if (req.method === "HEAD") return res.end();
+  fs.createReadStream(file).pipe(res);
+}
+function statFile(file) { try { const st = fs.statSync(file); return st.isFile() ? st : null; } catch (_) { return null; } }
+/* Clean routes: /missions -> missions.html, /missions/launch-plan-swarm -> missions/launch-plan-swarm.html,
+   /agents/ -> 301 /agents. Anything else that is missing gets 404.html with a 404 status. */
 function serveStatic(req, res, urlPath) {
   let p; try { p = decodeURIComponent(urlPath); } catch (_) { return json(res, 400, { error: "bad_path" }); }
-  if (p.endsWith("/")) p += "index.html";
-  if (BLOCKED.test(p)) return notFound(res);
+  if (p.length > 1 && p.endsWith("/")) { res.writeHead(301, Object.assign({ Location: p.replace(/\/+$/, "") || "/" }, SEC_HEADERS)); return res.end(); }
+  if (p === "/") p = "/index.html";
+  if (BLOCKED.test(p)) return notFound(req, res);
   const file = path.join(ROOT, path.normalize(p));
-  if (!file.startsWith(ROOT + path.sep)) return notFound(res);
-  const type = TYPES[path.extname(file).toLowerCase()];
-  if (!type) return notFound(res);
-  fs.stat(file, (err, st) => {
-    if (err || !st.isFile()) return notFound(res);
-    const cache = /\.(html|json|md|txt)$/.test(file) ? "no-cache" : "public, max-age=3600";
-    res.writeHead(200, Object.assign({ "Content-Type": type, "Content-Length": st.size, "Cache-Control": cache }, SEC_HEADERS));
-    if (req.method === "HEAD") return res.end();
-    fs.createReadStream(file).pipe(res);
-  });
+  if (!file.startsWith(ROOT + path.sep)) return notFound(req, res);
+  const candidates = path.extname(file) ? [file] : [file + ".html", path.join(file, "index.html")];
+  for (const f of candidates) {
+    if (!TYPES[path.extname(f).toLowerCase()]) continue;
+    const st = statFile(f);
+    if (st) return sendFile(req, res, f, st);
+  }
+  notFound(req, res);
 }
-function notFound(res) { res.writeHead(404, Object.assign({ "Content-Type": "text/plain; charset=utf-8" }, SEC_HEADERS)); res.end("Not found"); }
+function notFound(req, res) {
+  const page = path.join(ROOT, "404.html"), st = statFile(page);
+  if (st && /text\/html|\*\/\*/.test(req.headers.accept || "*/*") && !/\.(js|css|json|png|svg|jpg|webp|md|txt|csv)$/i.test(req.url.split("?")[0])) return sendFile(req, res, page, st, 404);
+  res.writeHead(404, Object.assign({ "Content-Type": "text/plain; charset=utf-8" }, SEC_HEADERS)); res.end("Not found");
+}
 
 /* ---------- router ---------- */
 const server = http.createServer((req, res) => {

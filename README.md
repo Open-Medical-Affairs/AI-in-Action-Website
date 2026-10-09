@@ -98,3 +98,18 @@ python3 build.py --repo ../Medical-Affairs-Skills
 Prompt Optimizer method adapted from [vivmuk/Prompt-Optimizer](https://github.com/vivmuk/Prompt-Optimizer). Content from [Open-Medical-Affairs/Medical-Affairs-Skills](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills) (Apache-2.0). All products (NORVANTIB, DERMALYX, ADIPOSYN), people and results in the workshop data are fictional.
 
 *Illustrations generated for Open Medical Affairs.*
+
+## Pages and mission maps
+
+Each section is its own page with a left sidebar (a hamburger drawer on phones): `/`, `/agenda`, `/ideas`, `/inside`, `/missions`, `/prompts`, `/optimizer`, `/data`, `/grokbot`, `/agents`, `/skills`. Every mission has an org-chart page at `/missions/<mission-id>` (for example `/missions/launch-plan-swarm`): the lead skill, the skills it loads as sub-workers, the hand-offs between them, the human checkpoints, and the data in and deliverables out. Click any node to see the skill's one-line job and a link to its `SKILL.md`.
+
+The charts are generated, not drawn by hand:
+
+```bash
+# 1. read missions and skill metadata from a Medical-Affairs-Skills checkout
+python3 tools/extract_mission_graphs.py --repo /path/to/Medical-Affairs-Skills   # writes data/mission-graphs.json
+# 2. rebuild every page (build.py renders the content; paginate.py splits it into pages; mission_svg.py draws the SVGs)
+python3 build.py
+```
+
+The Node server maps clean routes to the generated files (`/missions` → `missions.html`, `/missions/x` → `missions/x.html`) and serves `404.html` for anything else.

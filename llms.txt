@@ -9,6 +9,41 @@ Agents: follow the Instructions for agents at https://website-production-6164.up
 - [Repository](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills): the source of truth
 - [AGENTS.md (raw)](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md): the repository's own agent entry point
 
+## Pages on this site
+Each section is its own page (deep-linkable):
+- Home: https://website-production-6164.up.railway.app/ (Start here: what this is, and Instructions for agents)
+- Agenda: https://website-production-6164.up.railway.app/agenda (Two days in Philadelphia, session by session)
+- Ideas: https://website-production-6164.up.railway.app/ideas (The ideas behind the keynote)
+- Inside: https://website-production-6164.up.railway.app/inside (What the skills library contains)
+- Missions: https://website-production-6164.up.railway.app/missions (Every mission as an org chart of skills, plus copy-ready prompts)
+- Prompts: https://website-production-6164.up.railway.app/prompts (Copy-ready prompts)
+- Optimizer: https://website-production-6164.up.railway.app/optimizer (Turn a short ask into a full agent prompt)
+- Data: https://website-production-6164.up.railway.app/data (Synthetic datasets and public data sources)
+- Grok Bot: https://website-production-6164.up.railway.app/grokbot (Set up Grok Bot or another agent)
+- For agents: https://website-production-6164.up.railway.app/agents (The playbook your AI agent follows)
+- Skills: https://website-production-6164.up.railway.app/skills (All skills in the library)
+
+Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints), one page per mission:
+- field-insights: https://website-production-6164.up.railway.app/missions/field-insights
+- kol-meeting: https://website-production-6164.up.railway.app/missions/kol-meeting
+- congress: https://website-production-6164.up.railway.app/missions/congress
+- medical-information: https://website-production-6164.up.railway.app/missions/medical-information
+- evidence-investment: https://website-production-6164.up.railway.app/missions/evidence-investment
+- publication: https://website-production-6164.up.railway.app/missions/publication
+- advisory-board: https://website-production-6164.up.railway.app/missions/advisory-board
+- launch-readiness: https://website-production-6164.up.railway.app/missions/launch-readiness
+- connected-planning: https://website-production-6164.up.railway.app/missions/connected-planning
+- patient-partnership: https://website-production-6164.up.railway.app/missions/patient-partnership
+- transcript: https://website-production-6164.up.railway.app/missions/transcript
+- thirty-day-capstone: https://website-production-6164.up.railway.app/missions/thirty-day-capstone
+- msl-pre-call: https://website-production-6164.up.railway.app/missions/msl-pre-call
+- hcp-access: https://website-production-6164.up.railway.app/missions/hcp-access
+- msl-post-call: https://website-production-6164.up.railway.app/missions/msl-post-call
+- msl-admin: https://website-production-6164.up.railway.app/missions/msl-admin
+- launch-plan-swarm: https://website-production-6164.up.railway.app/missions/launch-plan-swarm (pending merge, PR #8)
+- Machine-readable graph data: https://website-production-6164.up.railway.app/data/mission-graphs.json
+
+
 ## Data repository
 - [Data-Sources](https://github.com/Open-Medical-Affairs/Data-Sources): SYNTHETIC workshop datasets and a catalog of 52 REAL public sources (separate truth statuses)
 - [synthetic/index.json](https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/synthetic/index.json): every synthetic file with product, therapeutic area and which skills/missions use it
