@@ -1,0 +1,14 @@
+{
+  "name": "ai-in-action-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Companion website for AI in Action for Medical Affairs (Philadelphia, Oct 13-14, 2026), with a Venice-powered prompt optimizer for Grok Bot and agent swarms.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "build": "python3 build.py"
+  },
+  "engines": { "node": ">=18" },
+  "license": "Apache-2.0"
+}

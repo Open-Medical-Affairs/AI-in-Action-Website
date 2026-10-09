@@ -1,0 +1,38 @@
+{
+  "_readme": "The ONE place to edit links and placeholders. After editing, run: python3 build.py   (needs only Python 3, no installs).",
+  "site_url": "",
+  "_site_url_note": "Optional. Absolute URL where this site is hosted, e.g. https://open-medical-affairs.github.io/ai-in-action/ . Leave blank and links stay relative; the page fills its own URL in at runtime.",
+  "grokbot": {
+    "signup_url": "",
+    "signup_label": "Shared at the conference",
+    "credits_code": "",
+    "credits_label": "Shared at the conference",
+    "_note": "Fill signup_url and credits_code when you have them. Blank values show the 'Shared at the conference' placeholder."
+  },
+  "repo": {
+    "name": "Medical-Affairs-Skills",
+    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills",
+    "blob_base": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/",
+    "tree_base": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/tree/HEAD/",
+    "raw_base": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/",
+    "zip_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/archive/HEAD.zip"
+  },
+  "datasets_source": {
+    "_note": "Datasets live in github.com/Open-Medical-Affairs/Data-Sources. Content paths that start with path_prefix_from are linked to this repository (prefix replaced by path_prefix_to); every other dataset path (starter bundles, change cards, templates, examples) links to the skills repo above.",
+    "repo_url": "https://github.com/Open-Medical-Affairs/Data-Sources",
+    "blob_base": "https://github.com/Open-Medical-Affairs/Data-Sources/blob/main/",
+    "tree_base": "https://github.com/Open-Medical-Affairs/Data-Sources/tree/main/",
+    "raw_base": "https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/",
+    "path_prefix_from": "Data-Sources/",
+    "path_prefix_to": ""
+  },
+  "event": {
+    "name": "AI in Action for Medical Affairs",
+    "dates": "October 13–14, 2026",
+    "venue": "Convene (2nd floor), Two Commerce Square",
+    "address": "2001 Market St, Philadelphia",
+    "host": "Vivek Mukhatyar",
+    "host_role": "Keynote speaker",
+    "organizer": "Momentum Events"
+  }
+}

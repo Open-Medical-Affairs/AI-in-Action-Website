@@ -1,0 +1,598 @@
+{
+  "about": "Every ready-to-paste prompt on the site, plus the Prompt Optimizer templates. To compose an assignment yourself: start with optimizer.sections, fill each {{field}} from the chosen type's defaults (overridden by the user's answers), apply |list and |numbered filters, drop sections whose 'needs' fields are empty, and render titles as '## Title' (markdown) or <tag>...</tag> (xml).",
+  "repository_prompts": {
+    "starter": "Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills\nRead AGENTS.md and start a workshop mission using the bundled synthetic data.\nBegin with oncology field insights unless I choose another area.\nFind the three things leadership should know, explain why they matter,\nand create a concise leadership brief with source records and next actions.\nUse available public APIs only when useful, keeping real evidence separate\nfrom fictional workshop facts. Do not ask me to connect company systems.\nIf you cannot retrieve the repository, tell me which starter file to upload.",
+    "quickstart": "Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills\nRead AGENTS.md. Start the field-insights workshop mission using the oncology\nsynthetic data. Find the three things leadership should know, explain why,\nand create a short brief with sources and next actions.\nDo not ask me to connect company systems. Use public scientific sources only\nwhen useful and keep them separate from fictional workshop data.",
+    "capstone": "Using this repository and the synthetic data for our therapeutic area, prepare\nthe next 30 days of Medical Affairs work. Choose the important priorities,\ncreate a leadership brief, action tracker and scientific briefing, and keep\ntrack of which sources each output depends on. Use the thirty-day-capstone\nmission. Complete the supported work and identify the decisions still needed.",
+    "change_card": "This new information has arrived. Identify which conclusions and files it\naffects. Update the relevant work, preserve the old version, and show me the\nchanges with their reasons. Tell me what still cannot be determined.",
+    "msl_pre_call": "Use the Medical Affairs Skills repository to prepare my next HCP engagement.\nIn workshop mode use oncology HCP-138. Gather the prior interactions, open\ntasks and access context, create a one-page pre-call brief, and propose three\nneutral scientific questions. Prepare the administrative records as drafts.\nDo not invent a meeting date, HCP statement or completed follow-up.",
+    "next_moves": [
+      "Show me what supports the most important conclusion.",
+      "What would change your mind?",
+      "Make this a two-page brief for an MSL.",
+      "Now prepare an advisory board around the unanswered questions."
+    ],
+    "recovery": [
+      "Use the supplied synthetic sources. Continue without live APIs.",
+      "Give the complete brief here if you cannot create the file.",
+      "Show what is already saved and the next unfinished step.",
+      "Which source supports that number? Keep it unresolved if none does."
+    ]
+  },
+  "optimizer": {
+    "about": "Client-side Medical Affairs assignment composer. Method adapted from https://github.com/vivmuk/Prompt-Optimizer (RISEN + output contract + constraint pairs, provider dialects, Loop Engineering proof and stop conditions).",
+    "repo": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills",
+    "sections": [
+      {
+        "id": "intro",
+        "title": "",
+        "tag": "",
+        "lines": [
+          "# Assignment: {{title}}",
+          "You are {{role}}. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice."
+        ]
+      },
+      {
+        "id": "goal",
+        "title": "Goal: what done looks like",
+        "tag": "end_goal",
+        "needs": [
+          "goal"
+        ],
+        "lines": [
+          "{{goal}}"
+        ]
+      },
+      {
+        "id": "audience",
+        "title": "Who it is for",
+        "tag": "audience",
+        "needs": [
+          "audience"
+        ],
+        "lines": [
+          "{{audience}}"
+        ]
+      },
+      {
+        "id": "context",
+        "title": "Context to use",
+        "tag": "context",
+        "lines": [
+          "- Use {{repo}}. Read AGENTS.md first, then load these skills and their requirements: {{skills}}.",
+          "{{data_line}}",
+          "{{context|list}}"
+        ]
+      },
+      {
+        "id": "steps",
+        "title": "How to work",
+        "tag": "steps",
+        "lines": [
+          "{{steps|numbered}}"
+        ]
+      },
+      {
+        "id": "rules",
+        "title": "House rules and boundaries",
+        "tag": "constraints",
+        "lines": [
+          "{{constraints|list}}",
+          "{{guardrails|list}}"
+        ]
+      },
+      {
+        "id": "deliverable",
+        "title": "Deliverable",
+        "tag": "output_format",
+        "needs": [
+          "deliverable"
+        ],
+        "lines": [
+          "{{deliverable|list}}"
+        ]
+      },
+      {
+        "id": "proof",
+        "title": "Proof of done (verify before you hand over)",
+        "tag": "proof",
+        "needs": [
+          "checks"
+        ],
+        "lines": [
+          "{{checks|list}}"
+        ]
+      },
+      {
+        "id": "stop",
+        "title": "Stop and come back to me before you",
+        "tag": "human_checkpoints",
+        "needs": [
+          "human_stop"
+        ],
+        "lines": [
+          "{{human_stop|list}}"
+        ]
+      },
+      {
+        "id": "close",
+        "title": "When you finish",
+        "tag": "handover",
+        "lines": [
+          "Tell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work."
+        ]
+      }
+    ],
+    "fields": [
+      {
+        "id": "goal",
+        "label": "Goal / outcome",
+        "hint": "The end state, not the question. What will exist when it is done?",
+        "rows": 3
+      },
+      {
+        "id": "audience",
+        "label": "Audience",
+        "hint": "Who reads it and what they need to decide.",
+        "rows": 2
+      },
+      {
+        "id": "context",
+        "label": "Context & files",
+        "hint": "One per line: files, records, links or background it should use.",
+        "rows": 3
+      },
+      {
+        "id": "constraints",
+        "label": "Constraints & house rules",
+        "hint": "One per line. Say why, so it generalizes.",
+        "rows": 3
+      },
+      {
+        "id": "deliverable",
+        "label": "Deliverable",
+        "hint": "One per line: the files or sections you expect back.",
+        "rows": 2
+      },
+      {
+        "id": "checks",
+        "label": "Checks (proof of done)",
+        "hint": "One per line: what must be true before it hands over.",
+        "rows": 3
+      },
+      {
+        "id": "human_stop",
+        "label": "When to stop for a human",
+        "hint": "One per line: decisions or actions that need you.",
+        "rows": 2
+      }
+    ],
+    "guardrails": [
+      "Do not send, post, publish or change any external system. Prepare drafts only.",
+      "Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.",
+      "Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.",
+      "Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT."
+    ],
+    "common_steps_start": [
+      "Inventory the inputs. List what is missing before you start, then continue with what you have.",
+      "Scan human-sourced records for possible safety findings first."
+    ],
+    "common_steps_end": [
+      "Challenge your own draft with deliverable-quality-review and fix what it finds.",
+      "Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so."
+    ],
+    "types": [
+      {
+        "id": "kol-pre-call",
+        "label": "KOL pre-call brief",
+        "mission": "kol-meeting",
+        "skills": [
+          "kol-engagement-brief",
+          "msl-pre-call-planning"
+        ],
+        "role": "a senior Medical Science Liaison preparing a scientific exchange",
+        "steps": [
+          "Gather prior interactions, open commitments and what has changed since the last meeting.",
+          "Identify what this expert genuinely cares about and where our evidence is weak.",
+          "Draft neutral scientific questions to ask, and the hard questions they will likely ask us, with the evidence to have ready."
+        ],
+        "defaults": {
+          "goal": "Walk into a 30-minute scientific exchange with the first expert in the KOL dossiers fully prepared, including an honest answer to their strongest objection.",
+          "audience": "Me, the MSL, in the ten minutes before the meeting.",
+          "context": "kol-dossiers.md, interaction-notes.md, product-profile.md, evidence-landscape.md",
+          "constraints": "Two pages maximum: it gets read in ten minutes.\nNo promotional language: this is scientific exchange.",
+          "deliverable": "Two-page meeting brief (Word + PDF)\nQuestions to ask, likely questions, evidence and unresolved gaps",
+          "checks": "Every claim about the expert traces to a dossier or interaction note\nUnresolved evidence is stated plainly, not smoothed over\nNo meeting facts are invented",
+          "human_stop": "Contacting the expert or scheduling anything\nAnything that looks like an off-label request"
+        }
+      },
+      {
+        "id": "field-insights",
+        "label": "Field insights synthesis",
+        "mission": "field-insights",
+        "skills": [
+          "field-insight-synthesis",
+          "executive-briefing"
+        ],
+        "role": "a Medical Affairs insights lead reporting to leadership",
+        "steps": [
+          "Deduplicate contacts and separate observations from insights.",
+          "Find the three most consequential insights: what is happening, why it matters, what it changes.",
+          "Capture disagreements, weak signals and what the field did not say.",
+          "Recommend one concrete next action per insight with an accountable role."
+        ],
+        "defaults": {
+          "goal": "Leadership knows the three field insights that should change what we do this quarter, each with an owner and a next action.",
+          "audience": "Medical Affairs leadership, four minutes to read.",
+          "context": "field-observations.csv, medical-plan.md, product-profile.md",
+          "constraints": "Themes with counts are not insights: explain why it matters and what it changes.\nState confidence for each insight and why.",
+          "deliverable": "Leadership brief (Word + PDF)\nInsight table with source record IDs\nSimulated safety escalation and missing-information list",
+          "checks": "Every insight cites source record IDs\nSafety findings appear before the analysis\nEach action names an accountable role",
+          "human_stop": "Routing any safety finding\nSharing the brief beyond our team"
+        }
+      },
+      {
+        "id": "congress-readout",
+        "label": "Congress readout",
+        "mission": "congress",
+        "skills": [
+          "congress-intelligence",
+          "competitive-intelligence"
+        ],
+        "role": "a congress intelligence lead in Medical Affairs",
+        "steps": [
+          "State what we expected before the congress.",
+          "Compare what was presented with those expectations and with the current medical plan.",
+          "Apply the same scepticism to our own data as to competitors'.",
+          "Recommend what changes in the plan, what does not, and why."
+        ],
+        "defaults": {
+          "goal": "Leadership knows in four minutes what changed at the congress and what we should do about it.",
+          "audience": "Medical leadership and brand medical leads.",
+          "context": "congress-abstracts.md, competitor-announcements.md, medical-plan.md, product-profile.md",
+          "constraints": "One page, four sections: what changed, why it matters, what to watch, what we should do.\nA summary of presentations is not intelligence.",
+          "deliverable": "One-page congress readout (Word + PDF)\nChange recommendations with evidence limitations",
+          "checks": "Every 'what changed' item is compared against a stated prior expectation\nEvidence limitations stay attached to each finding\nAnything contradicting a current claim is flagged",
+          "human_stop": "Changing an approved medical plan or claim"
+        }
+      },
+      {
+        "id": "mi-response",
+        "label": "Medical information response",
+        "mission": "medical-information",
+        "skills": [
+          "medical-information-response"
+        ],
+        "role": "a medical information specialist",
+        "steps": [
+          "Triage the enquiries by urgency and type.",
+          "Surface potential safety issues before drafting.",
+          "Draft responses supported only by the supplied sources.",
+          "Log every gap where the evidence does not answer the question."
+        ],
+        "defaults": {
+          "goal": "The enquiry queue is triaged, every answerable enquiry has a draft response, and every gap is logged.",
+          "audience": "The medical information team and the reviewing medical signatory.",
+          "context": "medical-information-enquiries.csv, product-profile.md, structured-evidence-table.csv",
+          "constraints": "Do not infer approval in other countries.\nAnswer the question asked; do not volunteer off-label information.",
+          "deliverable": "Triage register\nDraft responses and gap log\nSimulated safety routing list",
+          "checks": "Every response cites the supporting source\nNo response is marked as sent\nSafety items are routed before drafting",
+          "human_stop": "Sending any response\nAny real (non-simulated) safety case"
+        }
+      },
+      {
+        "id": "evidence-gap",
+        "label": "Evidence gap map",
+        "mission": "evidence-investment",
+        "skills": [
+          "evidence-gap-analysis",
+          "integrated-evidence-plan"
+        ],
+        "role": "an evidence generation strategist",
+        "steps": [
+          "List the gaps and, for each, the decision it blocks and whose decision it is.",
+          "Separate evidence gaps from communication gaps.",
+          "Propose the study design that would close each gap that matters, with cost.",
+          "Allocate the budget with an explicit funding line and what is lost below it."
+        ],
+        "defaults": {
+          "goal": "A ranked evidence gap map with a funded portfolio inside the budget ceiling and an explicit line below which we decline.",
+          "audience": "The evidence planning committee.",
+          "context": "evidence-landscape.md, integrated-evidence-plan.csv, iis-proposal.md, rwe-study-concept.md, payer-hta-brief.md",
+          "constraints": "Do not propose a study just because data are missing: explain the decision it changes.\nCheck what we could answer from data we already hold.",
+          "deliverable": "Ranked gap map (spreadsheet or table)\nCommittee brief with trade-offs",
+          "checks": "Every gap names the decision it blocks\nThe allocation adds up to the ceiling or less\nDuplicated and dependent projects are reconciled",
+          "human_stop": "Committing budget or approving a study"
+        }
+      },
+      {
+        "id": "ad-board",
+        "label": "Advisory board package",
+        "mission": "advisory-board",
+        "skills": [
+          "advisory-board-design",
+          "evidence-gap-analysis",
+          "medical-slide-deck"
+        ],
+        "role": "a medical strategy lead designing an advisory board",
+        "steps": [
+          "Identify the unanswered questions that justify seeking external advice.",
+          "Drop any question the evidence does not justify, and say why.",
+          "Write the charter, discussion guide and advisor briefs.",
+          "Build the pre-read deck."
+        ],
+        "defaults": {
+          "goal": "An advisory board worth holding: five unanswered questions, each tied to a decision, with the full briefing package ready for review.",
+          "audience": "Internal approvers first, then the external advisors.",
+          "context": "advisory-board-transcript.md, field-observations.csv, evidence-landscape.md, kol-dossiers.md, product-profile.md",
+          "constraints": "Questions seek advice, not endorsement.\nApparent consensus in past transcripts is challenged, not assumed.",
+          "deliverable": "Board charter and discussion guide\nPre-read deck (PowerPoint + PDF)\nAdvisor briefs",
+          "checks": "Each question links to a decision and an evidence gap\nNo question is leading or promotional\nAll figures trace to sources",
+          "human_stop": "Inviting advisors or agreeing fees"
+        }
+      },
+      {
+        "id": "publication-plan",
+        "label": "Publication plan",
+        "mission": "publication",
+        "skills": [
+          "scientific-communication-strategy",
+          "scientific-manuscript",
+          "plain-language-summary"
+        ],
+        "role": "a scientific communications lead",
+        "steps": [
+          "Work backwards from what each audience is trying to decide.",
+          "Show where we over-communicate and where we are silent.",
+          "Separate evidence gaps (research) from communication gaps (publish).",
+          "Sequence the next 12 months of outputs."
+        ],
+        "defaults": {
+          "goal": "A 12-month scientific communication strategy we can defend, including what to stop publishing.",
+          "audience": "The publications steering committee.",
+          "context": "publication-plan.md, evidence-landscape.md, field-observations.csv, medical-plan.md, product-profile.md",
+          "constraints": "A strategy, not a list of papers sequenced by data availability.\nNegative and neutral results are planned for, not hidden.",
+          "deliverable": "Strategy brief (Word + PDF)\nPublication roadmap table",
+          "checks": "Each planned output names its audience and the decision it informs\nEvidence gaps and communication gaps are labelled separately\nReported numbers match the source tables",
+          "human_stop": "Submitting or committing to a journal or congress"
+        }
+      },
+      {
+        "id": "launch-readiness",
+        "label": "Launch readiness & launch plan",
+        "mission": "launch-readiness",
+        "skills": [
+          "launch-medical-readiness",
+          "mlr-review-readiness",
+          "medical-strategy-plan"
+        ],
+        "role": "a launch medical readiness lead",
+        "steps": [
+          "Assess every launch dependency against the readiness register.",
+          "Never average a critical red dependency into a green score.",
+          "Build the remediation plan with owners and dates.",
+          "Draft the medical launch plan for the first 90 days."
+        ],
+        "defaults": {
+          "goal": "A clear launch gate verdict, a remediation plan for every red or amber item, and a first-90-days medical launch plan.",
+          "audience": "The launch team and medical leadership.",
+          "context": "launch-readiness-register.md, medical-information-enquiries.csv, mlr-review-comments.md, scientific-platform-draft.md, integrated-evidence-plan.csv",
+          "constraints": "A red safety or regulatory dependency blocks green, whatever the average.\nEvery action has an owner and a date.",
+          "deliverable": "Gate assessment\nRemediation tracker\nLeadership brief and 90-day medical launch plan",
+          "checks": "Every red item has a remediation owner\nThe verdict follows the worst critical dependency\nOpen MLR comments are reflected",
+          "human_stop": "Declaring launch readiness\nAnything that needs MLR approval"
+        }
+      },
+      {
+        "id": "plain-language",
+        "label": "Plain-language summary",
+        "mission": "publication",
+        "skills": [
+          "plain-language-summary",
+          "deliverable-quality-review"
+        ],
+        "role": "a plain-language writer working with patient partners",
+        "steps": [
+          "Pull the key findings from the source.",
+          "Rewrite for a lay reader, keeping every limitation and safety finding.",
+          "Check readability and remove jargon.",
+          "Check every number against the source."
+        ],
+        "defaults": {
+          "goal": "A plain-language summary a patient or caregiver can understand that stays faithful to the study.",
+          "audience": "Patients and caregivers with no medical training.",
+          "context": "plain-language-source.md, structured-evidence-table.csv",
+          "constraints": "No promotional language and no claims beyond the study.\nKeep harms as visible as benefits.",
+          "deliverable": "Plain-language summary (Word + PDF)\nNumber-check log against the source",
+          "checks": "Every number matches the source\nLimitations and safety results are included\nReading level suits a general audience",
+          "human_stop": "Publishing or sharing with patients"
+        }
+      },
+      {
+        "id": "agent-swarm",
+        "label": "Agent swarm / coordinator",
+        "mission": "thirty-day-capstone",
+        "skills": [
+          "medical-affairs-orchestrator",
+          "medical-strategy-plan",
+          "field-insight-synthesis",
+          "integrated-evidence-plan",
+          "executive-briefing"
+        ],
+        "role": "the coordinator of a team of Medical Affairs agents",
+        "steps": [
+          "Break the goal into workstreams and assign each to a specialist sub-agent (or run them in sequence if you cannot spawn agents).",
+          "Give each workstream its own inputs, deliverable and proof of done.",
+          "Track which sources each output depends on.",
+          "Merge the work, resolve conflicts between workstreams and keep a change log."
+        ],
+        "defaults": {
+          "goal": "A coordinated 30-day Medical Affairs plan: leadership brief, action tracker and scientific briefing, with source dependencies so new evidence can update the affected work.",
+          "audience": "Medical Affairs leadership and the workstream owners.",
+          "context": "medical-plan.md, product-profile.md, field-observations.csv, evidence-landscape.md, integrated-evidence-plan.csv, launch-readiness-register.md",
+          "constraints": "Each sub-agent gets only the inputs it needs.\nWhen new information arrives, update only the affected work and preserve the old version.",
+          "deliverable": "Workstream assignment table (agent, inputs, deliverable, proof)\nLeadership brief, 30-day action tracker, scientific briefing\nSource dependency map and change log",
+          "checks": "Every output lists its source dependencies\nConflicts between workstreams are resolved or escalated\nThe tracker has an owner and date per action",
+          "human_stop": "Any trade-off between workstreams that changes priorities\nAnything outside the agreed budget"
+        }
+      }
+    ],
+    "library": [
+      {
+        "id": "lib-publications-brain",
+        "team": "Publications Brain",
+        "type": "publication-plan",
+        "ta": "oncology-mm",
+        "fields": {
+          "goal": "Decide what we should publish over the next 12 months, what we should stop, and make every scientific output consistent with the source data."
+        }
+      },
+      {
+        "id": "lib-insights-engine",
+        "team": "Insights Engine",
+        "type": "field-insights",
+        "ta": "immunology-ad",
+        "fields": {}
+      },
+      {
+        "id": "lib-congress-monitor",
+        "team": "Congress Monitor",
+        "type": "congress-readout",
+        "ta": "cardiometabolic-obesity",
+        "fields": {}
+      },
+      {
+        "id": "lib-field-intelligence",
+        "team": "Field Intelligence Engine",
+        "type": "kol-pre-call",
+        "ta": "oncology-mm",
+        "fields": {
+          "context": "kol-dossiers.md, interaction-notes.md, product-profile.md, evidence-landscape.md\nData-Sources/synthetic/connected/interactions.csv and msl_tasks.csv for open commitments"
+        }
+      },
+      {
+        "id": "lib-launch-plan",
+        "team": "Launch planning",
+        "type": "launch-readiness",
+        "ta": "oncology-mm",
+        "fields": {}
+      },
+      {
+        "id": "lib-swarm-capstone",
+        "team": "Capstone · agent swarm",
+        "type": "agent-swarm",
+        "ta": "oncology-mm",
+        "fields": {}
+      }
+    ],
+    "therapeutic_areas": [
+      {
+        "id": "oncology-mm",
+        "short": "Oncology",
+        "area": "Relapsed/refractory multiple myeloma",
+        "product": "NORVANTIB"
+      },
+      {
+        "id": "immunology-ad",
+        "short": "Immunology",
+        "area": "Moderate-to-severe atopic dermatitis",
+        "product": "DERMALYX"
+      },
+      {
+        "id": "cardiometabolic-obesity",
+        "short": "Cardiometabolic",
+        "area": "Obesity",
+        "product": "ADIPOSYN"
+      }
+    ],
+    "dialects": [
+      {
+        "id": "markdown",
+        "label": "Universal (Markdown)"
+      },
+      {
+        "id": "xml",
+        "label": "Claude-style (XML tags)"
+      }
+    ]
+  },
+  "library": [
+    {
+      "id": "lib-publications-brain",
+      "team": "Publications Brain",
+      "type": "publication-plan",
+      "ta": "oncology-mm",
+      "fields": {
+        "goal": "Decide what we should publish over the next 12 months, what we should stop, and make every scientific output consistent with the source data."
+      },
+      "label": "Publication plan",
+      "prompts": {
+        "markdown": "# Assignment: Publication plan\nYou are a scientific communications lead. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n## Goal: what done looks like\nDecide what we should publish over the next 12 months, what we should stop, and make every scientific output consistent with the source data.\n\n## Who it is for\nThe publications steering committee.\n\n## Context to use\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: scientific-communication-strategy, scientific-manuscript, plain-language-summary.\n- Workshop mode: use the oncology synthetic data in Data-Sources/synthetic/oncology-mm/ (mission `publication` in workshop/catalog.json). Read files there by name.\n- publication-plan.md, evidence-landscape.md, field-observations.csv, medical-plan.md, product-profile.md\n\n## How to work\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Work backwards from what each audience is trying to decide.\n4. Show where we over-communicate and where we are silent.\n5. Separate evidence gaps (research) from communication gaps (publish).\n6. Sequence the next 12 months of outputs.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n\n## House rules and boundaries\n- A strategy, not a list of papers sequenced by data availability.\n- Negative and neutral results are planned for, not hidden.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n\n## Deliverable\n- Strategy brief (Word + PDF)\n- Publication roadmap table\n\n## Proof of done (verify before you hand over)\n- Each planned output names its audience and the decision it informs\n- Evidence gaps and communication gaps are labelled separately\n- Reported numbers match the source tables\n\n## Stop and come back to me before you\n- Submitting or committing to a journal or congress\n\n## When you finish\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.",
+        "xml": "# Assignment: Publication plan\nYou are a scientific communications lead. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n<end_goal>\nDecide what we should publish over the next 12 months, what we should stop, and make every scientific output consistent with the source data.\n</end_goal>\n\n<audience>\nThe publications steering committee.\n</audience>\n\n<context>\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: scientific-communication-strategy, scientific-manuscript, plain-language-summary.\n- Workshop mode: use the oncology synthetic data in Data-Sources/synthetic/oncology-mm/ (mission `publication` in workshop/catalog.json). Read files there by name.\n- publication-plan.md, evidence-landscape.md, field-observations.csv, medical-plan.md, product-profile.md\n</context>\n\n<steps>\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Work backwards from what each audience is trying to decide.\n4. Show where we over-communicate and where we are silent.\n5. Separate evidence gaps (research) from communication gaps (publish).\n6. Sequence the next 12 months of outputs.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n</steps>\n\n<constraints>\n- A strategy, not a list of papers sequenced by data availability.\n- Negative and neutral results are planned for, not hidden.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n</constraints>\n\n<output_format>\n- Strategy brief (Word + PDF)\n- Publication roadmap table\n</output_format>\n\n<proof>\n- Each planned output names its audience and the decision it informs\n- Evidence gaps and communication gaps are labelled separately\n- Reported numbers match the source tables\n</proof>\n\n<human_checkpoints>\n- Submitting or committing to a journal or congress\n</human_checkpoints>\n\n<handover>\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.\n</handover>"
+      }
+    },
+    {
+      "id": "lib-insights-engine",
+      "team": "Insights Engine",
+      "type": "field-insights",
+      "ta": "immunology-ad",
+      "fields": {},
+      "label": "Field insights synthesis",
+      "prompts": {
+        "markdown": "# Assignment: Field insights synthesis\nYou are a Medical Affairs insights lead reporting to leadership. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n## Goal: what done looks like\nLeadership knows the three field insights that should change what we do this quarter, each with an owner and a next action.\n\n## Who it is for\nMedical Affairs leadership, four minutes to read.\n\n## Context to use\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: field-insight-synthesis, executive-briefing.\n- Workshop mode: use the immunology synthetic data in Data-Sources/synthetic/immunology-ad/ (mission `field-insights` in workshop/catalog.json). Read files there by name.\n- field-observations.csv, medical-plan.md, product-profile.md\n\n## How to work\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Deduplicate contacts and separate observations from insights.\n4. Find the three most consequential insights: what is happening, why it matters, what it changes.\n5. Capture disagreements, weak signals and what the field did not say.\n6. Recommend one concrete next action per insight with an accountable role.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n\n## House rules and boundaries\n- Themes with counts are not insights: explain why it matters and what it changes.\n- State confidence for each insight and why.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n\n## Deliverable\n- Leadership brief (Word + PDF)\n- Insight table with source record IDs\n- Simulated safety escalation and missing-information list\n\n## Proof of done (verify before you hand over)\n- Every insight cites source record IDs\n- Safety findings appear before the analysis\n- Each action names an accountable role\n\n## Stop and come back to me before you\n- Routing any safety finding\n- Sharing the brief beyond our team\n\n## When you finish\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.",
+        "xml": "# Assignment: Field insights synthesis\nYou are a Medical Affairs insights lead reporting to leadership. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n<end_goal>\nLeadership knows the three field insights that should change what we do this quarter, each with an owner and a next action.\n</end_goal>\n\n<audience>\nMedical Affairs leadership, four minutes to read.\n</audience>\n\n<context>\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: field-insight-synthesis, executive-briefing.\n- Workshop mode: use the immunology synthetic data in Data-Sources/synthetic/immunology-ad/ (mission `field-insights` in workshop/catalog.json). Read files there by name.\n- field-observations.csv, medical-plan.md, product-profile.md\n</context>\n\n<steps>\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Deduplicate contacts and separate observations from insights.\n4. Find the three most consequential insights: what is happening, why it matters, what it changes.\n5. Capture disagreements, weak signals and what the field did not say.\n6. Recommend one concrete next action per insight with an accountable role.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n</steps>\n\n<constraints>\n- Themes with counts are not insights: explain why it matters and what it changes.\n- State confidence for each insight and why.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n</constraints>\n\n<output_format>\n- Leadership brief (Word + PDF)\n- Insight table with source record IDs\n- Simulated safety escalation and missing-information list\n</output_format>\n\n<proof>\n- Every insight cites source record IDs\n- Safety findings appear before the analysis\n- Each action names an accountable role\n</proof>\n\n<human_checkpoints>\n- Routing any safety finding\n- Sharing the brief beyond our team\n</human_checkpoints>\n\n<handover>\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.\n</handover>"
+      }
+    },
+    {
+      "id": "lib-congress-monitor",
+      "team": "Congress Monitor",
+      "type": "congress-readout",
+      "ta": "cardiometabolic-obesity",
+      "fields": {},
+      "label": "Congress readout",
+      "prompts": {
+        "markdown": "# Assignment: Congress readout\nYou are a congress intelligence lead in Medical Affairs. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n## Goal: what done looks like\nLeadership knows in four minutes what changed at the congress and what we should do about it.\n\n## Who it is for\nMedical leadership and brand medical leads.\n\n## Context to use\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: congress-intelligence, competitive-intelligence.\n- Workshop mode: use the cardiometabolic synthetic data in Data-Sources/synthetic/cardiometabolic-obesity/ (mission `congress` in workshop/catalog.json). Read files there by name.\n- congress-abstracts.md, competitor-announcements.md, medical-plan.md, product-profile.md\n\n## How to work\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. State what we expected before the congress.\n4. Compare what was presented with those expectations and with the current medical plan.\n5. Apply the same scepticism to our own data as to competitors'.\n6. Recommend what changes in the plan, what does not, and why.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n\n## House rules and boundaries\n- One page, four sections: what changed, why it matters, what to watch, what we should do.\n- A summary of presentations is not intelligence.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n\n## Deliverable\n- One-page congress readout (Word + PDF)\n- Change recommendations with evidence limitations\n\n## Proof of done (verify before you hand over)\n- Every 'what changed' item is compared against a stated prior expectation\n- Evidence limitations stay attached to each finding\n- Anything contradicting a current claim is flagged\n\n## Stop and come back to me before you\n- Changing an approved medical plan or claim\n\n## When you finish\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.",
+        "xml": "# Assignment: Congress readout\nYou are a congress intelligence lead in Medical Affairs. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n<end_goal>\nLeadership knows in four minutes what changed at the congress and what we should do about it.\n</end_goal>\n\n<audience>\nMedical leadership and brand medical leads.\n</audience>\n\n<context>\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: congress-intelligence, competitive-intelligence.\n- Workshop mode: use the cardiometabolic synthetic data in Data-Sources/synthetic/cardiometabolic-obesity/ (mission `congress` in workshop/catalog.json). Read files there by name.\n- congress-abstracts.md, competitor-announcements.md, medical-plan.md, product-profile.md\n</context>\n\n<steps>\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. State what we expected before the congress.\n4. Compare what was presented with those expectations and with the current medical plan.\n5. Apply the same scepticism to our own data as to competitors'.\n6. Recommend what changes in the plan, what does not, and why.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n</steps>\n\n<constraints>\n- One page, four sections: what changed, why it matters, what to watch, what we should do.\n- A summary of presentations is not intelligence.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n</constraints>\n\n<output_format>\n- One-page congress readout (Word + PDF)\n- Change recommendations with evidence limitations\n</output_format>\n\n<proof>\n- Every 'what changed' item is compared against a stated prior expectation\n- Evidence limitations stay attached to each finding\n- Anything contradicting a current claim is flagged\n</proof>\n\n<human_checkpoints>\n- Changing an approved medical plan or claim\n</human_checkpoints>\n\n<handover>\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.\n</handover>"
+      }
+    },
+    {
+      "id": "lib-field-intelligence",
+      "team": "Field Intelligence Engine",
+      "type": "kol-pre-call",
+      "ta": "oncology-mm",
+      "fields": {
+        "context": "kol-dossiers.md, interaction-notes.md, product-profile.md, evidence-landscape.md\nData-Sources/synthetic/connected/interactions.csv and msl_tasks.csv for open commitments"
+      },
+      "label": "KOL pre-call brief",
+      "prompts": {
+        "markdown": "# Assignment: KOL pre-call brief\nYou are a senior Medical Science Liaison preparing a scientific exchange. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n## Goal: what done looks like\nWalk into a 30-minute scientific exchange with the first expert in the KOL dossiers fully prepared, including an honest answer to their strongest objection.\n\n## Who it is for\nMe, the MSL, in the ten minutes before the meeting.\n\n## Context to use\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: kol-engagement-brief, msl-pre-call-planning.\n- Workshop mode: use the oncology synthetic data in Data-Sources/synthetic/oncology-mm/ (mission `kol-meeting` in workshop/catalog.json). Read files there by name.\n- kol-dossiers.md, interaction-notes.md, product-profile.md, evidence-landscape.md\n- Data-Sources/synthetic/connected/interactions.csv and msl_tasks.csv for open commitments\n\n## How to work\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Gather prior interactions, open commitments and what has changed since the last meeting.\n4. Identify what this expert genuinely cares about and where our evidence is weak.\n5. Draft neutral scientific questions to ask, and the hard questions they will likely ask us, with the evidence to have ready.\n6. Challenge your own draft with deliverable-quality-review and fix what it finds.\n7. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n\n## House rules and boundaries\n- Two pages maximum: it gets read in ten minutes.\n- No promotional language: this is scientific exchange.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n\n## Deliverable\n- Two-page meeting brief (Word + PDF)\n- Questions to ask, likely questions, evidence and unresolved gaps\n\n## Proof of done (verify before you hand over)\n- Every claim about the expert traces to a dossier or interaction note\n- Unresolved evidence is stated plainly, not smoothed over\n- No meeting facts are invented\n\n## Stop and come back to me before you\n- Contacting the expert or scheduling anything\n- Anything that looks like an off-label request\n\n## When you finish\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.",
+        "xml": "# Assignment: KOL pre-call brief\nYou are a senior Medical Science Liaison preparing a scientific exchange. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n<end_goal>\nWalk into a 30-minute scientific exchange with the first expert in the KOL dossiers fully prepared, including an honest answer to their strongest objection.\n</end_goal>\n\n<audience>\nMe, the MSL, in the ten minutes before the meeting.\n</audience>\n\n<context>\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: kol-engagement-brief, msl-pre-call-planning.\n- Workshop mode: use the oncology synthetic data in Data-Sources/synthetic/oncology-mm/ (mission `kol-meeting` in workshop/catalog.json). Read files there by name.\n- kol-dossiers.md, interaction-notes.md, product-profile.md, evidence-landscape.md\n- Data-Sources/synthetic/connected/interactions.csv and msl_tasks.csv for open commitments\n</context>\n\n<steps>\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Gather prior interactions, open commitments and what has changed since the last meeting.\n4. Identify what this expert genuinely cares about and where our evidence is weak.\n5. Draft neutral scientific questions to ask, and the hard questions they will likely ask us, with the evidence to have ready.\n6. Challenge your own draft with deliverable-quality-review and fix what it finds.\n7. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n</steps>\n\n<constraints>\n- Two pages maximum: it gets read in ten minutes.\n- No promotional language: this is scientific exchange.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n</constraints>\n\n<output_format>\n- Two-page meeting brief (Word + PDF)\n- Questions to ask, likely questions, evidence and unresolved gaps\n</output_format>\n\n<proof>\n- Every claim about the expert traces to a dossier or interaction note\n- Unresolved evidence is stated plainly, not smoothed over\n- No meeting facts are invented\n</proof>\n\n<human_checkpoints>\n- Contacting the expert or scheduling anything\n- Anything that looks like an off-label request\n</human_checkpoints>\n\n<handover>\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.\n</handover>"
+      }
+    },
+    {
+      "id": "lib-launch-plan",
+      "team": "Launch planning",
+      "type": "launch-readiness",
+      "ta": "oncology-mm",
+      "fields": {},
+      "label": "Launch readiness & launch plan",
+      "prompts": {
+        "markdown": "# Assignment: Launch readiness & launch plan\nYou are a launch medical readiness lead. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n## Goal: what done looks like\nA clear launch gate verdict, a remediation plan for every red or amber item, and a first-90-days medical launch plan.\n\n## Who it is for\nThe launch team and medical leadership.\n\n## Context to use\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: launch-medical-readiness, mlr-review-readiness, medical-strategy-plan.\n- Workshop mode: use the oncology synthetic data in Data-Sources/synthetic/oncology-mm/ (mission `launch-readiness` in workshop/catalog.json). Read files there by name.\n- launch-readiness-register.md, medical-information-enquiries.csv, mlr-review-comments.md, scientific-platform-draft.md, integrated-evidence-plan.csv\n\n## How to work\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Assess every launch dependency against the readiness register.\n4. Never average a critical red dependency into a green score.\n5. Build the remediation plan with owners and dates.\n6. Draft the medical launch plan for the first 90 days.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n\n## House rules and boundaries\n- A red safety or regulatory dependency blocks green, whatever the average.\n- Every action has an owner and a date.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n\n## Deliverable\n- Gate assessment\n- Remediation tracker\n- Leadership brief and 90-day medical launch plan\n\n## Proof of done (verify before you hand over)\n- Every red item has a remediation owner\n- The verdict follows the worst critical dependency\n- Open MLR comments are reflected\n\n## Stop and come back to me before you\n- Declaring launch readiness\n- Anything that needs MLR approval\n\n## When you finish\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.",
+        "xml": "# Assignment: Launch readiness & launch plan\nYou are a launch medical readiness lead. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n<end_goal>\nA clear launch gate verdict, a remediation plan for every red or amber item, and a first-90-days medical launch plan.\n</end_goal>\n\n<audience>\nThe launch team and medical leadership.\n</audience>\n\n<context>\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: launch-medical-readiness, mlr-review-readiness, medical-strategy-plan.\n- Workshop mode: use the oncology synthetic data in Data-Sources/synthetic/oncology-mm/ (mission `launch-readiness` in workshop/catalog.json). Read files there by name.\n- launch-readiness-register.md, medical-information-enquiries.csv, mlr-review-comments.md, scientific-platform-draft.md, integrated-evidence-plan.csv\n</context>\n\n<steps>\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Assess every launch dependency against the readiness register.\n4. Never average a critical red dependency into a green score.\n5. Build the remediation plan with owners and dates.\n6. Draft the medical launch plan for the first 90 days.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n</steps>\n\n<constraints>\n- A red safety or regulatory dependency blocks green, whatever the average.\n- Every action has an owner and a date.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n</constraints>\n\n<output_format>\n- Gate assessment\n- Remediation tracker\n- Leadership brief and 90-day medical launch plan\n</output_format>\n\n<proof>\n- Every red item has a remediation owner\n- The verdict follows the worst critical dependency\n- Open MLR comments are reflected\n</proof>\n\n<human_checkpoints>\n- Declaring launch readiness\n- Anything that needs MLR approval\n</human_checkpoints>\n\n<handover>\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.\n</handover>"
+      }
+    },
+    {
+      "id": "lib-swarm-capstone",
+      "team": "Capstone · agent swarm",
+      "type": "agent-swarm",
+      "ta": "oncology-mm",
+      "fields": {},
+      "label": "Agent swarm / coordinator",
+      "prompts": {
+        "markdown": "# Assignment: Agent swarm / coordinator\nYou are the coordinator of a team of Medical Affairs agents. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n## Goal: what done looks like\nA coordinated 30-day Medical Affairs plan: leadership brief, action tracker and scientific briefing, with source dependencies so new evidence can update the affected work.\n\n## Who it is for\nMedical Affairs leadership and the workstream owners.\n\n## Context to use\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: medical-affairs-orchestrator, medical-strategy-plan, field-insight-synthesis, integrated-evidence-plan, executive-briefing.\n- Workshop mode: use the oncology synthetic data in Data-Sources/synthetic/oncology-mm/ (mission `thirty-day-capstone` in workshop/catalog.json). Read files there by name.\n- medical-plan.md, product-profile.md, field-observations.csv, evidence-landscape.md, integrated-evidence-plan.csv, launch-readiness-register.md\n\n## How to work\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Break the goal into workstreams and assign each to a specialist sub-agent (or run them in sequence if you cannot spawn agents).\n4. Give each workstream its own inputs, deliverable and proof of done.\n5. Track which sources each output depends on.\n6. Merge the work, resolve conflicts between workstreams and keep a change log.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n\n## House rules and boundaries\n- Each sub-agent gets only the inputs it needs.\n- When new information arrives, update only the affected work and preserve the old version.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n\n## Deliverable\n- Workstream assignment table (agent, inputs, deliverable, proof)\n- Leadership brief, 30-day action tracker, scientific briefing\n- Source dependency map and change log\n\n## Proof of done (verify before you hand over)\n- Every output lists its source dependencies\n- Conflicts between workstreams are resolved or escalated\n- The tracker has an owner and date per action\n\n## Stop and come back to me before you\n- Any trade-off between workstreams that changes priorities\n- Anything outside the agreed budget\n\n## When you finish\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.",
+        "xml": "# Assignment: Agent swarm / coordinator\nYou are the coordinator of a team of Medical Affairs agents. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice.\n\n<end_goal>\nA coordinated 30-day Medical Affairs plan: leadership brief, action tracker and scientific briefing, with source dependencies so new evidence can update the affected work.\n</end_goal>\n\n<audience>\nMedical Affairs leadership and the workstream owners.\n</audience>\n\n<context>\n- Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills. Read AGENTS.md first, then load these skills and their requirements: medical-affairs-orchestrator, medical-strategy-plan, field-insight-synthesis, integrated-evidence-plan, executive-briefing.\n- Workshop mode: use the oncology synthetic data in Data-Sources/synthetic/oncology-mm/ (mission `thirty-day-capstone` in workshop/catalog.json). Read files there by name.\n- medical-plan.md, product-profile.md, field-observations.csv, evidence-landscape.md, integrated-evidence-plan.csv, launch-readiness-register.md\n</context>\n\n<steps>\n1. Inventory the inputs. List what is missing before you start, then continue with what you have.\n2. Scan human-sourced records for possible safety findings first.\n3. Break the goal into workstreams and assign each to a specialist sub-agent (or run them in sequence if you cannot spawn agents).\n4. Give each workstream its own inputs, deliverable and proof of done.\n5. Track which sources each output depends on.\n6. Merge the work, resolve conflicts between workstreams and keep a change log.\n7. Challenge your own draft with deliverable-quality-review and fix what it finds.\n8. Deliver designed files where your environment allows; otherwise give the complete content in your reply and say so.\n</steps>\n\n<constraints>\n- Each sub-agent gets only the inputs it needs.\n- When new information arrives, update only the affected work and preserve the old version.\n- Do not send, post, publish or change any external system. Prepare drafts only.\n- Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.\n- Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.\n- Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.\n</constraints>\n\n<output_format>\n- Workstream assignment table (agent, inputs, deliverable, proof)\n- Leadership brief, 30-day action tracker, scientific briefing\n- Source dependency map and change log\n</output_format>\n\n<proof>\n- Every output lists its source dependencies\n- Conflicts between workstreams are resolved or escalated\n- The tracker has an owner and date per action\n</proof>\n\n<human_checkpoints>\n- Any trade-off between workstreams that changes priorities\n- Anything outside the agreed budget\n</human_checkpoints>\n\n<handover>\nTell me what you did, what you could not do, and which decisions are still mine. I am the final judge of this work.\n</handover>"
+      }
+    }
+  ],
+  "credit": "Prompt Optimizer method by Vivek Mukhatyar: https://github.com/vivmuk/Prompt-Optimizer"
+}

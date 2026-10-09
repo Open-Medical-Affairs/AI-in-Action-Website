@@ -1,0 +1,32 @@
+# AI in Action for Medical Affairs
+
+> Companion site for AI in Action for Medical Affairs (October 13–14, 2026, Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia). It turns the open Medical-Affairs-Skills and Data-Sources repositories into copy-ready prompts, missions, datasets and a prompt optimizer for non-technical Medical Affairs professionals and their AI agents. Grok Bot is the event sandbox. All workshop data is synthetic.
+
+Agents: start with agents.md. It is a step-by-step guide that lets you do everything the repository supports.
+
+## Start here
+- [Agent instructions](agents.md): how to run a mission end to end
+- [Repository](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills): the source of truth
+- [AGENTS.md (raw)](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md): the repository's own agent entry point
+
+## Data repository
+- [Data-Sources](https://github.com/Open-Medical-Affairs/Data-Sources): SYNTHETIC workshop datasets and a catalog of 52 REAL public sources (separate truth statuses)
+- [synthetic/index.json](https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/synthetic/index.json): every synthetic file with product, therapeutic area and which skills/missions use it
+- [public/catalog.json](https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/public/catalog.json): public sources with access, rate limits, licences and data_policy (link-only = do not copy)
+
+## Machine-readable data
+- [missions.json](missions.json): 17 catalog missions and 7 team missions with prompts per therapeutic area
+- [datasets.json](datasets.json): every synthetic data pack (badged synthetic) and every public source, with raw links
+- [skills.json](skills.json): all 65 skills with summaries and links
+- [prompts.json](prompts.json): every prompt on the site, the Prompt Optimizer templates and the team prompt library
+
+## Starter files (for agents that cannot open GitHub)
+- [Oncology starter](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/bundles/first-mission-oncology-mm.md)
+- [Immunology starter](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/bundles/first-mission-immunology-ad.md)
+- [Cardiometabolic starter](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/bundles/first-mission-cardiometabolic-obesity.md)
+
+## Optional
+- [Skills index](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/SKILLS-INDEX.md)
+- [Participant quickstart](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/PARTICIPANT-QUICKSTART.md)
+- [Workshop catalog](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/catalog.json)
+- [Prompt Optimizer (method source)](https://github.com/vivmuk/Prompt-Optimizer)

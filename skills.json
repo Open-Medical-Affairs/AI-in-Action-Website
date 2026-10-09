@@ -1,0 +1,936 @@
+{
+  "count": 65,
+  "index": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/SKILLS-INDEX.md",
+  "groups": [
+    {
+      "title": "Orchestrator",
+      "intro": "Start here if you have been handed a job and do not know which skill does it. This one routes.",
+      "skills": [
+        {
+          "name": "medical-affairs-orchestrator",
+          "path": "skills/medical-affairs-orchestrator/SKILL.md",
+          "summary": "Route any Medical Affairs request to the right workflow and run it end to end.",
+          "produces": "A routed, executed Medical Affairs workflow",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/medical-affairs-orchestrator.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-orchestrator/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-affairs-orchestrator/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-affairs-orchestrator.md"
+        },
+        {
+          "name": "workshop-launcher",
+          "path": "skills/workshop-launcher/SKILL.md",
+          "summary": "Start a Medical Affairs workshop from a repository link or a simple request.",
+          "produces": "A prepared and executed synthetic workshop mission",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/workshop-launcher.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/workshop-launcher/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/workshop-launcher/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/workshop-launcher.md"
+        }
+      ]
+    },
+    {
+      "title": "Foundation — the core",
+      "intro": "medical-affairs-foundations loads on every Medical Affairs task, without exception: it carries the compliance boundary and the adverse-event escalation rule. The others load when the job reaches them — evidence appraisal when interpreting study data, citation integrity when the deliverable will carry references, quality review at stage 4, capability detection when producing a file.",
+      "skills": [
+        {
+          "name": "capability-detection",
+          "path": "skills/capability-detection/SKILL.md",
+          "summary": "Work out what this runtime can actually do before promising a deliverable, and degrade visibly rather than failing.",
+          "produces": "Capability report and a resolved output strategy",
+          "requires": [],
+          "house_rules": "house-rules/capability-detection.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/capability-detection/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/capability-detection/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/capability-detection.md"
+        },
+        {
+          "name": "citation-integrity",
+          "path": "skills/citation-integrity/SKILL.md",
+          "summary": "Check that every factual claim traces to a real, retrievable source that actually says what it is cited for.",
+          "produces": "Verified reference list with evidence tiers",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/citation-integrity.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/citation-integrity/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/citation-integrity/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/citation-integrity.md"
+        },
+        {
+          "name": "deliverable-quality-review",
+          "path": "skills/deliverable-quality-review/SKILL.md",
+          "summary": "Red-team your own Medical Affairs deliverable before anyone else sees it.",
+          "produces": "Review findings with severity, and a revised deliverable",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/deliverable-quality-review.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/deliverable-quality-review/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/deliverable-quality-review/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/deliverable-quality-review.md"
+        },
+        {
+          "name": "evidence-appraisal",
+          "path": "skills/evidence-appraisal/SKILL.md",
+          "summary": "Critically appraise clinical evidence the way an experienced Medical Affairs scientist does — before summarising, citing or building strategy on it.",
+          "produces": "Appraised evidence with stated certainty and limitations",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/evidence-appraisal.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-appraisal/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/evidence-appraisal/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/evidence-appraisal.md"
+        },
+        {
+          "name": "medical-affairs-foundations",
+          "path": "skills/medical-affairs-foundations/SKILL.md",
+          "summary": "The operating principles, compliance boundaries and safety obligations that govern all Medical Affairs work.",
+          "produces": "Compliance and safety frame applied to every other skill",
+          "requires": [],
+          "house_rules": "house-rules/medical-affairs-foundations.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-foundations/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-affairs-foundations/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-affairs-foundations.md"
+        }
+      ]
+    },
+    {
+      "title": "Reasoning primitives — composed by the workflows",
+      "intro": "Usually reached as a dependency rather than chosen: the workflow skills call these to do the actual thinking. strategic-analysis is the exception and is routable directly, for a request that is purely \"so what should we do about it\" with no workflow behind it.",
+      "skills": [
+        {
+          "name": "evidence-synthesis",
+          "path": "skills/evidence-synthesis/SKILL.md",
+          "summary": "Turn a body of clinical evidence into a defensible narrative that states what the totality supports, what it does not, and where it disagrees with itself.",
+          "produces": "Evidence narrative with stated certainty and open questions",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal"
+          ],
+          "house_rules": "house-rules/evidence-synthesis.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-synthesis/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/evidence-synthesis/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/evidence-synthesis.md"
+        },
+        {
+          "name": "insight-generation",
+          "path": "skills/insight-generation/SKILL.md",
+          "summary": "Turn raw observations into insights that change a decision.",
+          "produces": "Insight set with implications and actions",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/insight-generation.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/insight-generation/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/insight-generation/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/insight-generation.md"
+        },
+        {
+          "name": "strategic-analysis",
+          "path": "skills/strategic-analysis/SKILL.md",
+          "summary": "Reason about Medical Affairs strategy rather than generating activity lists.",
+          "produces": "Prioritised strategic choices with stated assumptions and trade-offs",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/strategic-analysis.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/strategic-analysis/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/strategic-analysis/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/strategic-analysis.md"
+        }
+      ]
+    },
+    {
+      "title": "Data and search — live external evidence",
+      "intro": "These retrieve or prepare public, supplied and local evidence. Public literature, trial registry, and label/safety databases need network access; local data and supplied transcripts do not. See docs/api-setup.md.",
+      "skills": [
+        {
+          "name": "clinical-trials-search",
+          "path": "skills/clinical-trials-search/SKILL.md",
+          "summary": "Search ClinicalTrials.gov via the v2 API to map the trial landscape — what is running, by whom, in which populations, with what endpoints, and what is about to read out.",
+          "produces": "Trial landscape with sponsors, phases, endpoints and timelines",
+          "requires": [
+            "citation-integrity"
+          ],
+          "house_rules": "house-rules/clinical-trials-search.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/clinical-trials-search/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/clinical-trials-search/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/clinical-trials-search.md"
+        },
+        {
+          "name": "data-connection",
+          "path": "skills/data-connection/SKILL.md",
+          "summary": "Connect Medical Affairs work to available data using authorized connectors, exported files or read-only database queries.",
+          "produces": "Connection assessment, field mapping and sourced data extract",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/data-connection.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/data-connection/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/data-connection/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/data-connection.md"
+        },
+        {
+          "name": "medical-terminology-mapping",
+          "path": "skills/medical-terminology-mapping/SKILL.md",
+          "summary": "Resolve free-text clinical language to controlled vocabulary so insights, adverse events, conditions and interventions can be counted and compared consistently.",
+          "produces": "Concept-to-code mappings with confidence and unresolved list",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/medical-terminology-mapping.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-terminology-mapping/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-terminology-mapping/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-terminology-mapping.md"
+        },
+        {
+          "name": "meeting-transcription",
+          "path": "skills/meeting-transcription/SKILL.md",
+          "summary": "Turn an audio recording or supplied transcript into reviewable Medical Affairs meeting material.",
+          "produces": "Transcript with provenance, correction queue and downstream handoff",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/meeting-transcription.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/meeting-transcription/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/meeting-transcription/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/meeting-transcription.md"
+        },
+        {
+          "name": "public-evidence-search",
+          "path": "skills/public-evidence-search/SKILL.md",
+          "summary": "Search free public scientific sources through the bundled gateway when a task needs literature, trial records, labels, adverse-event reports or citation metadata.",
+          "produces": "Retrieved public evidence with query and access status",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/public-evidence-search.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/public-evidence-search/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/public-evidence-search/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/public-evidence-search.md"
+        },
+        {
+          "name": "pubmed-search",
+          "path": "skills/pubmed-search/SKILL.md",
+          "summary": "Search PubMed properly and retrieve real, verifiable literature via the NCBI E-utilities API.",
+          "produces": "Verified literature result set with search strategy recorded",
+          "requires": [
+            "citation-integrity"
+          ],
+          "house_rules": "house-rules/pubmed-search.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/pubmed-search/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/pubmed-search/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/pubmed-search.md"
+        },
+        {
+          "name": "regulatory-label-intelligence",
+          "path": "skills/regulatory-label-intelligence/SKILL.md",
+          "summary": "Retrieve approved US label content and post-marketing safety data via openFDA, and interpret both correctly.",
+          "produces": "Label-grounded product facts and correctly-caveated safety context",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/regulatory-label-intelligence.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/regulatory-label-intelligence/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/regulatory-label-intelligence/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/regulatory-label-intelligence.md"
+        },
+        {
+          "name": "systematic-literature-review",
+          "path": "skills/systematic-literature-review/SKILL.md",
+          "summary": "Run a reproducible, PRISMA-aligned systematic literature review — protocol first, documented search strategy, screening funnel with recorded exclusion reasons, structured extraction, and risk-of-bias assessment.",
+          "produces": "PRISMA-aligned systematic review with flow diagram and evidence tables",
+          "requires": [
+            "pubmed-search",
+            "evidence-appraisal"
+          ],
+          "house_rules": "house-rules/systematic-literature-review.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/systematic-literature-review/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/systematic-literature-review/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/systematic-literature-review.md"
+        }
+      ]
+    },
+    {
+      "title": "Workflows — the jobs",
+      "intro": "One per recurring Medical Affairs job. Each produces a named deliverable and runs the six-stage execution contract in AGENTS.md.",
+      "skills": [
+        {
+          "name": "advisory-board-design",
+          "path": "skills/advisory-board-design/SKILL.md",
+          "summary": "Design and run an advisory board that produces advice rather than agreement — charter, questions, advisor selection, fair market value, discussion design, and output that changes a decision.",
+          "produces": "Advisory board charter, questions and materials",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/advisory-board-design.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/advisory-board-design/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/advisory-board-design/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/advisory-board-design.md"
+        },
+        {
+          "name": "competitive-intelligence",
+          "path": "skills/competitive-intelligence/SKILL.md",
+          "summary": "Track and interpret competitor scientific activity continuously — pipeline movement, publication patterns, evidence strategy, regulatory milestones and positioning shifts, and what they signal.",
+          "produces": "Competitive intelligence assessment",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/competitive-intelligence.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/competitive-intelligence/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/competitive-intelligence/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/competitive-intelligence.md"
+        },
+        {
+          "name": "congress-intelligence",
+          "path": "skills/congress-intelligence/SKILL.md",
+          "summary": "Analyse what changed at a medical congress and what the organisation should do about it — not summarise what was presented.",
+          "produces": "Congress intelligence readout",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/congress-intelligence.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/congress-intelligence/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/congress-intelligence/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/congress-intelligence.md"
+        },
+        {
+          "name": "evidence-gap-analysis",
+          "path": "skills/evidence-gap-analysis/SKILL.md",
+          "summary": "Identify what we still do not know, decide which gaps are worth closing, and propose how.",
+          "produces": "Prioritised evidence gap analysis with research proposals",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/evidence-gap-analysis.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-gap-analysis/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/evidence-gap-analysis/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/evidence-gap-analysis.md"
+        },
+        {
+          "name": "executive-briefing",
+          "path": "skills/executive-briefing/SKILL.md",
+          "summary": "Distil any body of Medical Affairs work into the two-page brief or ten-slide read a leadership team actually absorbs — situation, what changed, what it means, what to decide, by when.",
+          "produces": "Executive briefing (two-page memo or short deck)",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/executive-briefing.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/executive-briefing/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/executive-briefing/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/executive-briefing.md"
+        },
+        {
+          "name": "field-insight-synthesis",
+          "path": "skills/field-insight-synthesis/SKILL.md",
+          "summary": "Turn a body of field medical observations into insights leadership can act on.",
+          "produces": "Field insight report with ranked insights and actions",
+          "requires": [
+            "medical-affairs-foundations",
+            "insight-generation"
+          ],
+          "house_rules": "house-rules/field-insight-synthesis.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/field-insight-synthesis/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/field-insight-synthesis/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/field-insight-synthesis.md"
+        },
+        {
+          "name": "field-medical-planning",
+          "path": "skills/field-medical-planning/SKILL.md",
+          "summary": "Plan the field medical function over a cycle — territory and account prioritisation, MSL objectives, engagement planning across a stakeholder map, capacity modelling, and the metrics that describe scientific impact rather than activity volume.",
+          "produces": "Field medical plan with prioritised accounts, objectives and capacity",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/field-medical-planning.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/field-medical-planning/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/field-medical-planning/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/field-medical-planning.md"
+        },
+        {
+          "name": "guideline-engagement",
+          "path": "skills/guideline-engagement/SKILL.md",
+          "summary": "Understand and engage with clinical practice guideline development — committee cycles, what evidence a guideline body will accept, whether current evidence could support inclusion, and planning against timelines far longer than a medical plan.",
+          "produces": "Guideline landscape assessment and evidence readiness plan",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-synthesis"
+          ],
+          "house_rules": "house-rules/guideline-engagement.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/guideline-engagement/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/guideline-engagement/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/guideline-engagement.md"
+        },
+        {
+          "name": "hcp-discovery-and-access",
+          "path": "skills/hcp-discovery-and-access/SKILL.md",
+          "summary": "Identify relevant HCPs and ethical institutional access routes for scientific engagement.",
+          "produces": "Verified candidate register and institution-aware scientific access plan",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/hcp-discovery-and-access.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/hcp-discovery-and-access/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/hcp-discovery-and-access/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/hcp-discovery-and-access.md"
+        },
+        {
+          "name": "integrated-evidence-plan",
+          "path": "skills/integrated-evidence-plan/SKILL.md",
+          "summary": "Build the cross-functional evidence plan for an asset — every study, analysis and publication across clinical development, Medical Affairs, HEOR and market access, sequenced against the decisions and milestones each has to serve.",
+          "produces": "Integrated evidence plan with sequencing, owners and decision links",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis",
+            "evidence-appraisal"
+          ],
+          "house_rules": "house-rules/integrated-evidence-plan.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/integrated-evidence-plan/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/integrated-evidence-plan/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/integrated-evidence-plan.md"
+        },
+        {
+          "name": "investigator-initiated-study-review",
+          "path": "skills/investigator-initiated-study-review/SKILL.md",
+          "summary": "Evaluate and govern investigator-initiated study proposals — IIS, ISR, IIT, investigator-sponsored research.",
+          "produces": "IIS proposal assessment and recommendation",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal"
+          ],
+          "house_rules": "house-rules/investigator-initiated-study-review.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/investigator-initiated-study-review/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/investigator-initiated-study-review/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/investigator-initiated-study-review.md"
+        },
+        {
+          "name": "kol-engagement-brief",
+          "path": "skills/kol-engagement-brief/SKILL.md",
+          "summary": "Prepare an MSL or medical lead for a specific scientific exchange with a named external expert.",
+          "produces": "KOL engagement brief",
+          "requires": [
+            "medical-affairs-foundations",
+            "citation-integrity"
+          ],
+          "house_rules": "house-rules/kol-engagement-brief.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/kol-engagement-brief/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/kol-engagement-brief/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/kol-engagement-brief.md"
+        },
+        {
+          "name": "launch-field-training",
+          "path": "skills/launch-field-training/SKILL.md",
+          "summary": "Design the training and certification that make field medical teams able to handle launch conversations — the data, its limitations, the questions nobody can answer yet, unsolicited off-label requests and adverse event escalation — tested by scenario rather than recall.",
+          "produces": "Field launch curriculum, scenario bank and certification plan",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal"
+          ],
+          "house_rules": "house-rules/launch-field-training.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/launch-field-training/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/launch-field-training/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/launch-field-training.md"
+        },
+        {
+          "name": "launch-medical-readiness",
+          "path": "skills/launch-medical-readiness/SKILL.md",
+          "summary": "Assess whether Medical Affairs is actually ready for a launch, label expansion or major data readout — and say plainly where it is not.",
+          "produces": "Launch readiness assessment with a verdict",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/launch-medical-readiness.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/launch-medical-readiness/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/launch-medical-readiness/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/launch-medical-readiness.md"
+        },
+        {
+          "name": "launch-timeline-and-governance",
+          "path": "skills/launch-timeline-and-governance/SKILL.md",
+          "summary": "Build the Medical Affairs launch critical path and the governance that runs it — workback from the decision date, dependencies on label wording and publication, gate criteria written before the gate, named owners, and what moves when the date moves.",
+          "produces": "Launch critical path, gate criteria and governance plan with named owners",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/launch-timeline-and-governance.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/launch-timeline-and-governance/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/launch-timeline-and-governance/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/launch-timeline-and-governance.md"
+        },
+        {
+          "name": "literature-surveillance",
+          "path": "skills/literature-surveillance/SKILL.md",
+          "summary": "Run ongoing literature and evidence surveillance — a repeatable watch on a topic, product, class or competitor that reports what is NEW since the last cycle and what it changes, rather than a one-off search.",
+          "produces": "Surveillance cycle report with delta, appraisal and implications",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal",
+            "citation-integrity"
+          ],
+          "house_rules": "house-rules/literature-surveillance.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/literature-surveillance/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/literature-surveillance/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/literature-surveillance.md"
+        },
+        {
+          "name": "medical-affairs-metrics",
+          "path": "skills/medical-affairs-metrics/SKILL.md",
+          "summary": "Measure whether Medical Affairs work changed anything, rather than counting how much of it happened.",
+          "produces": "Metric set with definitions, sources and interpretation limits",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/medical-affairs-metrics.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-metrics/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-affairs-metrics/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-affairs-metrics.md"
+        },
+        {
+          "name": "medical-content-operations",
+          "path": "skills/medical-content-operations/SKILL.md",
+          "summary": "Plan and maintain non-promotional Medical Affairs content across channels using audience needs, evidence, content inventories and engagement measures.",
+          "produces": "Audience-channel plan, content register and evidence-change impact list",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/medical-content-operations.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-content-operations/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-content-operations/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-content-operations.md"
+        },
+        {
+          "name": "medical-education-program",
+          "path": "skills/medical-education-program/SKILL.md",
+          "summary": "Design independent medical education and company-organised scientific education — IME grant strategy, curricula, needs assessments, speaker programmes and their governance, symposia and preceptorships.",
+          "produces": "Education programme design, needs assessment and governance plan",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/medical-education-program.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-education-program/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-education-program/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-education-program.md"
+        },
+        {
+          "name": "medical-information-response",
+          "path": "skills/medical-information-response/SKILL.md",
+          "summary": "Draft responses to unsolicited medical enquiries from healthcare professionals, patients and payers, and build the standard response documents and FAQ library behind them.",
+          "produces": "Standard response document or scientific response letter",
+          "requires": [
+            "medical-affairs-foundations",
+            "citation-integrity",
+            "regulatory-label-intelligence"
+          ],
+          "house_rules": "house-rules/medical-information-response.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-information-response/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-information-response/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-information-response.md"
+        },
+        {
+          "name": "medical-launch-plan",
+          "path": "skills/medical-launch-plan/SKILL.md",
+          "summary": "Build the entire Medical Affairs launch plan for an upcoming asset, new indication or label expansion by running a coordinated team of digital workers — one per launch workstream, each given its own context — under a Launch Lead, with humans deciding at every gate.",
+          "produces": "Integrated medical launch plan with workstream plans, critical path, owners and human decision gates",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/medical-launch-plan.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-launch-plan/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-launch-plan/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-launch-plan.md"
+        },
+        {
+          "name": "medical-strategy-plan",
+          "path": "skills/medical-strategy-plan/SKILL.md",
+          "summary": "Build or challenge a medical plan — the scientific priorities, the choices behind them, and the activities that trace to them.",
+          "produces": "Medical plan with prioritised scientific objectives",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/medical-strategy-plan.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-strategy-plan/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-strategy-plan/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-strategy-plan.md"
+        },
+        {
+          "name": "msl-administrative-operations",
+          "path": "skills/msl-administrative-operations/SKILL.md",
+          "summary": "Reduce repetitive MSL administration by assembling source-backed meeting packs, open-task queues, draft CRM imports, weekly summaries and coverage reports.",
+          "produces": "Prioritized administrative queue, draft record packet and weekly status brief",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/msl-administrative-operations.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-administrative-operations/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/msl-administrative-operations/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/msl-administrative-operations.md"
+        },
+        {
+          "name": "msl-post-call-follow-up",
+          "path": "skills/msl-post-call-follow-up/SKILL.md",
+          "summary": "Convert actual MSL engagement notes or a transcript into factual CRM-ready drafts, scientific follow-up tasks and evidence-gap records.",
+          "produces": "Draft CRM note, follow-up task list and scientific-question register",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/msl-post-call-follow-up.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-post-call-follow-up/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/msl-post-call-follow-up/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/msl-post-call-follow-up.md"
+        },
+        {
+          "name": "msl-pre-call-planning",
+          "path": "skills/msl-pre-call-planning/SKILL.md",
+          "summary": "Prepare an MSL for an upcoming scientific HCP engagement using verified professional context, prior interactions, unresolved enquiries, current evidence and permitted materials.",
+          "produces": "One-page pre-call brief, evidence pack and unresolved-question list",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/msl-pre-call-planning.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-pre-call-planning/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/msl-pre-call-planning/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/msl-pre-call-planning.md"
+        },
+        {
+          "name": "patient-engagement-planning",
+          "path": "skills/patient-engagement-planning/SKILL.md",
+          "summary": "Design Medical Affairs partnerships and co-creation with patients, caregivers and patient organizations around scientific needs.",
+          "produces": "Patient engagement plan with accessibility, feedback and evidence priorities",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/patient-engagement-planning.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/patient-engagement-planning/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/patient-engagement-planning/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/patient-engagement-planning.md"
+        },
+        {
+          "name": "payer-value-dossier",
+          "path": "skills/payer-value-dossier/SKILL.md",
+          "summary": "Build evidence for payers and health technology assessment bodies — AMCP format dossiers, NICE, G-BA and HAS submissions, value propositions, budget impact narratives, and responses to HTA critique.",
+          "produces": "Payer value dossier or HTA evidence submission",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-synthesis"
+          ],
+          "house_rules": "house-rules/payer-value-dossier.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/payer-value-dossier/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/payer-value-dossier/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/payer-value-dossier.md"
+        },
+        {
+          "name": "promotional-material-medical-review",
+          "path": "skills/promotional-material-medical-review/SKILL.md",
+          "summary": "Support a qualified medical signatory reviewing commercial promotional material by assessing that every claim is scientifically accurate, substantiated by the referenced data, and fairly balanced.",
+          "produces": "Draft medical review findings and recommendation for the signatory",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal"
+          ],
+          "house_rules": "house-rules/promotional-material-medical-review.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/promotional-material-medical-review/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/promotional-material-medical-review/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/promotional-material-medical-review.md"
+        },
+        {
+          "name": "real-world-evidence-design",
+          "path": "skills/real-world-evidence-design/SKILL.md",
+          "summary": "Design a real-world evidence study that will survive scrutiny — target trial emulation, data source selection, the estimand, confounding control, and a protocol written and registered before the data are touched.",
+          "produces": "RWE study concept or protocol with the estimand and design stated",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal"
+          ],
+          "house_rules": "house-rules/real-world-evidence-design.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/real-world-evidence-design/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/real-world-evidence-design/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/real-world-evidence-design.md"
+        },
+        {
+          "name": "safety-communication",
+          "path": "skills/safety-communication/SKILL.md",
+          "summary": "Communicate safety information to healthcare professionals and internal audiences — new safety findings, label safety changes, emerging signals, responses to safety questions, and the decision about whether and how to communicate at all.",
+          "produces": "Safety communication plan and content",
+          "requires": [
+            "medical-affairs-foundations",
+            "regulatory-label-intelligence"
+          ],
+          "house_rules": "house-rules/safety-communication.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/safety-communication/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/safety-communication/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/safety-communication.md"
+        },
+        {
+          "name": "scientific-communication-strategy",
+          "path": "skills/scientific-communication-strategy/SKILL.md",
+          "summary": "Decide what the publication and scientific communication strategy should be — which questions to answer, for which audiences, in what sequence — rather than listing papers by data availability.",
+          "produces": "Scientific communication strategy and prioritised publication plan",
+          "requires": [
+            "medical-affairs-foundations",
+            "strategic-analysis"
+          ],
+          "house_rules": "house-rules/scientific-communication-strategy.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-communication-strategy/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/scientific-communication-strategy/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/scientific-communication-strategy.md"
+        },
+        {
+          "name": "scientific-platform",
+          "path": "skills/scientific-platform/SKILL.md",
+          "summary": "Build or challenge the scientific platform — the core evidence-based narrative, the scientific statements it supports, the lexicon, and the communication objectives everything else derives from.",
+          "produces": "Scientific platform with substantiated statements",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-synthesis"
+          ],
+          "house_rules": "house-rules/scientific-platform.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-platform/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/scientific-platform/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/scientific-platform.md"
+        }
+      ]
+    },
+    {
+      "title": "Content generation — the deliverables",
+      "intro": "Turn analysis into the artefact somebody actually receives: a deck, a manuscript, an abstract, a poster, a lay summary, a review pack.",
+      "skills": [
+        {
+          "name": "congress-abstract-and-poster",
+          "path": "skills/congress-abstract-and-poster/SKILL.md",
+          "summary": "Write congress abstracts that fit the submission rules and build the posters that follow them.",
+          "produces": "Congress abstract and poster (.pptx)",
+          "requires": [
+            "medical-affairs-foundations",
+            "citation-integrity",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/congress-abstract-and-poster.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/congress-abstract-and-poster/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/congress-abstract-and-poster/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/congress-abstract-and-poster.md"
+        },
+        {
+          "name": "consulting-grade-design",
+          "path": "skills/consulting-grade-design/SKILL.md",
+          "summary": "The shared visual language every generated deliverable follows — palette, typography, chart furniture, layout and image use — so a deck, PDF, HTML report or figure leaves looking like it came from a top-tier advisory firm.",
+          "produces": "Design system applied across every generated deliverable",
+          "requires": [
+            "medical-affairs-foundations",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/consulting-grade-design.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/consulting-grade-design/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/consulting-grade-design/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/consulting-grade-design.md"
+        },
+        {
+          "name": "data-visualization-for-medical",
+          "path": "skills/data-visualization-for-medical/SKILL.md",
+          "summary": "Produce clinical trial figures that are honest and interpretable — Kaplan- Meier curves with numbers at risk, forest plots, waterfall and spider plots, adverse event figures, PRISMA flow diagrams.",
+          "produces": "Publication-quality clinical figures",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/data-visualization-for-medical.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/data-visualization-for-medical/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/data-visualization-for-medical/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/data-visualization-for-medical.md"
+        },
+        {
+          "name": "diagram-and-schema",
+          "path": "skills/diagram-and-schema/SKILL.md",
+          "summary": "Draw the diagrams Medical Affairs actually needs — treatment pathways, study schemas, PRISMA flow diagrams, patient journeys, evidence maps, decision trees, mechanism-of-action schematics, and governance flows.",
+          "produces": "Diagram (Mermaid, SVG or ASCII)",
+          "requires": [
+            "medical-affairs-foundations",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/diagram-and-schema.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/diagram-and-schema/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/diagram-and-schema/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/diagram-and-schema.md"
+        },
+        {
+          "name": "document-ingestion",
+          "path": "skills/document-ingestion/SKILL.md",
+          "summary": "Read documents someone has given you — PDF, Word, PowerPoint, Excel, CSV.",
+          "produces": "Extracted document text, tables and structure",
+          "requires": [
+            "medical-affairs-foundations",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/document-ingestion.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/document-ingestion/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/document-ingestion/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/document-ingestion.md"
+        },
+        {
+          "name": "interactive-html-report",
+          "path": "skills/interactive-html-report/SKILL.md",
+          "summary": "Build a self-contained HTML report that opens in any browser with no dependencies — evidence dashboards, insight reports with filterable tables, congress readouts, competitive landscapes, evidence gap trackers.",
+          "produces": "Self-contained interactive HTML report",
+          "requires": [
+            "capability-detection",
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/interactive-html-report.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/interactive-html-report/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/interactive-html-report/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/interactive-html-report.md"
+        },
+        {
+          "name": "library-menu",
+          "path": "skills/library-menu/SKILL.md",
+          "summary": "Explain what this entire library can do and render the visual menu card that shows it — every skill grouped by the job it serves, as prose, a table or an SVG/PNG infographic for a README, a slide or a stakeholder walkthrough.",
+          "produces": "Library capability overview and menu-card infographic (SVG/PNG)",
+          "requires": [
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/library-menu.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/library-menu/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/library-menu/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/library-menu.md"
+        },
+        {
+          "name": "medical-correspondence",
+          "path": "skills/medical-correspondence/SKILL.md",
+          "summary": "Write the formal correspondence Medical Affairs sends — Dear Healthcare Professional letters, responses to investigators and institutions, agency and vendor briefs, advisory board invitations, author correspondence, and letters accompanying scientific responses.",
+          "produces": "Formal medical correspondence",
+          "requires": [
+            "medical-affairs-foundations",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/medical-correspondence.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-correspondence/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-correspondence/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-correspondence.md"
+        },
+        {
+          "name": "medical-slide-deck",
+          "path": "skills/medical-slide-deck/SKILL.md",
+          "summary": "Build non-promotional medical slide decks — advisory board decks, MSL scientific presentations, congress readouts, medical-to-medical (M2M) presentations, internal data reviews and training material.",
+          "produces": "Non-promotional medical slide deck (.pptx)",
+          "requires": [
+            "medical-affairs-foundations",
+            "citation-integrity",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/medical-slide-deck.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-slide-deck/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-slide-deck/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/medical-slide-deck.md"
+        },
+        {
+          "name": "mlr-review-readiness",
+          "path": "skills/mlr-review-readiness/SKILL.md",
+          "summary": "Prepare Medical Affairs content for Medical/Legal/Regulatory review and pre-check it against what reviewers actually reject.",
+          "produces": "Claim-evidence matrix and MLR submission pack",
+          "requires": [
+            "medical-affairs-foundations",
+            "citation-integrity"
+          ],
+          "house_rules": "house-rules/mlr-review-readiness.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/mlr-review-readiness/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/mlr-review-readiness/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/mlr-review-readiness.md"
+        },
+        {
+          "name": "pdf-generation",
+          "path": "skills/pdf-generation/SKILL.md",
+          "summary": "Produce PDF deliverables — briefs, reports, standard response documents, one-pagers, evidence summaries, anything that must look the same for every reader and print predictably.",
+          "produces": "PDF deliverable (or print-ready HTML)",
+          "requires": [
+            "capability-detection",
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/pdf-generation.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/pdf-generation/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/pdf-generation/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/pdf-generation.md"
+        },
+        {
+          "name": "plain-language-summary",
+          "path": "skills/plain-language-summary/SKILL.md",
+          "summary": "Write plain language summaries of clinical research for patients and the public — trial results lay summaries, plain language summaries of publications, and patient-facing scientific material.",
+          "produces": "Plain language summary",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal"
+          ],
+          "house_rules": "house-rules/plain-language-summary.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/plain-language-summary/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/plain-language-summary/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/plain-language-summary.md"
+        },
+        {
+          "name": "scientific-manuscript",
+          "path": "skills/scientific-manuscript/SKILL.md",
+          "summary": "Draft, structure and prepare a scientific manuscript for journal submission — primary trial reports, secondary analyses, real-world evidence papers, reviews and case reports.",
+          "produces": "Manuscript draft (.docx) with reporting-guideline checklist",
+          "requires": [
+            "medical-affairs-foundations",
+            "citation-integrity",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/scientific-manuscript.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-manuscript/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/scientific-manuscript/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/scientific-manuscript.md"
+        },
+        {
+          "name": "spreadsheet-analysis",
+          "path": "skills/spreadsheet-analysis/SKILL.md",
+          "summary": "Analyse and produce spreadsheets — field insight exports, enquiry logs, publication trackers, evidence tables, budget allocations, congress abstract lists.",
+          "produces": "Spreadsheet analysis or a generated workbook",
+          "requires": [
+            "capability-detection",
+            "medical-affairs-foundations"
+          ],
+          "house_rules": "house-rules/spreadsheet-analysis.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/spreadsheet-analysis/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/spreadsheet-analysis/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/spreadsheet-analysis.md"
+        },
+        {
+          "name": "visual-abstract",
+          "path": "skills/visual-abstract/SKILL.md",
+          "summary": "Create visual abstracts and infographics that summarise a study or a body of evidence honestly.",
+          "produces": "Visual abstract or infographic (SVG)",
+          "requires": [
+            "medical-affairs-foundations",
+            "evidence-appraisal",
+            "capability-detection"
+          ],
+          "house_rules": "house-rules/visual-abstract.md",
+          "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/visual-abstract/SKILL.md",
+          "raw": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/visual-abstract/SKILL.md",
+          "house_rules_url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/house-rules/visual-abstract.md"
+        }
+      ]
+    }
+  ]
+}
