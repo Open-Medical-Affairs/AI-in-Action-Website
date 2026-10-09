@@ -313,7 +313,7 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
     chunks["mission-maps"] = maps_section(G)
     chunks["deck"] = deck_section(ev)
     if chunks["deck"]:
-        chunks["hero"] = chunks["hero"].replace('<a class="btn-ghost" href="/optimizer">Optimize a prompt</a>', '<a class="btn-ghost" href="/optimizer">Optimize a prompt</a><a class="btn-ghost" href="/deck">See the deck</a>', 1)
+        chunks["hero"] = re.sub(r'(<a class="btn-ghost" href="[^"]*optimizer">Optimize a prompt</a>)', r'\1<a class="btn-ghost" href="/deck">See the deck</a>', chunks["hero"], count=1)
     # the original prompt grid stays reachable (ids and links) but folded away under the team missions
     chunks["missions"] = re.sub(r'<h3 class="sub-h">All (\d+) workshop missions</h3>\s*<div class="mcs">(.*?)</div>\s*</div>\s*</section>',
         lambda m: f'<details class="mm-all"><summary>All {m.group(1)} mission prompts on one page</summary><div class="mcs">{m.group(2)}</div></details>\n  </div>\n</section>', chunks["missions"], count=1, flags=re.S)
