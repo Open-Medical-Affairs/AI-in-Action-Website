@@ -526,6 +526,7 @@ def agent_playbook(content, cfg, abs_, raw):
          f"- Skills library: {R['url']} . Default branch: `{cfg['repo'].get('default_branch', 'HEAD')}`. Start with {raw('AGENTS.md')}.",
          f"  The launch-planning swarm (skills medical-launch-plan, launch-timeline-and-governance, launch-field-training; mission `launch-plan-swarm`; team mission 7) is in open pull request {R['url']}/pull/8 on branch `launch-planning-swarm`. If a launch file is missing on the default branch, read it from that branch: {R['url']}/tree/launch-planning-swarm . This site's counts ({content['skill_count']} skills, {len(ms)} missions) include it.",
          f"- Data: {ds} . Manifest of every dataset (synthetic and public, with licence, access type and links): {latest}manifest.json (also manifest.csv). Everything at once: {latest}all-synthetic-data.zip, {latest}all-synthetic.jsonl, {latest}all-data-catalog.zip.",
+         f"- Getting data: fetch it straight onto YOUR OWN machine from the manifest URLs; never ask the person to download files to their laptop and upload them. Read {latest}manifest.json, then for each dataset you need where `link_only` is false and `access` is `download`, `api-sample` or `bulk-file`, download `direct_url` (raw.githubusercontent.com or releases/latest/download; follow redirects) into e.g. /workspace/data/<type>/<group>/ and unzip ZIPs. For `official-site` and `link-only` entries, open the official URL and work at the source under its licence; never copy or redistribute link-only data. Confirm synthetic files are labelled SYNTHETIC before using them. The Data page ({site}/data) has a 'Copy link' and a 'Copy for Grok Bot' instruction for every dataset and bundle.",
          f"- Prompt optimizer: POST JSON {{\"goal\": \"<short goal>\", \"mode\": \"single\" or \"swarm\", \"ta\": \"oncology-mm|immunology-ad|cardiometabolic-obesity|own\"}} to {abs_('api/optimize')} (streams Markdown; on error, use the optimizer structure in {abs_('prompts.json')}).", "",
          "## 2. Greet, then ask",
          f"Say hello in one line, say you have read the {ev['name']} materials, then ask: \"What would you like to do?\" and offer this menu. Wait for the answer. Do not start work before they choose (if they already stated a goal, map it to an option and confirm).", "",
@@ -565,6 +566,42 @@ def agent_playbook(content, cfg, abs_, raw):
          "---", "", "# Reference", ""]
     return L
 
+
+REL = "https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/"
+
+def gd_copy_buttons(url, grok, label="Copy link", primary=True):
+    """Two copy buttons: the direct URL and a ready-to-paste Grok Bot instruction (handled by assets/get-data.js)."""
+    return (f'<button type="button" class="gd-c{" gd-c--main" if primary else ""}" data-copy-text="{e(url)}" data-done="Link copied"><svg aria-hidden="true"><use href="#ic-copy"/></svg><span>{e(label)}</span></button>'
+            f'<button type="button" class="gd-c gd-c--grok" data-copy-text="{e(grok)}" data-done="Instruction copied"><span class="gd-c-g" aria-hidden="true">G</span><span>Copy for Grok Bot</span></button>')
+
+def gd_big():
+    syn = REL + "all-synthetic-data.zip"
+    cat = REL + "all-data-catalog.zip"
+    man = REL + "manifest.json"
+    g_syn = (f"Download {syn} to your computer (e.g. /workspace/data/all-synthetic-data.zip) and unzip it into /workspace/data/synthetic/. "
+             "Confirm the files are labelled SYNTHETIC (fictional workshop data, not real patients or products), list the packs you found, then ask me what I want to do with them.")
+    g_cat = (f"Download {cat} to your computer (e.g. /workspace/data/all-data-catalog.zip) and unzip it into /workspace/data/catalog/. "
+             "It is the full catalog: manifest.json/.csv, the public source list with licences, and real paper snapshots. Do not download LINK ONLY sources; use them only at their official site. Summarise what is in it, then ask me what I want to do.")
+    g_all = (f"Fetch {man} (the Data-Sources manifest). For every dataset where link_only is false and access is download, api-sample or bulk-file, download direct_url onto your own machine under /workspace/data/<type>/<group>/ (keep the file name; unzip ZIPs). "
+             "Skip link-only and official-site entries: list them for me with their official URLs and licences instead. Confirm every synthetic file is labelled SYNTHETIC, report what you downloaded and anything that failed, then ask me what I want to do.")
+    alts = [("one JSONL file", "all-synthetic.jsonl"), ("combined CSVs", "all-synthetic-combined-csv.zip"), ("oncology", "synthetic-oncology-mm.zip"), ("immunology", "synthetic-immunology-ad.zip"), ("cardiometabolic", "synthetic-cardiometabolic-obesity.zip"), ("practice CRM", "synthetic-connected.zip")]
+    alt_html = " · ".join(f'<button type="button" class="gd-mini" data-copy-text="{e(REL + f)}" data-done="Link copied" title="Copy {e(REL + f)}">{e(t)}</button>' for t, f in alts)
+    return f'''<div class="gd-big">
+        <div class="gd-card gd-card--syn">
+          <div class="gd-btn"><span class="gd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg></span><span><span class="gd-btn-t">All synthetic data <span class="badge badge--syn">Synthetic</span></span><span class="gd-btn-s">Every synthetic file in one .zip: 3 product packs, the practice CRM and its SQLite file</span><code class="gd-url">{e(syn)}</code></span></div>
+          <div class="gd-cbar">{gd_copy_buttons(syn, g_syn)}<a class="gd-dl" href="{e(syn)}">or download</a></div>
+          <p class="gd-alt">Copy a link to just: {alt_html}</p>
+        </div>
+        <div class="gd-card gd-card--cat">
+          <div class="gd-btn gd-btn--light"><span class="gd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 10h14M5 15h9M5 20h6"/></svg></span><span><span class="gd-btn-t">Full catalog</span><span class="gd-btn-s">Every dataset with licence and links, the public sources and real paper examples (.zip)</span><code class="gd-url">{e(cat)}</code></span></div>
+          <div class="gd-cbar">{gd_copy_buttons(cat, g_cat)}<a class="gd-dl" href="{e(cat)}">or download</a></div>
+          <p class="gd-alt">Just the list: <button type="button" class="gd-mini" data-copy-text="{e(man)}" data-done="Link copied">manifest.json</button> · <button type="button" class="gd-mini" data-copy-text="{e(REL + 'manifest.csv')}" data-done="Link copied">manifest.csv</button> · script: <a href="https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/HEAD/tools/fetch_all.py">fetch_all.py</a></p>
+        </div>
+      </div>
+      <div class="gd-every">
+        <div><p class="gd-every-k">Everything, in one instruction</p><p class="gd-every-t">Your agent reads the manifest and pulls every directly downloadable file onto its own machine. Link-only sources are listed, never copied.</p></div>
+        <div class="gd-cbar">{gd_copy_buttons(man, g_all, "Copy manifest link")}</div>
+      </div>'''
 
 def render(content, cfg):
     Ids.n = 0
@@ -679,7 +716,8 @@ def render(content, cfg):
         "## Data repository",
         f"- [Data-Sources]({cfg['datasets_source']['repo_url']}): SYNTHETIC workshop datasets and a catalog of {(content.get('public_sources') or {'counts': {'sources': 0}})['counts']['sources']} REAL public sources (separate truth statuses)",
         f"- [synthetic/index.json]({cfg['datasets_source']['raw_base']}synthetic/index.json): every synthetic file with product, therapeutic area and which skills/missions use it",
-        f"- [public/catalog.json]({cfg['datasets_source']['raw_base']}public/catalog.json): public sources with access, rate limits, licences and data_policy (link-only = do not copy)", "",
+        f"- [public/catalog.json]({cfg['datasets_source']['raw_base']}public/catalog.json): public sources with access, rate limits, licences and data_policy (link-only = do not copy)",
+        f"- [manifest.json]({REL}manifest.json): every dataset with a direct_url. Agents fetch data straight from these URLs onto their own machine (follow redirects; unzip ZIPs); skip link-only entries and use them at the official site. Everything at once: [all-synthetic-data.zip]({REL}all-synthetic-data.zip), [all-data-catalog.zip]({REL}all-data-catalog.zip)", "",
         "## Machine-readable data",
         f"- [missions.json]({abs_('missions.json')}): {len(content['missions'])} catalog missions and {len(content['team_missions'])} team missions with prompts per therapeutic area",
         f"- [datasets.json]({abs_('datasets.json')}): every synthetic data pack (badged synthetic) and every public source, with raw links",
@@ -910,6 +948,7 @@ def render_html(content, cfg, lib):
                        f'<ul class="files">{"".join(file_row(cfg, f) for f in files)}</ul></div></details>')
     ds_cfg = cfg["datasets_source"]
     repo_rows = [("Data-Sources", ds_cfg["repo_url"], "Synthetic datasets + public source catalog"), ("Medical-Affairs-Skills", R["url"], "Skills, missions, house rules")]
+    gd_big_html = gd_big()
     ds_repos_html = '<div class="repo-links">' + "".join(
         (lambda rid: f'<div class="repo-link"><div><span class="kicker">{e(lbl)}</span><code id="{rid}">{e(url)}</code><span class="muted">{e(sub)}</span></div>'
                      f'<div class="repo-link-act"><a class="btn-ghost" href="{e(url)}" target="_blank" rel="noopener">Open ↗</a>{copy_btn(rid, "Copy " + lbl + " link", "btn-copy btn-copy--solid", "Copy link")}</div></div>')(Ids.next("rl"))
@@ -1177,18 +1216,9 @@ TEMPLATE = r'''<!doctype html>
     <p class="sec-sub">All datasets now live in their own repository, <a href="{DS_URL}" target="_blank" rel="noopener">Open-Medical-Affairs/Data-Sources</a>, in two halves that are never mixed. Copy a raw link for your agent, or a whole pack at once. Machine-readable: <a href="datasets.json">datasets.json</a>.</p></div>
     {ds_repos_html}
     <div class="gd" id="get-data" aria-labelledby="gd-h">
-      <div class="gd-head"><p class="kicker">Get the data</p><h3 class="ds-h" id="gd-h">One dataset, or everything at once.</h3>
-      <p class="muted">Free, no account needed. Synthetic files are fictional and safe to practise on. Public sources are real: we link to the official source and show the licence, and <strong>Link only</strong> sources must be used at the source, never copied.</p></div>
-      <div class="gd-big">
-        <div class="gd-card gd-card--syn">
-          <a class="gd-btn" href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic-data.zip"><span class="gd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg></span><span><span class="gd-btn-t">Download all synthetic data (.zip)</span><span class="gd-btn-s">Every synthetic file: 3 product packs, the practice CRM and its SQLite file</span></span></a>
-          <p class="gd-alt"><span class="badge badge--syn">Synthetic</span> Also as <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic.jsonl">one JSONL file</a> · <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic-combined-csv.zip">combined CSVs</a> · one pack: <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/synthetic-oncology-mm.zip">oncology</a>, <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/synthetic-immunology-ad.zip">immunology</a>, <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/synthetic-cardiometabolic-obesity.zip">cardiometabolic</a>, <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/synthetic-connected.zip">practice CRM</a></p>
-        </div>
-        <div class="gd-card gd-card--cat">
-          <a class="gd-btn gd-btn--light" href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-data-catalog.zip"><span class="gd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 10h14M5 15h9M5 20h6"/></svg></span><span><span class="gd-btn-t">Download full catalog (.json/.csv)</span><span class="gd-btn-s">Every dataset with licence and links, 52 public sources and real paper examples (.zip)</span></span></a>
-          <p class="gd-alt">Just the list: <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json">manifest.json</a> · <a href="https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.csv">manifest.csv</a> (opens in Excel) · script: <a href="https://github.com/Open-Medical-Affairs/Data-Sources/blob/HEAD/tools/fetch_all.py" target="_blank" rel="noopener">fetch_all.py</a></p>
-        </div>
-      </div>
+      <div class="gd-head"><p class="kicker">Get the data</p><h3 class="ds-h" id="gd-h">Copy a link. <em>Your agent fetches it.</em></h3>
+      <p class="muted">Nothing needs to land on your laptop. Copy a direct download link (or a ready-to-paste instruction) and give it to Grok Bot or any agent: it downloads the file onto its own machine. Synthetic files are fictional and safe to practise on. Public sources are real: we copy the official link and show the licence, and <strong>Link only</strong> sources must be used at the source, never copied.</p></div>
+      {gd_big_html}
       <div class="gd-tools">
         <label class="search gd-search"><span class="sr">Search datasets</span><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg><input id="gd-q" type="search" placeholder="Search, e.g. enquiries, label, payments" autocomplete="off"></label>
         <div class="gd-filters" role="radiogroup" aria-label="Show"><button type="button" role="radio" class="gd-f" data-f="all" aria-checked="true">All</button><button type="button" role="radio" class="gd-f" data-f="synthetic" aria-checked="false">Synthetic</button><button type="button" role="radio" class="gd-f" data-f="public" aria-checked="false">Public</button><button type="button" role="radio" class="gd-f" data-f="direct" aria-checked="false">Direct download</button><button type="button" role="radio" class="gd-f" data-f="linkonly" aria-checked="false">Link only</button></div>

@@ -16,14 +16,36 @@
     if (r.link_only) return '<span class="badge badge--pub">Public</span><span class="badge badge--lo">Link only</span>';
     return '<span class="badge badge--pub">Public</span>' + (r.data_policy === "check-terms" ? '<span class="badge badge--terms">Check terms</span>' : "");
   }
+  /* Copy-first actions: the direct file URL (never a GitHub HTML page) and a ready-to-paste agent instruction. */
+  var GITHUB_HTML = /^https:\/\/github\.com\/[^/]+\/[^/]+\/(blob|tree)\//;
+  function fileName(r) { var u = String(r.direct_url || "").split("?")[0]; return u.slice(u.lastIndexOf("/") + 1) || r.id; }
+  function localPath(r) {
+    var m = String(r.direct_url).match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)$/);
+    if (m) return "/workspace/data/" + m[1];
+    return "/workspace/data/public/" + r.id + "/" + (r.access === "api-sample" ? r.id + ".json" : fileName(r));
+  }
+  function grok(r) {
+    var u = r.direct_url, lic = r.license ? " (licence: " + r.license + ")" : "";
+    if (r.type === "synthetic")
+      return "Download " + u + " to your computer (e.g. " + localPath(r) + "), unzip if needed, confirm it is labelled SYNTHETIC (fictional workshop data, not real patients or products), then ask me what I want to do with it.";
+    if (r.type === "public-snapshot")
+      return "Download " + u + " to your computer (e.g. " + localPath(r) + "). It is a snapshot of real public paper metadata" + lic + ": keep citations exactly as given and verify them before use. Then ask me what I want to do with it.";
+    if (r.link_only)
+      return "Open " + u + " (" + r.name + "). This source is LINK ONLY" + lic + ": do not download, copy or redistribute its data. Use it only at the official site under its terms, tell me what it offers and how I can access it, then ask me what I want to do.";
+    if (r.access === "official-site")
+      return "Open the official source " + u + " (" + r.name + ")" + lic + ". There is no single download file: read its access instructions, tell me what data is available and how to get it under its terms, then ask me what I want to do.";
+    if (r.access === "api-sample")
+      return "Fetch " + u + " (a small sample from the public " + r.name + " API" + lic + ") and save the response to your computer (e.g. " + localPath(r) + "). Check the terms, then ask me what I want to do with it.";
+    return "Download " + u + " (" + r.name + ", official public file" + lic + ") to your computer (e.g. " + localPath(r) + "), unzip if needed, check the terms, then ask me what I want to do with it.";
+  }
   function actions(r) {
-    var a = [];
-    if (r.access === "download") a.push('<a class="gd-a gd-a--dl" href="' + esc(r.direct_url) + '" download>Download</a>');
-    else if (r.access === "api-sample") a.push('<a class="gd-a gd-a--dl" href="' + esc(r.direct_url) + '" target="_blank" rel="noopener">Get sample</a>');
-    else if (r.access === "bulk-file") a.push('<a class="gd-a gd-a--dl" href="' + esc(r.direct_url) + '">Download</a>');
-    else if (r.access === "official-site" && r.direct_url !== r.view_url) a.push('<a class="gd-a" href="' + esc(r.direct_url) + '" target="_blank" rel="noopener">Download / API page</a>');
-    a.push('<a class="gd-a" href="' + esc(r.view_url) + '" target="_blank" rel="noopener">' + (r.type === "synthetic" ? "View" : "Open source") + "</a>");
-    return a.join("");
+    var direct = (r.access === "download" || r.access === "api-sample" || r.access === "bulk-file") && !r.link_only && !GITHUB_HTML.test(r.direct_url);
+    var label = direct ? "Copy link" : r.link_only ? "Copy official link (link only)" : "Copy official link";
+    var a = '<button type="button" class="gd-c gd-c--main" data-copy-text="' + esc(r.direct_url) + '" data-done="Link copied"><svg aria-hidden="true"><use href="#ic-copy"/></svg><span>' + label + "</span></button>" +
+      '<button type="button" class="gd-c gd-c--grok" data-copy-text="' + esc(grok(r)) + '" data-done="Instruction copied"><span class="gd-c-g" aria-hidden="true">G</span><span>Copy for Grok Bot</span></button>';
+    var sec = direct ? '<a class="gd-dl" href="' + esc(r.direct_url) + '"' + (r.access === "download" ? " download" : ' target="_blank" rel="noopener"') + ">download</a>" : "";
+    sec += '<a class="gd-dl" href="' + esc(r.view_url) + '" target="_blank" rel="noopener">' + (r.type === "synthetic" ? "view" : "source page") + "</a>";
+    return a + '<span class="gd-sec">' + sec + "</span>";
   }
   function match(r, t) {
     if (filter === "synthetic" && r.type !== "synthetic") return false;
@@ -39,7 +61,7 @@
     more.hidden = shown.length >= hits.length;
     more.textContent = "Show all " + hits.length;
     if (!hits.length) { list.innerHTML = '<p class="muted gd-empty">No dataset matches. Try another word or filter.</p>'; return; }
-    list.innerHTML = '<div class="gd-row gd-row--h" aria-hidden="true"><span>Dataset</span><span>Type</span><span>Licence</span><span>Get it</span></div>' +
+    list.innerHTML = '<div class="gd-row gd-row--h" aria-hidden="true"><span>Dataset</span><span>Type</span><span>Licence</span><span>Copy for your agent</span></div>' +
       shown.map(function (r) {
         var meta = [GROUP[r.group] || r.group, r.format, size(r.size_bytes), r.rows ? r.rows + " rows" : ""].filter(Boolean).join(" · ");
         return '<div class="gd-row' + (r.link_only ? " is-lo" : "") + '">' +
@@ -50,6 +72,23 @@
           '<div class="gd-act">' + actions(r) + "</div></div>";
       }).join("");
   }
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function (res, rej) {
+      var ta = d.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; d.body.appendChild(ta); ta.select();
+      try { d.execCommand("copy") ? res() : rej(); } catch (e) { rej(e); } d.body.removeChild(ta);
+    });
+  }
+  d.addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-copy-text]"); if (!b) return;
+    var t = b.getAttribute("data-copy-text"), lbl = b.querySelector("span:last-child") || b, old = b.getAttribute("data-label") || lbl.textContent;
+    b.setAttribute("data-label", old);
+    copy(t).then(function () {
+      b.classList.add("is-copied"); lbl.textContent = b.classList.contains("gd-mini") ? "Copied" : (b.getAttribute("data-done") || "Copied");
+      var toast = d.getElementById("toast"); if (toast) { toast.textContent = "Copied: " + (t.length > 70 ? t.slice(0, 67) + "…" : t); toast.classList.add("is-on"); setTimeout(function () { toast.classList.remove("is-on"); }, 1800); }
+      setTimeout(function () { b.classList.remove("is-copied"); lbl.textContent = old; }, 1800);
+    }, function () { window.prompt("Copy this:", t); });
+  });
   fBtns.forEach(function (b) {
     b.addEventListener("click", function () {
       filter = b.getAttribute("data-f");

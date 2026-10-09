@@ -48,6 +48,7 @@ Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints)
 - [Data-Sources](https://github.com/Open-Medical-Affairs/Data-Sources): SYNTHETIC workshop datasets and a catalog of 52 REAL public sources (separate truth statuses)
 - [synthetic/index.json](https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/synthetic/index.json): every synthetic file with product, therapeutic area and which skills/missions use it
 - [public/catalog.json](https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/public/catalog.json): public sources with access, rate limits, licences and data_policy (link-only = do not copy)
+- [manifest.json](https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json): every dataset with a direct_url. Agents fetch data straight from these URLs onto their own machine (follow redirects; unzip ZIPs); skip link-only entries and use them at the official site. Everything at once: [all-synthetic-data.zip](https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic-data.zip), [all-data-catalog.zip](https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-data-catalog.zip)
 
 ## Machine-readable data
 - [missions.json](https://aiinaction.up.railway.app/missions.json): 17 catalog missions and 7 team missions with prompts per therapeutic area
