@@ -9,9 +9,8 @@
   var $ = function (s, c) { return (c || d).querySelector(s); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
 
-  var taOpts = Object.keys(D.therapeuticAreas).map(function (k) {
-    var t = D.therapeuticAreas[k];
-    return '<option value="' + k + '">' + esc(t.label + (t.product ? " (synthetic)" : " (paste or attach)")) + "</option>";
+  var taOpts = Object.keys(D.therapeuticAreas).filter(function (k) { return D.therapeuticAreas[k].product; }).map(function (k) {
+    return '<option value="' + k + '">' + esc(D.therapeuticAreas[k].label) + "</option>";
   }).join("");
   var chips = D.starters.map(function (s) {
     return '<button type="button" class="aiopt-chip' + (s.mode === "swarm" ? " aiopt-chip--swarm" : "") + '" data-starter="' + s.id + '"><span class="aiopt-chip-m">' + (s.mode === "swarm" ? "Swarm" : "Task") + "</span>" + esc(s.label) + "</button>";
@@ -29,8 +28,19 @@
           '<button type="button" role="radio" class="aiopt-mode" data-mode="swarm" aria-checked="false">Agent swarm setup</button>' +
         "</div>" +
         '<label class="fld"><span class="fld-l">Your goal</span><textarea id="aiopt-goal" rows="3" maxlength="1500" placeholder="e.g. Build a launch plan for ADIPOSYN"></textarea></label>' +
-        '<div class="aiopt-row"><label class="fld"><span class="fld-l">Practice data</span><select id="aiopt-ta">' + taOpts + "</select></label>" +
-        '<button type="button" class="btn-primary aiopt-go" id="aiopt-go"><span class="aiopt-spin" aria-hidden="true"></span><span class="aiopt-go-l">Optimize</span></button></div>' +
+        '<fieldset class="aiopt-data"><legend class="fld-l">Data <span class="aiopt-opt">optional</span></legend>' +
+          '<div class="aiopt-dchoice" role="radiogroup" aria-label="Which data will the agent use?">' +
+            '<label class="aiopt-dc"><input type="radio" name="aiopt-data" value="own" checked><span>My own data</span></label>' +
+            '<label class="aiopt-dc"><input type="radio" name="aiopt-data" value="practice"><span>Practice data <small>fictional Nordvant Biopharma</small></span></label>' +
+            '<label class="aiopt-dc"><input type="radio" name="aiopt-data" value="none"><span>No data yet</span></label>' +
+          "</div>" +
+          '<div class="aiopt-dpane" data-pane="own"><label class="fld"><span class="sr">Describe the data you will bring</span><input type="text" id="aiopt-note" maxlength="300" placeholder="e.g. our Q3 MSL insight notes export (CSV)"></label>' +
+            '<p class="aiopt-hint">Describe it in a few words; the agent will ask you for it. Don\'t paste confidential or patient data here.</p></div>' +
+          '<div class="aiopt-dpane" data-pane="practice" hidden><label class="fld"><span class="sr">Practice pack</span><select id="aiopt-ta">' + taOpts + "</select></label>" +
+            '<p class="aiopt-hint">Fictional data for learning. The agent fetches it itself.</p></div>' +
+          '<div class="aiopt-dpane" data-pane="none" hidden><p class="aiopt-hint">The agent starts from public sources and tells you what data it would need.</p></div>' +
+        "</fieldset>" +
+        '<div class="aiopt-row aiopt-row--go"><button type="button" class="btn-primary aiopt-go" id="aiopt-go"><span class="aiopt-spin" aria-hidden="true"></span><span class="aiopt-go-l">Optimize</span></button></div>' +
         '<p class="fld-l aiopt-try">Try a starter</p><div class="aiopt-chips">' + chips + "</div>" +
       "</form>" +
       '<div class="aiopt-out opt-out-in">' +
@@ -43,10 +53,16 @@
     '<p class="aiopt-or"><span>Prefer to build it field by field? Use the template builder below. It runs fully in your browser.</span></p>';
   host.insertBefore(wrap, anchor);
 
-  var goal = $("#aiopt-goal"), taSel = $("#aiopt-ta"), go = $("#aiopt-go"), goL = $(".aiopt-go-l"),
+  var goal = $("#aiopt-goal"), taSel = $("#aiopt-ta"), note = $("#aiopt-note"), go = $("#aiopt-go"), goL = $(".aiopt-go-l"),
       out = $("#aiopt-text code"), meter = $("#aiopt-meter"), status = $("#aiopt-status"), badge = $("#aiopt-badge");
   var mode = "single", starter = null, aiOnline = false, busy = false;
-  try { var saved = localStorage.getItem("aia-ta"); if (saved && D.therapeuticAreas[saved]) taSel.value = saved; } catch (e) {}
+  try { var saved = localStorage.getItem("aia-ta"); if (saved && D.therapeuticAreas[saved] && D.therapeuticAreas[saved].product) taSel.value = saved; } catch (e) {}
+  function dataChoice() { var r = wrap.querySelector('input[name="aiopt-data"]:checked'); return r ? r.value : "own"; }
+  function setData(v) {
+    wrap.querySelector('input[name="aiopt-data"][value="' + v + '"]').checked = true;
+    Array.prototype.forEach.call(wrap.querySelectorAll(".aiopt-dpane"), function (p) { p.hidden = p.getAttribute("data-pane") !== v; });
+  }
+  wrap.querySelector(".aiopt-dchoice").addEventListener("change", function () { setData(dataChoice()); });
 
   var modeBtns = Array.prototype.slice.call(wrap.querySelectorAll(".aiopt-mode"));
   function setMode(m) {
@@ -81,7 +97,9 @@
   wrap.querySelector(".aiopt-chips").addEventListener("click", function (ev) {
     var b = ev.target.closest(".aiopt-chip"); if (!b || busy) return;
     var s = D.starters.filter(function (x) { return x.id === b.getAttribute("data-starter"); })[0];
-    goal.value = s.label; taSel.value = s.ta; setMode(s.mode); starter = s;
+    goal.value = s.label; setMode(s.mode); starter = s;
+    if (/NORVANTIB|DERMALYX|ADIPOSYN/.test(s.label)) { taSel.value = s.ta; setData("practice"); } /* starters that name a fictional product use its practice pack */
+    else if (dataChoice() === "practice") taSel.value = s.ta;
     run();
   });
   go.addEventListener("click", run);
@@ -101,7 +119,7 @@
     status.textContent = "Writing your assignment…"; show("");
     var text = "";
     fetch("/api/optimize", { method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ goal: g, mode: mode, ta: taSel.value, starter: starter && starter.id, stream: true }) })
+      body: JSON.stringify({ goal: g, mode: mode, data: dataChoice(), ta: dataChoice() === "practice" ? taSel.value : "own", data_note: dataChoice() === "own" ? note.value.trim() : "", starter: starter && starter.id, stream: true }) })
       .then(function (r) {
         var ct = r.headers.get("content-type") || "";
         if (!r.ok || ct.indexOf("application/json") > -1) {
@@ -133,13 +151,15 @@
 
   /* ---------- template fallback (no network) ---------- */
   function template(g) {
-    var ta = taSel.value, T = D.therapeuticAreas[ta], s = starter;
+    var dc = dataChoice(), ta = taSel.value, T = D.therapeuticAreas[ta], s = starter, nt = note.value.trim();
     var skills = s ? s.skills : ["medical-affairs-orchestrator", "deliverable-quality-review"];
-    var files = s ? s.files : [];
+    var files = s && dc === "practice" ? s.files : [];
     var dels = s ? s.deliverables : ["The finished deliverable in the format the audience needs (Word, PowerPoint, Excel or PDF)", "A one-page summary with the key decisions for me", "A list of assumptions and missing information"];
-    var dataLine = T && T.product
-      ? "- Practice data (SYNTHETIC, fictional): " + T.product + ", " + T.area + ". Folder: " + D.dataRepo + "/tree/HEAD/synthetic/" + ta + "/" + (files.length ? ". Start with: " + files.join(", ") + "." : ". Read its README.md to pick files.")
-      : "- Data: only the material I paste or attach. If something you need is missing, list it instead of inventing it.";
+    var dataLine = dc === "practice"
+      ? "- Practice data (SYNTHETIC, fictional Nordvant Biopharma): " + T.product + ", " + T.area + ". Folder: " + D.dataRepo + "/tree/HEAD/synthetic/" + ta + "/" + (files.length ? ". Start with: " + files.join(", ") + "." : ". Read its README.md to pick files.") + " Mark every output SYNTHETIC."
+      : dc === "own"
+        ? "- My own data" + (nt ? ": " + nt + "." : ".") + " Ask me to attach it or tell you where it lives before you start, and confirm I am allowed to use it. If something you need is missing, list it instead of inventing it."
+        : "- I have no data yet. Start from public sources where they help, list the data you would need (and where it usually lives), and ask me before going further.";
     var L = [];
     L.push("# Assignment: " + g.replace(/\s+/g, " ").slice(0, 90));
     L.push((mode === "swarm" ? "You are the coordinator of a small team of Grok Bot sub-agents" : "You are my Medical Affairs agent") +
@@ -147,7 +167,7 @@
     L.push("## Objective\n" + g + (/[.!?]$/.test(g) ? "" : ".") + " When you are done, the deliverables below exist, are checked, and are ready for my decision.");
     L.push("## Context to load" + (mode === "swarm" ? " (context engineering: do this before delegating)" : "") + "\n" +
       "- Skills library: " + D.skillsRepo + ". Read AGENTS.md first, then load these skills: " + skills.join(", ") + ".\n" +
-      (s ? "- Workshop mission: `" + s.mission + "` in workshop/catalog.json.\n" : "") + dataLine + "\n" +
+      (s && dc === "practice" ? "- Workshop mission: `" + s.mission + "` in workshop/catalog.json.\n" : "") + dataLine + "\n" +
       "- Public sources (optional, cite them): " + D.dataRepo + "/blob/HEAD/public/catalog.json" +
       (mode === "swarm" ? "\n- Write a one-page shared context brief (goal, audience, product facts, constraints, definitions) before any worker starts." : ""));
     if (mode === "swarm") {
@@ -163,7 +183,7 @@
     L.push("## Quality checks (proof of done)\n- Every factual claim cites a source file and record ID, or a public reference.\n- Nothing is invented: unknowns are listed as gaps.\n- Possible safety findings appear first and are marked for routing.\n- Content is on-label, balanced and non-promotional.\n- Each action names an accountable role and a date." +
       (mode === "swarm" ? "\n- The independent reviewer signs off with a checklist, or lists fixes." : ""));
     L.push("## Human approval gates\n- Before sending, sharing, posting or publishing anything.\n- Before any decision on safety routing, budget or external engagement.\n- Before final sign-off: I review and decide.");
-    L.push("## Guardrails\n- Use synthetic data only during the workshop. If you need real data, ask me.\n- No patient-identifiable information (PHI) and no confidential company data; use placeholders instead.\n- Do not send emails or messages, post, or share outside this workspace without my explicit approval; draft them for me instead.\n- Do not invent data, references or people; list what is missing instead.");
+    L.push("## Guardrails\n" + (dc === "practice" ? "- This is fictional practice data: never present it as real or mix it with real evidence.\n- No patient-identifiable information (PHI) and no confidential company data." : dc === "own" ? "- Use only the data I give you or point you to; keep it inside this workspace and never paste it into outside tools.\n- No patient-identifiable information (PHI) unless I confirm it is authorised and de-identified." : "- Use public sources only until I give you data.\n- No patient-identifiable information (PHI) and no confidential company data.") + "\n- Do not send emails or messages, post, or share outside this workspace without my explicit approval; draft them for me instead.\n- Do not invent data, references or people; list what is missing instead.");
     L.push("## Done when\n- All deliverables exist as files in the formats above.\n- Every quality check passes, or the failures are listed with reasons.\n- You have shown me a short summary and the decisions waiting for me.");
     return L.join("\n\n");
   }

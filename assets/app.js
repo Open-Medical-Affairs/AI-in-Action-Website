@@ -87,7 +87,7 @@
     taBtns = radiogroup(taSwitch, "button", function (b) {
       var ta = b.getAttribute("data-ta"); applyTA(ta);
       say("Prompts now use " + TA_SHORT[ta] + " data");
-      if (opt && opt.ta.value !== "own") { opt.ta.value = ta; opt.render(); }
+      if (opt && TA_SHORT[opt.ta.value]) { opt.ta.value = ta; opt.render(); }
     });
   }
   var saved = null; try { saved = localStorage.getItem("aia-ta"); } catch (e) {}
@@ -152,7 +152,8 @@
       for (k in fields) if (fields[k] !== null && fields[k] !== undefined) vals[k] = fields[k];
       var dl = TAS[ta]
         ? "- Workshop mode: use the " + TAS[ta].short.toLowerCase() + " synthetic data in workshop/data/" + ta + "/ (mission `" + t.mission + "` in workshop/catalog.json). Read files there by name."
-        : "- Use only the material I attach or paste. If something you need is missing, list it instead of inventing it.";
+        : ta === "none" ? "- I have no data yet. Start from public sources where they help, list the data you would need, and ask me before going further."
+        : "- Use my own data: ask me to attach it or tell you where it lives, and confirm I am allowed to use it. If something you need is missing, list it instead of inventing it.";
       vals.title = t.label; vals.role = t.role; vals.repo = O.repo; vals.skills = t.skills; vals.data_line = dl;
       vals.steps = O.common_steps_start.concat(t.steps, O.common_steps_end); vals.guardrails = O.guardrails;
       var outp = [];

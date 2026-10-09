@@ -33,7 +33,7 @@ Behind the scenes the website's small server asks the [Venice API](https://docs.
 2. Click **New Project**, then **Deploy from GitHub repo**, and pick **AI-in-Action-Website**.
 3. Open the new service, go to the **Variables** tab and add:
    - `VENICE_API_KEY`: your key from [venice.ai/settings/api](https://venice.ai/settings/api)
-   - `VENICE_MODEL` (optional): leave it out to use the default, `zai-org-glm-5-2`
+   - `VENICE_MODEL` (optional): leave it out to use the default, `z-ai-glm-5-3-flash`
 4. Go to **Settings**, then **Networking**, and click **Generate Domain**. That address is your website. Put it in the slides' QR code.
 5. Check it's working: open `https://<your-domain>/healthz`. You should see `"ok":true` and `"ai":true`.
 
@@ -91,7 +91,7 @@ git clone https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills ../Medi
 python3 build.py --repo ../Medical-Affairs-Skills
 ```
 
-**How the Venice call works.** `POST https://api.venice.ai/api/v1/chat/completions` (OpenAI-compatible) with `Authorization: Bearer $VENICE_API_KEY`, model `$VENICE_MODEL` (default `zai-org-glm-5-2`), `stream: true`, `temperature: 0.4`, and `venice_parameters` `{ include_venice_system_prompt: false, enable_web_search: "off", strip_thinking_response: true, disable_thinking: true }`. Requests time out after 90 seconds, and goals are capped at 1,500 characters.
+**How the Venice call works.** `POST https://api.venice.ai/api/v1/chat/completions` (OpenAI-compatible) with `Authorization: Bearer $VENICE_API_KEY`, model `$VENICE_MODEL` (default `z-ai-glm-5-3-flash`), `stream: true`, `temperature: 0.4`, and `venice_parameters` `{ include_venice_system_prompt: false, enable_web_search: "off", strip_thinking_response: true, disable_thinking: true }`. Requests time out after 60 seconds, and goals are capped at 1,500 characters.
 
 ## Credits
 

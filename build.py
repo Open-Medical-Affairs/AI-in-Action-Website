@@ -245,7 +245,7 @@ OPT_GUARDRAILS = [
     "Do not send, post, publish or change any external system. Prepare drafts only.",
     "Never invent a citation, number or quote. If no source supports a claim, say so and leave it unresolved.",
     "Before any analysis, surface possible safety findings (adverse events, product complaints) with the verbatim and flag them for routing.",
-    "Keep fictional workshop data and real public evidence clearly separate. Mark every output DRAFT.",
+    "Keep any fictional practice data and real evidence clearly separate. Mark every output DRAFT.",
 ]
 OPT_SECTIONS = [
     {"id": "intro", "title": "", "tag": "", "lines": ["# Assignment: {{title}}", "You are {{role}}. This is an assignment, not a question: do the work end to end and hand back finished deliverables, not advice."]},
@@ -405,7 +405,8 @@ def compose_prompt(type_id, fields, ta, dialect, repo_url):
         data_line = (f"- Workshop mode: use the {tt['short'].lower()} synthetic data in Data-Sources/synthetic/{ta}/ "
                      f"(mission `{t['mission']}` in workshop/catalog.json). Read files there by name.")
     else:
-        data_line = "- Use only the material I attach or paste. If something you need is missing, list it instead of inventing it."
+        data_line = ("- I have no data yet. Start from public sources where they help, list the data you would need, and ask me before going further." if ta == "none" else
+                     "- Use my own data: ask me to attach it or tell you where it lives, and confirm I am allowed to use it. If something you need is missing, list it instead of inventing it.")
     vals.update({"title": t["label"], "role": t["role"], "repo": repo_url, "skills": t["skills"], "data_line": data_line,
                  "steps": COMMON_STEPS_START + t["steps"] + COMMON_STEPS_END, "guardrails": OPT_GUARDRAILS})
     out = []
@@ -783,10 +784,11 @@ def optimizer_html(cfg, lib):
     od = optimizer_data(cfg)
     first = OPT_TYPES[1]
     types = "".join(f'<button type="button" role="radio" class="opt-type" data-type="{t["id"]}" aria-checked="{"true" if t is first else "false"}" tabindex="{0 if t is first else -1}">{e(t["label"])}</button>' for t in OPT_TYPES)
-    tas = "".join(f'<option value="{t["id"]}">{e(t["short"])} · {e(t["product"])} (synthetic)</option>' for t in TAS) + '<option value="own">My own material (paste or attach)</option>'
+    tas = ('<option value="own" selected>My own data (describe it under Context)</option><option value="none">No data yet</option><optgroup label="Practice data (fictional Nordvant Biopharma)">'
+           + "".join(f'<option value="{t["id"]}">{e(t["short"])} · {e(t["product"])}</option>' for t in TAS) + "</optgroup>")
     fields = "".join(f'<label class="fld"><span class="fld-l">{e(f["label"])}</span><span class="fld-h" id="h-{f["id"]}">{e(f["hint"])}</span>'
                      f'<textarea name="{f["id"]}" rows="{f["rows"]}" aria-describedby="h-{f["id"]}">{e(first["defaults"][f["id"]])}</textarea></label>' for f in OPT_FIELDS)
-    out_default = compose_prompt(first["id"], {}, "oncology-mm", "markdown", cfg["repo"]["url"])
+    out_default = compose_prompt(first["id"], {}, "own", "markdown", cfg["repo"]["url"])
     libhtml = ""
     for it in lib:
         pid = Ids.next("lib")
@@ -802,12 +804,12 @@ def optimizer_html(cfg, lib):
 <section id="optimizer" class="section section--opt" aria-labelledby="opt-h">
   <div class="wrap">
     <div class="sec-head"><p class="kicker">Prompt Optimizer</p><h2 id="opt-h">Turn a question into <em>an assignment</em>.</h2>
-    <p class="sec-sub">Pick the job, answer a few plain questions, and copy a goal-oriented assignment your agent can execute. The AI optimizer sends only your short goal to this site’s server, which asks the Venice API to write the assignment. The template builder below runs entirely in your browser. Every assignment covers role, end goal, steps, narrowing, proof of done and stop conditions.</p></div>
+    <p class="sec-sub">Pick the job, answer a few plain questions, and copy a goal-oriented assignment your agent can execute. The AI optimizer sends only your short goal (and, if you add one, your short data description) to this site’s server, which asks the Venice API to write the assignment. The template builder below runs entirely in your browser. Every assignment covers role, end goal, steps, narrowing, proof of done and stop conditions.</p></div>
     <div class="opt" id="opt">
       <form class="opt-form" aria-label="Prompt optimizer inputs" onsubmit="return false">
         <fieldset><legend class="fld-l">1 · The job</legend><div class="opt-types" role="radiogroup" aria-label="Task type">{types}</div></fieldset>
         <div class="opt-row">
-          <label class="fld"><span class="fld-l">2 · Data</span><select name="ta">{tas}</select></label>
+          <label class="fld"><span class="fld-l">2 · Data <span class="muted">(optional)</span></span><select name="ta">{tas}</select></label>
           <label class="fld"><span class="fld-l">Format</span><select name="dialect"><option value="markdown">Universal (Markdown)</option><option value="xml">Claude-style (XML tags)</option></select></label>
         </div>
         <p class="fld-l fld-l--sec">3 · Make it yours <span class="muted">(prefilled with a strong default, edit freely)</span></p>
@@ -1061,11 +1063,12 @@ TEMPLATE = r'''<!doctype html>
     <h1 id="hero-h" class="reveal">Stop asking AI questions.<br><em>Start giving it jobs.</em></h1>
     <p class="lede reveal">The companion to <strong>{E[name]}</strong>. Everything you need to give your agent a real Medical Affairs goal, with {ns} open skills, {nm} missions and a fictional pharma company’s data. No coding. No company systems.</p>
     <div class="hero-cta reveal"><a class="btn-primary" href="#start">Start in three steps</a><a class="btn-ghost" href="#optimizer">Optimize a prompt</a></div>
+    <p class="pd-note reveal"><span class="pd-dot" aria-hidden="true"></span>Practice data is fictional and for learning; for real work, bring your own data.</p>
     <dl class="stats reveal">
       <div><dt>Skills</dt><dd>{ns}</dd></div>
       <div><dt>Missions</dt><dd>{nm}</dd></div>
       <div><dt>Therapeutic areas</dt><dd>3</dd></div>
-      <div><dt>Company data needed</dt><dd>0</dd></div>
+      <div><dt>Company data needed to start</dt><dd>0</dd></div>
     </dl>
     </div>
     <aside class="ap reveal" id="for-agents" aria-labelledby="ap-h">
@@ -1214,7 +1217,8 @@ TEMPLATE = r'''<!doctype html>
 <section id="data" class="section section--tint" aria-labelledby="data-h">
   <div class="wrap">
     <div class="sec-head"><p class="kicker">Datasets</p><h2 id="data-h">Practice on synthetic data. <em>Work with real public sources.</em></h2>
-    <p class="sec-sub">All datasets now live in their own repository, <a href="{DS_URL}" target="_blank" rel="noopener">Open-Medical-Affairs/Data-Sources</a>, in two halves that are never mixed. Copy a raw link for your agent, or a whole pack at once. Machine-readable: <a href="datasets.json">datasets.json</a>.</p></div>
+    <p class="sec-sub">All datasets now live in their own repository, <a href="{DS_URL}" target="_blank" rel="noopener">Open-Medical-Affairs/Data-Sources</a>, in two halves that are never mixed. Copy a raw link for your agent, or a whole pack at once. Machine-readable: <a href="datasets.json">datasets.json</a>.</p>
+    <p class="pd-note"><span class="pd-dot" aria-hidden="true"></span>Practice data is fictional and for learning; for real work, bring your own data.</p></div>
     {ds_repos_html}
     <div class="gd" id="get-data" aria-labelledby="gd-h">
       <div class="gd-head"><p class="kicker">Get the data</p><h3 class="ds-h" id="gd-h">Copy a link. <em>Your agent fetches it.</em></h3>

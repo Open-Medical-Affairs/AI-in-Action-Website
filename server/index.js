@@ -21,10 +21,10 @@ try {
 } catch (_) { /* no .env: fine */ }
 const PORT = Number(process.env.PORT) || 3000;
 const VENICE_URL = (process.env.VENICE_BASE_URL || "https://api.venice.ai/api/v1").replace(/\/+$/, "") + "/chat/completions";
-const MODEL = (process.env.VENICE_MODEL || "").trim() || "zai-org-glm-5-2";
+const MODEL = (process.env.VENICE_MODEL || "").trim() || "z-ai-glm-5-3-flash";
 const MAX_GOAL = 1500;            // characters
 const MAX_BODY = 16 * 1024;       // bytes
-const TIMEOUT_MS = Number(process.env.VENICE_TIMEOUT_MS) || 90000;
+const TIMEOUT_MS = Number(process.env.VENICE_TIMEOUT_MS) || 60000;
 // Conference Wi-Fi puts many attendees behind one IP, so per-IP limits are generous and a global cap protects credits.
 const RATE = { perMinute: Number(process.env.RATE_PER_MINUTE) || 20, perHour: Number(process.env.RATE_PER_HOUR) || 200, globalPerMinute: Number(process.env.RATE_GLOBAL_PER_MINUTE) || 90 };
 
@@ -82,6 +82,8 @@ async function optimize(req, res) {
   const mode = body.mode === "swarm" ? "swarm" : "single";
   const ta = Object.prototype.hasOwnProperty.call(DATA.therapeuticAreas, body.ta) ? body.ta : "own";
   const starter = DATA.starters.find((s) => s.id === body.starter) || null;
+  const data = ["own", "practice", "none"].includes(body.data) ? body.data : undefined;
+  const dataNote = String(body.data_note || "").slice(0, 300);
   const stream = body.stream !== false;
 
   const ctrl = new AbortController();
@@ -96,7 +98,7 @@ async function optimize(req, res) {
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
       body: JSON.stringify({
         model: MODEL,
-        messages: buildMessages({ goal, mode, ta, starter }),
+        messages: buildMessages({ goal, mode, ta, starter, data, dataNote }),
         temperature: 0.4,
         max_tokens: 4000,
         stream,
