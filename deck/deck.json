@@ -31,8 +31,8 @@
   },
   {
    "n": 5,
-   "src": "/deck/slide-05.jpg?v=6a6c3de5",
-   "thumb": "/deck/thumb-05.jpg?v=027cc94f",
+   "src": "/deck/slide-05.jpg?v=638c3c9e",
+   "thumb": "/deck/thumb-05.jpg?v=e83eea28",
    "w": 1600,
    "h": 900
   },
@@ -353,8 +353,8 @@
   },
   {
    "n": 51,
-   "src": "/deck/slide-51.jpg?v=425713ed",
-   "thumb": "/deck/thumb-51.jpg?v=2411b66e",
+   "src": "/deck/slide-51.jpg?v=755e212b",
+   "thumb": "/deck/thumb-51.jpg?v=d4b5cdcf",
    "w": 1600,
    "h": 900
   },
@@ -383,6 +383,6 @@
  "count": 54,
  "pdf": "/deck/AI-in-Action-Vivek-Deck.pdf",
  "pptx": "/deck/AI-in-Action-Vivek-Deck.pptx",
- "pdf_bytes": 6979638,
- "pptx_bytes": 13307798
+ "pdf_bytes": 7086496,
+ "pptx_bytes": 13429419
 }
