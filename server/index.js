@@ -8,6 +8,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { buildMessages } = require("./prompts");
+const SK = require("./skills");
 const DATA = require("../assets/optimizer-data.js");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -57,10 +58,11 @@ function json(res, status, obj, extra) {
   res.writeHead(status, Object.assign({ "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" }, SEC_HEADERS, extra || {}));
   res.end(JSON.stringify(obj));
 }
-function readBody(req) {
+function readBody(req, limit) {
+  const max = limit || MAX_BODY;
   return new Promise((resolve, reject) => {
     let size = 0; const chunks = [];
-    req.on("data", (c) => { size += c.length; if (size > MAX_BODY) { reject(Object.assign(new Error("too_large"), { code: 413 })); req.destroy(); } else chunks.push(c); });
+    req.on("data", (c) => { size += c.length; if (size > max) { reject(Object.assign(new Error("too_large"), { code: 413 })); req.destroy(); } else chunks.push(c); });
     req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
     req.on("error", reject);
   });
@@ -149,6 +151,52 @@ async function optimize(req, res) {
     if (e.name !== "AbortError") console.error("[optimize] stream error", e.message);
   } finally { clearTimeout(timer); res.end(); }
 }
+/* ---------- skill creator: POST /api/skills -> files; POST /api/skills/zip -> zip ---------- */
+const SKILL_TIMEOUT_MS = Number(process.env.VENICE_SKILL_TIMEOUT_MS) || 90000;
+async function skills(req, res) {
+  let body;
+  try { body = JSON.parse(await readBody(req) || "{}"); } catch (e) { return json(res, 400, { error: "bad_request", message: "Send JSON." }); }
+  const workflow = String(body.workflow || "").trim();
+  if (!workflow) return json(res, 400, { error: "bad_request", message: "Describe the workflow first." });
+  if (workflow.length > MAX_GOAL) return json(res, 400, { error: "too_long", message: `Keep it under ${MAX_GOAL} characters.` });
+  if (rateLimited(clientIp(req))) return json(res, 429, { error: "rate_limited", message: "Too many requests. Wait a minute." }, { "Retry-After": "60" });
+  const kind = body.kind === "group" ? "group" : "single";
+  const choice = ["own", "practice", "none"].includes(body.data) ? body.data : "own";
+  const ta = Object.prototype.hasOwnProperty.call(DATA.therapeuticAreas, body.ta) ? body.ta : "own";
+  const opts = { choice, ta, note: String(body.data_note || "").slice(0, 300), audience: String(body.audience || "").slice(0, 200) };
+  const t0 = Date.now();
+  let spec = null, source = "template", note = "";
+  const key = veniceKey();
+  if (key && body.ai !== false) {
+    const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), SKILL_TIMEOUT_MS);
+    try {
+      const r = await fetch(VENICE_URL, { method: "POST", signal: ctrl.signal, headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
+        body: JSON.stringify({ model: MODEL, messages: SK.buildMessages({ workflow, kind, choice, ta, note: opts.note, audience: opts.audience }), temperature: 0.3, max_tokens: 9000, stream: false,
+          venice_parameters: { include_venice_system_prompt: false, enable_web_search: "off", strip_thinking_response: true, disable_thinking: true } }) });
+      if (!r.ok) throw new Error(`Venice ${r.status}`);
+      const j = await r.json();
+      const text = j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+      spec = SK.normalize(SK.parseJson(text), kind); source = "ai";
+    } catch (e) {
+      console.warn(`[skills] AI generation failed (${e.message}); using the template`);
+      note = e.name === "AbortError" ? "The AI took too long, so this pack was built from the template." : "The AI could not build this pack, so it was built from the template.";
+    } finally { clearTimeout(timer); }
+  } else note = key ? "" : "AI is not configured here, so this pack was built from the template.";
+  if (!spec) spec = SK.normalize(SK.templateSpec(workflow, kind), kind);
+  const pack = SK.buildPack(spec, Object.assign({ generatedBy: source === "ai" ? `AI draft, model ${MODEL}` : "template" }, opts));
+  return json(res, 200, Object.assign(pack, { source, model: source === "ai" ? MODEL : null, ms: Date.now() - t0, note }));
+}
+async function skillsZip(req, res) {
+  let body;
+  try { body = JSON.parse(await readBody(req, 600 * 1024) || "{}"); } catch (e) { return json(res, 400, { error: "bad_request" }); }
+  let files;
+  try { files = SK.checkFiles(body.files); } catch (e) { return json(res, 400, { error: "bad_files", message: e.message }); }
+  const pack = SK.kebab(body.pack_name, "skill-pack");
+  const buf = SK.zip(files.map((f) => ({ path: `${pack}/${f.path}`, content: f.content })));
+  res.writeHead(200, Object.assign({ "Content-Type": "application/zip", "Content-Disposition": `attachment; filename="${pack}.zip"`, "Content-Length": buf.length, "Cache-Control": "no-store" }, SEC_HEADERS));
+  res.end(buf);
+}
+
 function clean(t) { return String(t).replace(/<think>[\s\S]*?<\/think>/g, "").trim(); }
 
 /* ---------- data manifest: kept in sync with the Data-Sources release ---------- */
@@ -168,7 +216,7 @@ if (process.env.DATA_MANIFEST_SYNC !== "off") { refreshManifest(); setInterval(r
 
 /* ---------- static files ---------- */
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json; charset=utf-8",
-  ".md": "text/markdown; charset=utf-8", ".txt": "text/plain; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+  ".md": "text/markdown; charset=utf-8", ".txt": "text/plain; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".pdf": "application/pdf", ".pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation", ".jpeg": "image/jpeg",
   ".webp": "image/webp", ".ico": "image/x-icon", ".csv": "text/csv; charset=utf-8", ".pdf": "application/pdf", ".woff2": "font/woff2" };
 const BLOCKED = /^\/(server|node_modules|shots|tools|__pycache__)(\/|$)|\/\.|^\/(package(-lock)?\.json|railway\.json|Procfile|build\.py)$/i;
 function sendFile(req, res, file, st, status) {
@@ -209,6 +257,11 @@ const server = http.createServer((req, res) => {
   if (url.pathname === "/api/optimize") {
     if (req.method !== "POST") return json(res, 405, { error: "method_not_allowed", message: "POST a JSON body." }, { Allow: "POST" });
     return optimize(req, res).catch((e) => { console.error(e); if (!res.headersSent) json(res, 500, { error: "server_error", message: "Something went wrong. Use the template." }); else res.end(); });
+  }
+  if (url.pathname === "/api/skills" || url.pathname === "/api/skills/zip") {
+    if (req.method !== "POST") return json(res, 405, { error: "method_not_allowed", message: "POST a JSON body." }, { Allow: "POST" });
+    const h = url.pathname === "/api/skills" ? skills : skillsZip;
+    return h(req, res).catch((e) => { console.error(e); if (!res.headersSent) json(res, 500, { error: "server_error", message: "Something went wrong." }); else res.end(); });
   }
   if (req.method !== "GET" && req.method !== "HEAD") return json(res, 405, { error: "method_not_allowed" });
   if (url.pathname === "/data-manifest.json" && liveManifest) {

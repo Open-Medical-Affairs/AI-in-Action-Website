@@ -529,6 +529,7 @@ def agent_playbook(content, cfg, abs_, raw):
          f"- Data: {ds} . Manifest of every dataset (synthetic and public, with licence, access type and links): {latest}manifest.json (also manifest.csv). Everything at once: {latest}all-synthetic-data.zip, {latest}all-synthetic.jsonl, {latest}all-data-catalog.zip.",
          f"- Getting data: fetch it straight onto YOUR OWN machine from the manifest URLs; never ask the person to download files to their laptop and upload them. Read {latest}manifest.json, then for each dataset you need where `link_only` is false and `access` is `download`, `api-sample` or `bulk-file`, download `direct_url` (raw.githubusercontent.com or releases/latest/download; follow redirects) into e.g. /workspace/data/<type>/<group>/ and unzip ZIPs. For `official-site` and `link-only` entries, open the official URL and work at the source under its licence; never copy or redistribute link-only data. Confirm synthetic files are labelled SYNTHETIC before using them. The Data page ({site}/data) has a 'Copy link' and a 'Copy for Grok Bot' instruction for every dataset and bundle.",
          f"- Prompt optimizer: POST JSON {{\"goal\": \"<short goal>\", \"mode\": \"single\" or \"swarm\", \"ta\": \"oncology-mm|immunology-ad|cardiometabolic-obesity|own\"}} to {abs_('api/optimize')} (streams Markdown; on error, use the optimizer structure in {abs_('prompts.json')}).", "",
+         f"- Skill creator (for workflows the library does not cover): on {site}/optimizer choose 'Skill creator', or POST JSON {{\"workflow\": \"<plain words>\", \"kind\": \"single\" or \"group\", \"data\": \"own|practice|none\", \"data_note\": \"...\", \"audience\": \"...\"}} to {abs_('api/skills')}. It returns files in the Medical-Affairs-Skills format (skills/<name>/SKILL.md with the library's frontmatter, house-rules/<name>.md, README.md; a group adds a lead skill with the org chart, waves and human gates); POST {{\"pack_name\", \"files\"}} to {abs_('api/skills/zip')} for a zip. Or build the skills yourself in that format. Show every SKILL.md to the person and get their approval before using a new skill.",
          "## 2. Greet, then ask",
          f"Say hello in one line, say you have read the {ev['name']} materials, then ask: \"What would you like to do?\" and offer this menu. Wait for the answer. Do not start work before they choose (if they already stated a goal, map it to an option and confirm).", "",
          "1. Set up Grok Bot or another agent with the Medical Affairs skills library",
@@ -725,6 +726,7 @@ def render(content, cfg):
         f"- [datasets.json]({abs_('datasets.json')}): every synthetic data pack (badged synthetic) and every public source, with raw links",
         f"- [skills.json]({abs_('skills.json')}): all {content['skill_count']} skills with summaries and links",
         f"- [prompts.json]({abs_('prompts.json')}): every prompt on the site, the Prompt Optimizer templates and the team prompt library", "",
+        f"- [Skill creator]({site}/optimizer): describe a workflow the library does not cover and get a skill pack (single skill, or a group with a lead skill) in the Medical-Affairs-Skills format; API: POST {abs_('api/skills')} then {abs_('api/skills/zip')}",
         "## Starter files (for agents that cannot open GitHub)"] +
         [f"- [{t['short']} starter]({raw('workshop/bundles/first-mission-' + t['id'] + '.md')})" for t in TAS] +
         ["", "## Optional", f"- [Skills index]({raw('SKILLS-INDEX.md')})", f"- [Participant quickstart]({raw('workshop/PARTICIPANT-QUICKSTART.md')})",
@@ -1316,6 +1318,7 @@ TEMPLATE = r'''<!doctype html>
 <script src="assets/app.js" defer></script>
 <script src="assets/optimizer-data.js" defer></script>
 <script src="assets/ai-optimizer.js" defer></script>
+<script src="assets/skill-creator.js" defer></script>
 <script src="assets/get-data.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,388 @@
+{
+ "title": "AI in Action \u2014 Vivek's Deck",
+ "slides": [
+  {
+   "n": 1,
+   "src": "/deck/slide-01.jpg?v=d4632e2a",
+   "thumb": "/deck/thumb-01.jpg?v=e2a18432",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 2,
+   "src": "/deck/slide-02.jpg?v=f6d36cb2",
+   "thumb": "/deck/thumb-02.jpg?v=233c3264",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 3,
+   "src": "/deck/slide-03.jpg?v=53bc1a00",
+   "thumb": "/deck/thumb-03.jpg?v=2499bda2",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 4,
+   "src": "/deck/slide-04.jpg?v=588bf624",
+   "thumb": "/deck/thumb-04.jpg?v=f34d01b9",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 5,
+   "src": "/deck/slide-05.jpg?v=6a6c3de5",
+   "thumb": "/deck/thumb-05.jpg?v=027cc94f",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 6,
+   "src": "/deck/slide-06.jpg?v=262c2791",
+   "thumb": "/deck/thumb-06.jpg?v=e6fb83f0",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 7,
+   "src": "/deck/slide-07.jpg?v=474af6dd",
+   "thumb": "/deck/thumb-07.jpg?v=790d8347",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 8,
+   "src": "/deck/slide-08.jpg?v=e4a48fbe",
+   "thumb": "/deck/thumb-08.jpg?v=7c124706",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 9,
+   "src": "/deck/slide-09.jpg?v=b93a8071",
+   "thumb": "/deck/thumb-09.jpg?v=dbcf7eba",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 10,
+   "src": "/deck/slide-10.jpg?v=84e05566",
+   "thumb": "/deck/thumb-10.jpg?v=a3eedc62",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 11,
+   "src": "/deck/slide-11.jpg?v=49da63e3",
+   "thumb": "/deck/thumb-11.jpg?v=b5b3f024",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 12,
+   "src": "/deck/slide-12.jpg?v=f7bf2254",
+   "thumb": "/deck/thumb-12.jpg?v=c858e743",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 13,
+   "src": "/deck/slide-13.jpg?v=b1bd73ab",
+   "thumb": "/deck/thumb-13.jpg?v=681dab5f",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 14,
+   "src": "/deck/slide-14.jpg?v=6587d596",
+   "thumb": "/deck/thumb-14.jpg?v=7f316f50",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 15,
+   "src": "/deck/slide-15.jpg?v=4a2837b9",
+   "thumb": "/deck/thumb-15.jpg?v=b30a3d24",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 16,
+   "src": "/deck/slide-16.jpg?v=1d306b71",
+   "thumb": "/deck/thumb-16.jpg?v=c8072cd5",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 17,
+   "src": "/deck/slide-17.jpg?v=3dc826c1",
+   "thumb": "/deck/thumb-17.jpg?v=bb3d6687",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 18,
+   "src": "/deck/slide-18.jpg?v=3ec85b62",
+   "thumb": "/deck/thumb-18.jpg?v=7c9ac67c",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 19,
+   "src": "/deck/slide-19.jpg?v=b35a551b",
+   "thumb": "/deck/thumb-19.jpg?v=924e20e4",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 20,
+   "src": "/deck/slide-20.jpg?v=0eb7dbf4",
+   "thumb": "/deck/thumb-20.jpg?v=9a0971a5",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 21,
+   "src": "/deck/slide-21.jpg?v=40a6aac1",
+   "thumb": "/deck/thumb-21.jpg?v=6c6044c7",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 22,
+   "src": "/deck/slide-22.jpg?v=5fc3a631",
+   "thumb": "/deck/thumb-22.jpg?v=de3962ac",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 23,
+   "src": "/deck/slide-23.jpg?v=324763ae",
+   "thumb": "/deck/thumb-23.jpg?v=8f0e7ac0",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 24,
+   "src": "/deck/slide-24.jpg?v=e2f338c2",
+   "thumb": "/deck/thumb-24.jpg?v=b4c8925d",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 25,
+   "src": "/deck/slide-25.jpg?v=c4977122",
+   "thumb": "/deck/thumb-25.jpg?v=96e0dc60",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 26,
+   "src": "/deck/slide-26.jpg?v=e804cc41",
+   "thumb": "/deck/thumb-26.jpg?v=973b6f11",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 27,
+   "src": "/deck/slide-27.jpg?v=3c27d7c0",
+   "thumb": "/deck/thumb-27.jpg?v=b83e5c2e",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 28,
+   "src": "/deck/slide-28.jpg?v=454430f8",
+   "thumb": "/deck/thumb-28.jpg?v=0f7040b1",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 29,
+   "src": "/deck/slide-29.jpg?v=976d1d3c",
+   "thumb": "/deck/thumb-29.jpg?v=535e8490",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 30,
+   "src": "/deck/slide-30.jpg?v=ebdc7a25",
+   "thumb": "/deck/thumb-30.jpg?v=0875d392",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 31,
+   "src": "/deck/slide-31.jpg?v=46e8015c",
+   "thumb": "/deck/thumb-31.jpg?v=77218b88",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 32,
+   "src": "/deck/slide-32.jpg?v=88a7de5b",
+   "thumb": "/deck/thumb-32.jpg?v=06680fec",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 33,
+   "src": "/deck/slide-33.jpg?v=e764de02",
+   "thumb": "/deck/thumb-33.jpg?v=e0374d44",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 34,
+   "src": "/deck/slide-34.jpg?v=514d8e3b",
+   "thumb": "/deck/thumb-34.jpg?v=6c10a1d7",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 35,
+   "src": "/deck/slide-35.jpg?v=3e781a69",
+   "thumb": "/deck/thumb-35.jpg?v=ed3ae4e6",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 36,
+   "src": "/deck/slide-36.jpg?v=2519f856",
+   "thumb": "/deck/thumb-36.jpg?v=1deb24a3",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 37,
+   "src": "/deck/slide-37.jpg?v=3bb6fcae",
+   "thumb": "/deck/thumb-37.jpg?v=afbe648b",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 38,
+   "src": "/deck/slide-38.jpg?v=83256444",
+   "thumb": "/deck/thumb-38.jpg?v=e3fec35a",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 39,
+   "src": "/deck/slide-39.jpg?v=f6033200",
+   "thumb": "/deck/thumb-39.jpg?v=b8c114fb",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 40,
+   "src": "/deck/slide-40.jpg?v=4f42aa6e",
+   "thumb": "/deck/thumb-40.jpg?v=52af295a",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 41,
+   "src": "/deck/slide-41.jpg?v=37e5ed76",
+   "thumb": "/deck/thumb-41.jpg?v=3cff3339",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 42,
+   "src": "/deck/slide-42.jpg?v=b20fe69b",
+   "thumb": "/deck/thumb-42.jpg?v=c7300f3b",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 43,
+   "src": "/deck/slide-43.jpg?v=d354c46b",
+   "thumb": "/deck/thumb-43.jpg?v=5e015a3c",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 44,
+   "src": "/deck/slide-44.jpg?v=3c7034a2",
+   "thumb": "/deck/thumb-44.jpg?v=da9a0e90",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 45,
+   "src": "/deck/slide-45.jpg?v=c8a9c676",
+   "thumb": "/deck/thumb-45.jpg?v=9891eaeb",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 46,
+   "src": "/deck/slide-46.jpg?v=76a1860f",
+   "thumb": "/deck/thumb-46.jpg?v=2bf26097",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 47,
+   "src": "/deck/slide-47.jpg?v=656c77b2",
+   "thumb": "/deck/thumb-47.jpg?v=b5792800",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 48,
+   "src": "/deck/slide-48.jpg?v=93f4d0a0",
+   "thumb": "/deck/thumb-48.jpg?v=ecabc075",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 49,
+   "src": "/deck/slide-49.jpg?v=e838c10e",
+   "thumb": "/deck/thumb-49.jpg?v=f701d4ed",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 50,
+   "src": "/deck/slide-50.jpg?v=17eebcd6",
+   "thumb": "/deck/thumb-50.jpg?v=1b6680e4",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 51,
+   "src": "/deck/slide-51.jpg?v=425713ed",
+   "thumb": "/deck/thumb-51.jpg?v=2411b66e",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 52,
+   "src": "/deck/slide-52.jpg?v=69ed24e6",
+   "thumb": "/deck/thumb-52.jpg?v=2c297c0f",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 53,
+   "src": "/deck/slide-53.jpg?v=647a6ccc",
+   "thumb": "/deck/thumb-53.jpg?v=8f8473d9",
+   "w": 1600,
+   "h": 900
+  },
+  {
+   "n": 54,
+   "src": "/deck/slide-54.jpg?v=044b34f6",
+   "thumb": "/deck/thumb-54.jpg?v=718866af",
+   "w": 1600,
+   "h": 900
+  }
+ ],
+ "count": 54,
+ "pdf": "/deck/AI-in-Action-Vivek-Deck.pdf",
+ "pptx": "/deck/AI-in-Action-Vivek-Deck.pptx",
+ "pdf_bytes": 6979638,
+ "pptx_bytes": 13307798
+}

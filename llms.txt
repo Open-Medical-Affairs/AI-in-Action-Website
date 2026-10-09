@@ -12,6 +12,7 @@ Agents: follow the Instructions for agents at https://aiinaction.up.railway.app/
 ## Pages on this site
 Each section is its own page (deep-linkable):
 - Home: https://aiinaction.up.railway.app/ (Start here: what this is, and Instructions for agents)
+- The deck: https://aiinaction.up.railway.app/deck (The keynote slides: view online or download PDF / PowerPoint)
 - Agenda: https://aiinaction.up.railway.app/agenda (Two days in Philadelphia, session by session)
 - Ideas: https://aiinaction.up.railway.app/ideas (The ideas behind the keynote)
 - Inside: https://aiinaction.up.railway.app/inside (What the skills library contains)
@@ -56,6 +57,7 @@ Mission pages (directions first: prompt to paste, what you need, steps, where th
 - [skills.json](https://aiinaction.up.railway.app/skills.json): all 65 skills with summaries and links
 - [prompts.json](https://aiinaction.up.railway.app/prompts.json): every prompt on the site, the Prompt Optimizer templates and the team prompt library
 
+- [Skill creator](https://aiinaction.up.railway.app/optimizer): describe a workflow the library does not cover and get a skill pack (single skill, or a group with a lead skill) in the Medical-Affairs-Skills format; API: POST https://aiinaction.up.railway.app/api/skills then https://aiinaction.up.railway.app/api/skills/zip
 ## Starter files (for agents that cannot open GitHub)
 - [Oncology starter](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/bundles/first-mission-oncology-mm.md)
 - [Immunology starter](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/bundles/first-mission-immunology-ad.md)

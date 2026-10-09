@@ -26,8 +26,9 @@
         '<div class="aiopt-modes" role="radiogroup" aria-label="What should the prompt set up?">' +
           '<button type="button" role="radio" class="aiopt-mode" data-mode="single" aria-checked="true">Single task for Grok Bot</button>' +
           '<button type="button" role="radio" class="aiopt-mode" data-mode="swarm" aria-checked="false">Agent swarm setup</button>' +
+          '<button type="button" role="radio" class="aiopt-mode aiopt-mode--sc" data-mode="skill" aria-checked="false">Skill creator <span class="aiopt-new">new</span></button>' +
         "</div>" +
-        '<label class="fld"><span class="fld-l">Your goal</span><textarea id="aiopt-goal" rows="3" maxlength="1500" placeholder="e.g. Build a launch plan for ADIPOSYN"></textarea></label>' +
+        '<label class="fld"><span class="fld-l aiopt-goal-l">Your goal</span><textarea id="aiopt-goal" rows="3" maxlength="1500" placeholder="e.g. Build a launch plan for ADIPOSYN"></textarea></label>' +
         '<fieldset class="aiopt-data"><legend class="fld-l">Data <span class="aiopt-opt">optional</span></legend>' +
           '<div class="aiopt-dchoice" role="radiogroup" aria-label="Which data will the agent use?">' +
             '<label class="aiopt-dc"><input type="radio" name="aiopt-data" value="own" checked><span>My own data</span></label>' +
@@ -41,9 +42,9 @@
           '<div class="aiopt-dpane" data-pane="none" hidden><p class="aiopt-hint">The agent starts from public sources and tells you what data it would need.</p></div>' +
         "</fieldset>" +
         '<div class="aiopt-row aiopt-row--go"><button type="button" class="btn-primary aiopt-go" id="aiopt-go"><span class="aiopt-spin" aria-hidden="true"></span><span class="aiopt-go-l">Optimize</span></button></div>' +
-        '<p class="fld-l aiopt-try">Try a starter</p><div class="aiopt-chips">' + chips + "</div>" +
+        '<p class="fld-l aiopt-try opt-only">Try a starter</p><div class="aiopt-chips opt-only">' + chips + "</div>" +
       "</form>" +
-      '<div class="aiopt-out opt-out-in">' +
+      '<div class="aiopt-out opt-out-in opt-only">' +
         '<div class="prompt-head prompt-head--dark"><span class="prompt-title">Your assignment (Markdown)</span><span class="opt-meter" id="aiopt-meter" aria-live="polite"></span>' +
         '<button type="button" class="btn-copy btn-copy--solid" data-copy="#aiopt-text" aria-label="Copy assignment"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy</span></button></div>' +
         '<p class="aiopt-status" id="aiopt-status" aria-live="polite"></p>' +
@@ -66,13 +67,16 @@
 
   var modeBtns = Array.prototype.slice.call(wrap.querySelectorAll(".aiopt-mode"));
   function setMode(m) {
-    mode = m;
+    mode = m; wrap.classList.toggle("is-skill", m === "skill");
+    goal.placeholder = m === "skill" ? "e.g. Turn congress session notes into an insight brief" : "e.g. Build a launch plan for ADIPOSYN";
+    $(".aiopt-goal-l").textContent = m === "skill" ? "The workflow you want to automate, in plain words" : "Your goal";
+    if (m !== "skill") goL.textContent = aiOnline ? "Optimize with AI" : "Generate prompt"; else goL.textContent = "Create skill pack";
     modeBtns.forEach(function (b) { var on = b.getAttribute("data-mode") === m; b.setAttribute("aria-checked", on ? "true" : "false"); b.tabIndex = on ? 0 : -1; });
   }
   modeBtns.forEach(function (b, i) {
     b.addEventListener("click", function () { setMode(b.getAttribute("data-mode")); });
     b.addEventListener("keydown", function (ev) {
-      if (/Arrow(Left|Right|Up|Down)/.test(ev.key)) { ev.preventDefault(); var n = modeBtns[(i + 1) % 2]; n.focus(); setMode(n.getAttribute("data-mode")); }
+      if (/Arrow(Left|Right|Up|Down)/.test(ev.key)) { ev.preventDefault(); var n = modeBtns[(i + (/Left|Up/.test(ev.key) ? modeBtns.length - 1 : 1)) % modeBtns.length]; n.focus(); setMode(n.getAttribute("data-mode")); }
     });
   });
   setMode("single");
@@ -82,7 +86,7 @@
     badge.textContent = on ? "AI on · Venice" : "Template mode";
     badge.className = "aiopt-badge " + (on ? "is-on" : "is-off");
     badge.title = on ? "Prompts are written by an AI model through the Venice API on this site's server." : "The AI service is not available here, so prompts are built from a template in your browser.";
-    goL.textContent = on ? "Optimize with AI" : "Generate prompt";
+    if (mode !== "skill") goL.textContent = on ? "Optimize with AI" : "Generate prompt";
   }
   setBadge(false);
   fetch("/healthz", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
@@ -105,8 +109,10 @@
   go.addEventListener("click", run);
   goal.addEventListener("keydown", function (ev) { if (ev.key === "Enter" && (ev.metaKey || ev.ctrlKey)) run(); });
 
+  window.AIA_OPT_UI = { wrap: wrap, goal: goal, go: go, dataChoice: function () { return dataChoice(); }, setData: function (v) { setData(v); }, taSel: taSel, note: note, isAI: function () { return aiOnline; } };
   function run() {
     if (busy) return;
+    if (mode === "skill") { if (window.AIA_SKILL) window.AIA_SKILL.run(); return; }
     var g = goal.value.trim();
     if (!g) { goal.focus(); status.textContent = "Type a short goal first, or pick a starter."; return; }
     if (!aiOnline) {

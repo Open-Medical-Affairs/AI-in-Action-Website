@@ -13,6 +13,7 @@ HERE = Path(__file__).resolve().parent
 # slug, label, sections on the page, page title, one-line purpose (shown in the sidebar tooltip and page <meta>)
 PAGES = [
     ("", "Home", ["hero", "start"], "Home", "Start here: what this is, and Instructions for agents"),
+    ("deck", "The deck", ["deck"], "AI in Action — Vivek's Deck", "The keynote slides: view online or download PDF / PowerPoint"),
     ("agenda", "Agenda", ["agenda"], "Agenda", "Two days in Philadelphia, session by session"),
     ("ideas", "Ideas", ["ideas"], "Big ideas", "The ideas behind the keynote"),
     ("inside", "Inside", ["inside"], "What's inside", "What the skills library contains"),
@@ -26,6 +27,7 @@ PAGES = [
 ]
 ICONS = {  # 24px line icons
     "": '<path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/>',
+    "deck": '<rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8 20h8M7 12l3-3 2 2 4-4"/>',
     "agenda": '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
     "ideas": '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
     "inside": '<path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/>',
@@ -274,12 +276,44 @@ def mission_page(g, G, idx, prompt_fig, ta_switch):
 '''
 
 
+def deck_section(ev):
+    p = HERE / "deck" / "deck.json"
+    if not p.exists():
+        return ""
+    D = json.loads(p.read_text(encoding="utf-8"))
+    S = D["slides"]; n = len(S)
+    mb = lambda b: f"{b / 1e6:.0f} MB"
+    first = S[0]
+    thumbs = "".join(f'<li><button type="button" class="dk-th" data-i="{i}" aria-label="Slide {s["n"]}"{" aria-current=\"true\"" if i == 0 else ""}><img src="{E(s["thumb"])}" alt="" loading="lazy" decoding="async" width="160" height="90"><span>{s["n"]}</span></button></li>' for i, s in enumerate(S))
+    return f'''<section id="deck" class="section section--deck" aria-labelledby="deck-h">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">The deck</p><h1 class="md-h" id="deck-h">AI in Action — <em>Vivek’s Deck</em></h1>
+      <p class="sec-sub">{n} slides. The opening keynote, Oct 13. Use the arrow keys or swipe to move through it.</p>
+      <div class="dk-dl"><a class="btn-primary" href="{E(D["pdf"])}" download>Download PDF <small>{mb(D["pdf_bytes"])}</small></a><a class="btn-ghost" href="{E(D["pptx"])}" download>Download PowerPoint (.pptx) <small>{mb(D["pptx_bytes"])}</small></a></div>
+    </div>
+    <div class="dk" data-slides="{E(json.dumps([s["src"] for s in S]))}">
+      <div class="dk-stage" tabindex="0" aria-roledescription="carousel" aria-label="Slides">
+        <img class="dk-img" src="{E(first["src"])}" alt="Slide 1 of {n}" width="{first["w"]}" height="{first["h"]}" decoding="async" fetchpriority="high">
+        <button type="button" class="dk-nav dk-prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" class="dk-nav dk-next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="dk-bar"><span class="dk-count" aria-live="polite"><b>1</b> / {n}</span><button type="button" class="dk-fs" aria-label="Full screen">Full screen</button></div>
+      <ol class="dk-thumbs" aria-label="All slides">{thumbs}</ol>
+    </div>
+  </div>
+</section>
+'''
+
+
 def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
     G = json.loads(Path(graphs_path).read_text(encoding="utf-8"))
     ev = cfg.get("event", {})
     site = (cfg.get("site_url") or "").rstrip("/")
     head, pre, chunks, ids, foot, tail = split_sections(files["index.html"])
     chunks["mission-maps"] = maps_section(G)
+    chunks["deck"] = deck_section(ev)
+    if chunks["deck"]:
+        chunks["hero"] = chunks["hero"].replace('<a class="btn-ghost" href="/optimizer">Optimize a prompt</a>', '<a class="btn-ghost" href="/optimizer">Optimize a prompt</a><a class="btn-ghost" href="/deck">See the deck</a>', 1)
     # the original prompt grid stays reachable (ids and links) but folded away under the team missions
     chunks["missions"] = re.sub(r'<h3 class="sub-h">All (\d+) workshop missions</h3>\s*<div class="mcs">(.*?)</div>\s*</div>\s*</section>',
         lambda m: f'<details class="mm-all"><summary>All {m.group(1)} mission prompts on one page</summary><div class="mcs">{m.group(2)}</div></details>\n  </div>\n</section>', chunks["missions"], count=1, flags=re.S)
@@ -308,8 +342,8 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
         body = relink(absolutize(body), here, id_page) + pager(slug)
         full_title = f"{title} · {ev.get('name', 'AI in Action')}" if slug else re.search(r"<title>(.*?)</title>", head).group(1)
         desc = f"{blurb}. AI agents: read /agents.md (Instructions for agents) and follow it."
-        extra_css = ["missions.css"] if slug == "missions" else []
-        out[f"{slug or 'index'}.html"] = assemble(page_head(head, full_title, desc, f"{site}{url(slug)}", extra_css), pre, slug, ev, body, foot, tail)
+        extra_css = ["missions.css"] if slug == "missions" else ["deck.css"] if slug == "deck" else []
+        out[f"{slug or 'index'}.html"] = assemble(page_head(head, full_title, desc, f"{site}{url(slug)}", extra_css), pre, slug, ev, body, foot, tail, extra_js=("deck.js",) if slug == "deck" else ())
     # mission detail pages
     tsw = re.search(r'<div class="ta-switch".*?</button></div>', chunks["missions"], re.S)
     ta_html = tsw.group(0) if tsw else ""
