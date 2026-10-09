@@ -1,6 +1,6 @@
 {
   "_readme": "The ONE place to edit links and placeholders. After editing, run: python3 build.py   (needs only Python 3, no installs).",
-  "site_url": "https://website-production-6164.up.railway.app",
+  "site_url": "https://aiinaction.up.railway.app",
   "_site_url_note": "Optional. Absolute URL where this site is hosted, e.g. https://open-medical-affairs.github.io/ai-in-action/ . Leave blank and links stay relative; the page fills its own URL in at runtime.",
   "grokbot": {
     "signup_url": "",

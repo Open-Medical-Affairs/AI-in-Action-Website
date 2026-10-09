@@ -2,46 +2,46 @@
 
 > Companion site for AI in Action for Medical Affairs (October 13–14, 2026, Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia). It turns the open Medical-Affairs-Skills and Data-Sources repositories into copy-ready prompts, missions, datasets and a prompt optimizer for non-technical Medical Affairs professionals and their AI agents. Grok Bot is the event sandbox. All workshop data is synthetic.
 
-Agents: follow the Instructions for agents at https://website-production-6164.up.railway.app/agents.md. In short: read this site and its two repositories, greet the user, ASK what they want to do from a numbered menu (set up an agent, run a mission or skill, build the launch-planning swarm, practise on synthetic data, find public data sources, write or optimize a prompt, prepare for the hackathon team challenge, or something else), then do it step by step. The human is the final judge; workshop data is fictional; never send or publish anything without the user's say-so.
+Agents: follow the Instructions for agents at https://aiinaction.up.railway.app/agents.md. In short: read this site and its two repositories, greet the user, ASK what they want to do from a numbered menu (set up an agent, run a mission or skill, build the launch-planning swarm, practise on synthetic data, find public data sources, write or optimize a prompt, prepare for the hackathon team challenge, or something else), then do it step by step. The human is the final judge; workshop data is fictional; never send or publish anything without the user's say-so.
 
 ## Start here
-- [Agent instructions](https://website-production-6164.up.railway.app/agents.md): how to run a mission end to end
+- [Agent instructions](https://aiinaction.up.railway.app/agents.md): how to run a mission end to end
 - [Repository](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills): the source of truth
 - [AGENTS.md (raw)](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md): the repository's own agent entry point
 
 ## Pages on this site
 Each section is its own page (deep-linkable):
-- Home: https://website-production-6164.up.railway.app/ (Start here: what this is, and Instructions for agents)
-- Agenda: https://website-production-6164.up.railway.app/agenda (Two days in Philadelphia, session by session)
-- Ideas: https://website-production-6164.up.railway.app/ideas (The ideas behind the keynote)
-- Inside: https://website-production-6164.up.railway.app/inside (What the skills library contains)
-- Missions: https://website-production-6164.up.railway.app/missions (Every mission as an org chart of skills, plus copy-ready prompts)
-- Prompts: https://website-production-6164.up.railway.app/prompts (Copy-ready prompts)
-- Optimizer: https://website-production-6164.up.railway.app/optimizer (Turn a short ask into a full agent prompt)
-- Data: https://website-production-6164.up.railway.app/data (Synthetic datasets and public data sources)
-- Grok Bot: https://website-production-6164.up.railway.app/grokbot (Set up Grok Bot or another agent)
-- For agents: https://website-production-6164.up.railway.app/agents (The playbook your AI agent follows)
-- Skills: https://website-production-6164.up.railway.app/skills (All skills in the library)
+- Home: https://aiinaction.up.railway.app/ (Start here: what this is, and Instructions for agents)
+- Agenda: https://aiinaction.up.railway.app/agenda (Two days in Philadelphia, session by session)
+- Ideas: https://aiinaction.up.railway.app/ideas (The ideas behind the keynote)
+- Inside: https://aiinaction.up.railway.app/inside (What the skills library contains)
+- Missions: https://aiinaction.up.railway.app/missions (Every mission as an org chart of skills, plus copy-ready prompts)
+- Prompts: https://aiinaction.up.railway.app/prompts (Copy-ready prompts)
+- Optimizer: https://aiinaction.up.railway.app/optimizer (Turn a short ask into a full agent prompt)
+- Data: https://aiinaction.up.railway.app/data (Synthetic datasets and public data sources)
+- Grok Bot: https://aiinaction.up.railway.app/grokbot (Set up Grok Bot or another agent)
+- For agents: https://aiinaction.up.railway.app/agents (The playbook your AI agent follows)
+- Skills: https://aiinaction.up.railway.app/skills (All skills in the library)
 
 Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints), one page per mission:
-- field-insights: https://website-production-6164.up.railway.app/missions/field-insights
-- kol-meeting: https://website-production-6164.up.railway.app/missions/kol-meeting
-- congress: https://website-production-6164.up.railway.app/missions/congress
-- medical-information: https://website-production-6164.up.railway.app/missions/medical-information
-- evidence-investment: https://website-production-6164.up.railway.app/missions/evidence-investment
-- publication: https://website-production-6164.up.railway.app/missions/publication
-- advisory-board: https://website-production-6164.up.railway.app/missions/advisory-board
-- launch-readiness: https://website-production-6164.up.railway.app/missions/launch-readiness
-- connected-planning: https://website-production-6164.up.railway.app/missions/connected-planning
-- patient-partnership: https://website-production-6164.up.railway.app/missions/patient-partnership
-- transcript: https://website-production-6164.up.railway.app/missions/transcript
-- thirty-day-capstone: https://website-production-6164.up.railway.app/missions/thirty-day-capstone
-- msl-pre-call: https://website-production-6164.up.railway.app/missions/msl-pre-call
-- hcp-access: https://website-production-6164.up.railway.app/missions/hcp-access
-- msl-post-call: https://website-production-6164.up.railway.app/missions/msl-post-call
-- msl-admin: https://website-production-6164.up.railway.app/missions/msl-admin
-- launch-plan-swarm: https://website-production-6164.up.railway.app/missions/launch-plan-swarm (pending merge, PR #8)
-- Machine-readable graph data: https://website-production-6164.up.railway.app/data/mission-graphs.json
+- field-insights: https://aiinaction.up.railway.app/missions/field-insights
+- kol-meeting: https://aiinaction.up.railway.app/missions/kol-meeting
+- congress: https://aiinaction.up.railway.app/missions/congress
+- medical-information: https://aiinaction.up.railway.app/missions/medical-information
+- evidence-investment: https://aiinaction.up.railway.app/missions/evidence-investment
+- publication: https://aiinaction.up.railway.app/missions/publication
+- advisory-board: https://aiinaction.up.railway.app/missions/advisory-board
+- launch-readiness: https://aiinaction.up.railway.app/missions/launch-readiness
+- connected-planning: https://aiinaction.up.railway.app/missions/connected-planning
+- patient-partnership: https://aiinaction.up.railway.app/missions/patient-partnership
+- transcript: https://aiinaction.up.railway.app/missions/transcript
+- thirty-day-capstone: https://aiinaction.up.railway.app/missions/thirty-day-capstone
+- msl-pre-call: https://aiinaction.up.railway.app/missions/msl-pre-call
+- hcp-access: https://aiinaction.up.railway.app/missions/hcp-access
+- msl-post-call: https://aiinaction.up.railway.app/missions/msl-post-call
+- msl-admin: https://aiinaction.up.railway.app/missions/msl-admin
+- launch-plan-swarm: https://aiinaction.up.railway.app/missions/launch-plan-swarm (pending merge, PR #8)
+- Machine-readable graph data: https://aiinaction.up.railway.app/data/mission-graphs.json
 
 
 ## Data repository
@@ -50,10 +50,10 @@ Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints)
 - [public/catalog.json](https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/public/catalog.json): public sources with access, rate limits, licences and data_policy (link-only = do not copy)
 
 ## Machine-readable data
-- [missions.json](https://website-production-6164.up.railway.app/missions.json): 17 catalog missions and 7 team missions with prompts per therapeutic area
-- [datasets.json](https://website-production-6164.up.railway.app/datasets.json): every synthetic data pack (badged synthetic) and every public source, with raw links
-- [skills.json](https://website-production-6164.up.railway.app/skills.json): all 65 skills with summaries and links
-- [prompts.json](https://website-production-6164.up.railway.app/prompts.json): every prompt on the site, the Prompt Optimizer templates and the team prompt library
+- [missions.json](https://aiinaction.up.railway.app/missions.json): 17 catalog missions and 7 team missions with prompts per therapeutic area
+- [datasets.json](https://aiinaction.up.railway.app/datasets.json): every synthetic data pack (badged synthetic) and every public source, with raw links
+- [skills.json](https://aiinaction.up.railway.app/skills.json): all 65 skills with summaries and links
+- [prompts.json](https://aiinaction.up.railway.app/prompts.json): every prompt on the site, the Prompt Optimizer templates and the team prompt library
 
 ## Starter files (for agents that cannot open GitHub)
 - [Oncology starter](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/bundles/first-mission-oncology-mm.md)
