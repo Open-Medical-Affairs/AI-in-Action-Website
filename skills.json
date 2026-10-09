@@ -4,7 +4,7 @@
   "groups": [
     {
       "title": "Orchestrator",
-      "intro": "Start here if you have been handed a job and do not know which skill does it. This one routes.",
+      "intro": "Start here if you have been handed a task and do not know which skill does it. This one routes.",
       "skills": [
         {
           "name": "medical-affairs-orchestrator",
@@ -36,7 +36,7 @@
     },
     {
       "title": "Foundation — the core",
-      "intro": "medical-affairs-foundations loads on every Medical Affairs task, without exception: it carries the compliance boundary and the adverse-event escalation rule. The others load when the job reaches them — evidence appraisal when interpreting study data, citation integrity when the deliverable will carry references, quality review at stage 4, capability detection when producing a file.",
+      "intro": "medical-affairs-foundations loads on every Medical Affairs task, without exception: it carries the compliance boundary and the adverse-event escalation rule. The others load when the task reaches them — evidence appraisal when interpreting study data, citation integrity when the deliverable will carry references, quality review at stage 4, capability detection when producing a file.",
       "skills": [
         {
           "name": "capability-detection",
@@ -259,8 +259,8 @@
       ]
     },
     {
-      "title": "Workflows — the jobs",
-      "intro": "One per recurring Medical Affairs job. Each produces a named deliverable and runs the six-stage execution contract in AGENTS.md.",
+      "title": "Workflows — the core tasks",
+      "intro": "One per recurring Medical Affairs workflow. Each produces a named deliverable and runs the six-stage execution contract in AGENTS.md.",
       "skills": [
         {
           "name": "advisory-board-design",
@@ -805,7 +805,7 @@
         {
           "name": "library-menu",
           "path": "skills/library-menu/SKILL.md",
-          "summary": "Explain what this entire library can do and render the visual menu card that shows it — every skill grouped by the job it serves, as prose, a table or an SVG/PNG infographic for a README, a slide or a stakeholder walkthrough.",
+          "summary": "Explain what this entire library can do and render the visual menu card that shows it — every skill grouped by the workflow it serves, as prose, a table or an SVG/PNG infographic for a README, a slide or a stakeholder walkthrough.",
           "produces": "Library capability overview and menu-card infographic (SVG/PNG)",
           "requires": [
             "medical-affairs-foundations"

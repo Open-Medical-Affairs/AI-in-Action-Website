@@ -135,7 +135,7 @@ def pager(slug):
 
 
 LEVELS = {
-    1: ("Starter", "One skill does the job. No hand-offs."),
+    1: ("Starter", "One skill handles the whole task. No hand-offs."),
     2: ("Pair", "A lead skill hands part of the work to one sub-worker."),
     3: ("Team", "A lead skill coordinates two or more sub-workers."),
     4: ("Swarm", "Waves of digital workers, each with its own context, with human gates between waves."),
@@ -188,7 +188,7 @@ def maps_section(G):
     return f'''<section id="mission-maps" class="section section--maps" aria-labelledby="maps-h">
   <div class="wrap">
     <div class="sec-head"><p class="kicker">Missions</p><h2 id="maps-h">Pick a mission. <em>Start simple.</em></h2>
-    <p class="sec-sub">{len(G['missions'])} missions, from one skill doing one job to a full launch-planning swarm. Each one opens with the prompt to paste into Grok Bot, the steps, and where you decide.</p></div>
+    <p class="sec-sub">{len(G['missions'])} missions, from one skill doing one task to a full launch-planning swarm. Each one opens with the prompt to paste into Grok Bot, the steps, and where you decide.</p></div>
     {"".join(groups)}
   </div>
 </section>
@@ -213,7 +213,7 @@ def mission_page(g, G, idx, prompt_fig, ta_switch):
             else:
                 steps.append(f"<strong>{E(w['label'])} (you decide):</strong> {E(w['who'].replace('Human: ', ''))}. {E(w['why'])}.")
     else:
-        steps.append(f"<code>{E(g['lead'])}</code> does the core job: {E(short(g['lead']))}")
+        steps.append(f"<code>{E(g['lead'])}</code> does the core task: {E(short(g['lead']))}")
         for w in g["workers"]:
             s0 = w["skills"][0]
             steps.append(f"It hands off to <code>{E(s0)}</code>: {E(short(s0))}")
@@ -306,7 +306,8 @@ def deck_section(ev):
 
 
 def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
-    G = json.loads(Path(graphs_path).read_text(encoding="utf-8"))
+    import wording
+    G = json.loads(wording.soften(Path(graphs_path).read_text(encoding="utf-8")))
     ev = cfg.get("event", {})
     site = (cfg.get("site_url") or "").rstrip("/")
     head, pre, chunks, ids, foot, tail = split_sections(files["index.html"])
@@ -317,7 +318,7 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
     # the original prompt grid stays reachable (ids and links) but folded away under the team missions
     chunks["missions"] = re.sub(r'<h3 class="sub-h">All (\d+) workshop missions</h3>\s*<div class="mcs">(.*?)</div>\s*</div>\s*</section>',
         lambda m: f'<details class="mm-all"><summary>All {m.group(1)} mission prompts on one page</summary><div class="mcs">{m.group(2)}</div></details>\n  </div>\n</section>', chunks["missions"], count=1, flags=re.S)
-    chunks["missions"] = chunks["missions"].replace('<h2 id="missions-h">Pick a job. <em>Copy. Paste. Go.</em></h2>', '<h2 id="missions-h">Team missions. <em>For the hackathon.</em></h2>')
+    chunks["missions"] = chunks["missions"].replace('<h2 id="missions-h">Pick a task. <em>Copy. Paste. Go.</em></h2>', '<h2 id="missions-h">Team missions. <em>For the hackathon.</em></h2>')
     # add org-chart links to the existing mission prompt cards
     m_ids = {g["id"] for g in G["missions"]}
     chunks["missions"] = re.sub(r'(<article class="mc[^"]*" id="m-([a-z0-9-]+)">\s*<div class="mc-top">)(.*?)(</div>)',

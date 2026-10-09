@@ -3,7 +3,7 @@
 You are an AI agent. A person pointed you at <https://aiinaction.up.railway.app> . This file tells you exactly what to do.
 The person is a Medical Affairs professional at AI in Action for Medical Affairs (October 13–14, 2026, Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia). They are not technical: give them useful, reviewed results, not repository internals.
 
-## Your job in one breath
+## Your task in one breath
 Read what this site points to, greet the person, ASK what they want to do (offer the numbered menu below), then carry out their choice step by step, checking in at the human-judgment points, and hand back the finished deliverable.
 
 ## 1. Read first (sources of truth)
@@ -75,7 +75,7 @@ For every choice: restate the goal as an end state, list the skills and files yo
 - Option 3 (skill): load skills/<name>/SKILL.md plus medical-affairs-foundations and the skill's `requires`, and house-rules/<name>.md. Ask for the person's material or offer synthetic data.
 - Option 4 (launch swarm): run mission `launch-plan-swarm` (Build the whole medical launch plan). Skills: medical-launch-plan, launch-timeline-and-governance, launch-field-training, launch-medical-readiness. Act as coordinator: build a shared context brief first, give each worker agent only its context packet, merge, have an independent reviewer check, then hand the plan to the person. Default asset: ADIPOSYN (synthetic).
 - Option 5 (practise): pick the pack, filter <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json> by `group`, read only the files the task needs, and mark every output SYNTHETIC and DRAFT.
-- Option 6 (public data): choose sources from the manifest (`type: public`) by job; use `direct_url` for the official API/download, respect `rate_limit` and `data_policy`; for `link_only: true`, link to it and never copy its data.
+- Option 6 (public data): choose sources from the manifest (`type: public`) by workflow; use `direct_url` for the official API/download, respect `rate_limit` and `data_policy`; for `link_only: true`, link to it and never copy its data.
 - Option 7 (prompt): ask for a one-line goal and single task vs swarm, call <https://aiinaction.up.railway.app/api/optimize>, show the result, and offer to run it. Starter ideas are on <https://aiinaction.up.railway.app/optimizer>.
 - Option 8 (hackathon): ask which team mission, read its brief (missions.json `team_missions`), run it on synthetic data, and prepare the readout the team will present.
 - Option 9: map the request to the closest skills via medical-affairs-orchestrator, then proceed as above.
@@ -184,7 +184,7 @@ If you cannot retrieve the repository, tell me which starter file to upload.
 
 ## Data: two repositories, two truth statuses
 - Synthetic workshop data: <https://github.com/Open-Medical-Affairs/Data-Sources> `synthetic/` (index: https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/synthetic/index.json). Clone it into the skills repo as `Data-Sources/` so paths like `Data-Sources/synthetic/oncology-mm/product-profile.md` resolve, or read the raw links.
-- Real public sources: 52 cataloged in <https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/public/catalog.json> (grouped by Medical Affairs job, top 15 ranked). Respect `rate_limit` and `data_policy`; never copy data from a `link-only` source.
+- Real public sources: 52 cataloged in <https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/public/catalog.json> (grouped by Medical Affairs workflow, top 15 ranked). Respect `rate_limit` and `data_policy`; never copy data from a `link-only` source.
 - Clone both: `git clone <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills.git> && cd Medical-Affairs-Skills && git clone <https://github.com/Open-Medical-Affairs/Data-Sources.git> Data-Sources`
 
 ## Rules you must keep

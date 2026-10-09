@@ -92,7 +92,10 @@
   fetch("/healthz", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
     .then(function (j) { setBadge(!!(j && j.ai)); }).catch(function () { setBadge(false); });
 
+  /* site wording rule (see wording.py): say "task" or "workflow" in what people see or copy */
+  function soften(t) { return String(t).replace(/(^|[^\w\/_\-.=#@])(jobs?|Jobs?|JOBS?)(?![\w\/_\-=(])/g, function (m, p, w) { return p + { job: "task", jobs: "tasks", Job: "Task", Jobs: "Tasks", JOB: "TASK", JOBS: "TASKS" }[w]; }); }
   function show(text) {
+    text = soften(text);
     out.textContent = text;
     var w = text.split(/\s+/).filter(Boolean).length; meter.textContent = w ? w + " words" : "";
   }

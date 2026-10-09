@@ -46,7 +46,7 @@ function dataSection(choice, ta, note) {
 /* ---------- prompt for the model ---------- */
 function buildMessages({ workflow, kind, choice, ta, note, audience }) {
   const sys = `You design reusable agent skills for Medical Affairs teams, in the format of the open library ${REPO}.
-Return ONLY one JSON object, no prose, no code fences. Write plain, specific, practical English. Never invent data, references, people or products.
+Return ONLY one JSON object, no prose, no code fences. Write plain, specific, practical English. Never use the words "job" or "jobs"; say "task" or "workflow" instead. Never invent data, references, people or products.
 Existing library skills you may list in "requires" or "suggests" (use only these names, or names of skills in this pack): ${D.skills.join(", ")}.
 Every skill must:
 - run a safety scan first (possible adverse events / product complaints in human-sourced records) via medical-affairs-foundations;
@@ -70,7 +70,7 @@ ${kind === "group" ? `{
  "pack_name": "kebab-case",
  "summary": "one sentence",
  "skill": { "name": "kebab-case", "tier": "workflow|content|data", "description": "2-4 sentences incl. 'Use when ...' trigger phrases in quotes and 'Produces ...'",
-   "intro": "2 short paragraphs: the job and the standard", "requires": [], "suggests": [], "produces": "noun phrase", "deliverables": ["docx","pdf"],
+   "intro": "2 short paragraphs: the task and the standard", "requires": [], "suggests": [], "produces": "noun phrase", "deliverables": ["docx","pdf"],
    "inventory": "markdown", "retrieve": "markdown", "analyse": "markdown with ### subheadings", "deliver": "markdown",
    "failure_modes": ["..."], "house_rules": ["example organisation rules"] }
 }`}
@@ -154,10 +154,10 @@ function normalize(raw, kind) {
 function templateSpec(workflow, kind) {
   workflow = oneLine(workflow, 300); workflow = workflow.charAt(0).toLowerCase() + workflow.slice(1);
   const base = kebab(oneLine(workflow, 80).split(" ").slice(0, 5).join(" "), "custom-workflow").replace(/-(into|an|a|the|for|of|to|and)$/, "");
-  const generic = (name, role, job) => ({
+  const generic = (name, role, task) => ({
     name, role, tier: "workflow",
-    description: `${job} for this workflow: ${oneLine(workflow, 200)}. Use when asked to "${oneLine(workflow, 80).toLowerCase()}". Produces a draft for human review.`,
-    intro: `This skill does one job well: ${job.toLowerCase()}. It is a starting point generated from a template; edit it to match how your team works.`,
+    description: `${task} for this workflow: ${oneLine(workflow, 200)}. Use when asked to "${oneLine(workflow, 80).toLowerCase()}". Produces a draft for human review.`,
+    intro: `This skill does one task well: ${task.toLowerCase()}. It is a starting point generated from a template; edit it to match how your team works.`,
     produces: `${role} output`, deliverables: ["docx", "pdf"], requires: [], suggests: [],
     context: "The workflow goal, the inventory, and only the inputs this step needs.", hands_back: "A draft file plus open questions and gaps, each with a proposed owner.",
     inventory: "- The request in the person's words, the audience and the deadline\n- Every input file or source, with its kind (record, document, public source)\n- What is missing, listed rather than guessed",
@@ -393,7 +393,13 @@ function buildPack(spec, opts) {
   (spec.kind === "group" ? spec.workers : spec.skills).forEach((w) => files.push({ path: `skills/${w.name}/SKILL.md`, content: renderWorker(w, dataText, lead), skill: w.name, role: lead ? "worker" : "single" }));
   spec.skills.forEach((sk) => files.push({ path: `house-rules/${sk.name}.md`, content: houseRules(sk), skill: sk.name, role: "house-rules" }));
   files.unshift({ path: "README.md", content: readme(spec, dataText, opts.generatedBy), role: "readme" });
-  return { pack_name: spec.pack, kind: spec.kind, summary: spec.summary, files };
+  files.forEach((f) => { f.content = soften(f.content); });
+  return { pack_name: spec.pack, kind: spec.kind, summary: soften(spec.summary || ""), files };
+}
+
+/* Wording rule for the site: no "job"/"jobs" in generated packs (belt and braces after the prompt rule). */
+function soften(t) {
+  return String(t).replace(/(^|[^\w\/_\-.=#@])(jobs?|Jobs?|JOBS?)(?![\w\/_\-=(])/g, (m, pre, w) => pre + ({ job: "task", jobs: "tasks", Job: "Task", Jobs: "Tasks", JOB: "TASK", JOBS: "TASKS" })[w]);
 }
 
 /* ---------- validation of files posted back for zipping ---------- */
@@ -434,4 +440,4 @@ function zip(entries) {
   return Buffer.concat(locals.concat([cd, end]));
 }
 
-module.exports = { buildMessages, parseJson, normalize, templateSpec, buildPack, checkFiles, zip, kebab };
+module.exports = { soften, buildMessages, parseJson, normalize, templateSpec, buildPack, checkFiles, zip, kebab };

@@ -34,6 +34,7 @@ __DATA_CONTEXT__
 10. If the user's goal names a product, congress, region or team, keep it. If it names a real product, keep the assignment generic and point to public sources where they help.
 
 ## Output contract
+Wording rule: never use the words "job" or "jobs" (they read as "AI is taking jobs"); say "task" or "workflow" instead, whichever reads naturally.
 Return ONLY the finished assignment in Markdown. No preamble, no explanation, no closing remarks, no code fences around the whole thing.`;
 
 const SINGLE = `## Mode: Single task for Grok Bot
@@ -55,7 +56,7 @@ Design a small team of Grok Bot sub-agents organised like an org chart. Use exac
 (role + end state paragraph; you are the COORDINATOR)
 ## Objective
 ## Context engineering (what the coordinator loads first: repos, AGENTS.md, skills, the data described below; build a shared context brief before delegating)
-## Org chart (text tree: Human final judge -> Coordinator -> 3-5 worker agents, each with one skill-backed job -> Independent reviewer who did not do the work)
+## Org chart (text tree: Human final judge -> Coordinator -> 3-5 worker agents, each with one skill-backed task -> Independent reviewer who did not do the work)
 ## Context packets (for each worker: goal, inputs/files, skill to load, output file, format, deadline; workers get only what they need)
 ## Handoffs and sequence (what runs in parallel, what waits, how outputs are merged)
 ## Deliverables and format

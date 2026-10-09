@@ -1717,7 +1717,7 @@
     }
   ],
   "public_sources": {
-    "about": "Real, public, free (or free-with-registration) data sources that Medical Affairs agents can call or read, grouped by Medical Affairs job. This repository links to them; it does not mirror their data.",
+    "about": "Real, public, free (or free-with-registration) data sources that Medical Affairs agents can call or read, grouped by Medical Affairs workflow. This repository links to them; it does not mirror their data.",
     "warning": "REAL PUBLIC SOURCES, NOT SYNTHETIC. Check each source's terms before copying or redistributing data. Never send PHI or confidential company data in a query. Retrieval does not verify a scientific claim.",
     "verified_on": "2026-10-08",
     "data_policy_legend": {
@@ -2187,7 +2187,7 @@
           "investigator-initiated-study-review"
         ],
         "access": "Open API, no key",
-        "rate_limit": "Recommend max 1 request/second; large jobs on weekends or 9 PM–5 AM ET weekdays",
+        "rate_limit": "Recommend max 1 request/second; large batch runs on weekends or 9 PM–5 AM ET weekdays",
         "license": "US government data (license not stated in excerpt)",
         "data_policy": "open",
         "data_policy_note": "Public data; attribute the source and keep it separate from synthetic workshop data.",

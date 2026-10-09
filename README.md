@@ -101,7 +101,7 @@ Content from [Open-Medical-Affairs/Medical-Affairs-Skills](https://github.com/Op
 
 ## Pages and mission maps
 
-Each section is its own page with a left sidebar (a hamburger drawer on phones): `/`, `/agenda`, `/ideas`, `/inside`, `/missions`, `/prompts`, `/optimizer`, `/data`, `/grokbot`, `/agents`, `/skills`. Every mission has an org-chart page at `/missions/<mission-id>` (for example `/missions/launch-plan-swarm`): the lead skill, the skills it loads as sub-workers, the hand-offs between them, the human checkpoints, and the data in and deliverables out. Click any node to see the skill's one-line job and a link to its `SKILL.md`.
+Each section is its own page with a left sidebar (a hamburger drawer on phones): `/`, `/agenda`, `/ideas`, `/inside`, `/missions`, `/prompts`, `/optimizer`, `/data`, `/grokbot`, `/agents`, `/skills`. Every mission has an org-chart page at `/missions/<mission-id>` (for example `/missions/launch-plan-swarm`): the lead skill, the skills it loads as sub-workers, the hand-offs between them, the human checkpoints, and the data in and deliverables out. Click any node to see the skill's one-line purpose and a link to its `SKILL.md`.
 
 The charts are generated, not drawn by hand:
 

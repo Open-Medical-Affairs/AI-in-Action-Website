@@ -421,7 +421,7 @@
   },
   "library-menu": {
    "name": "library-menu",
-   "summary": "Explain what this entire library can do and render the visual menu card that shows it — every skill grouped by the job it serves, as prose, a table or an SVG/PNG infographic for a README, a slide or a stakeholder walkthrough.",
+   "summary": "Explain what this entire library can do and render the visual menu card that shows it — every skill grouped by the workflow it serves, as prose, a table or an SVG/PNG infographic for a README, a slide or a stakeholder walkthrough.",
    "tier": "content",
    "requires": [
     "medical-affairs-foundations"

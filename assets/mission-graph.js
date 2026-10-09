@@ -1,4 +1,4 @@
-/* Click a node in a mission org chart to see the skill's one-line job and a link to its SKILL.md. */
+/* Click a node in a mission org chart to see the skill's one-line purpose and a link to its SKILL.md. */
 (function () {
   "use strict";
   var d = document, data = d.getElementById("md-data"), out = d.getElementById("md-detail");

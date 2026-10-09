@@ -520,7 +520,7 @@ def agent_playbook(content, cfg, abs_, raw):
     L = [f"# Instructions for agents: {ev['name']}", "",
          f"You are an AI agent. A person pointed you at {site} . This file tells you exactly what to do.",
          f"The person is a Medical Affairs professional at {ev['name']} ({ev['dates']}, {ev['venue']}, {ev['address']}). They are not technical: give them useful, reviewed results, not repository internals.", "",
-         "## Your job in one breath",
+         "## Your task in one breath",
          "Read what this site points to, greet the person, ASK what they want to do (offer the numbered menu below), then carry out their choice step by step, checking in at the human-judgment points, and hand back the finished deliverable.", "",
          "## 1. Read first (sources of truth)",
          f"- This site: {abs_('agents.md')} (this file), {abs_('llms.txt')}, {abs_('missions.json')}, {abs_('skills.json')}, {abs_('prompts.json')}, {abs_('datasets.json')}.",
@@ -550,7 +550,7 @@ def agent_playbook(content, cfg, abs_, raw):
          f"- Option 3 (skill): load skills/<name>/SKILL.md plus medical-affairs-foundations and the skill's `requires`, and house-rules/<name>.md. Ask for the person's material or offer synthetic data.",
          "- Option 4 (launch swarm): " + (f"run mission `launch-plan-swarm` ({swarm['title']}). Skills: {', '.join(swarm['skills'])}. " if swarm else "") + "Act as coordinator: build a shared context brief first, give each worker agent only its context packet, merge, have an independent reviewer check, then hand the plan to the person. Default asset: ADIPOSYN (synthetic).",
          f"- Option 5 (practise): pick the pack, filter {latest}manifest.json by `group`, read only the files the task needs, and mark every output SYNTHETIC and DRAFT.",
-         f"- Option 6 (public data): choose sources from the manifest (`type: public`) by job; use `direct_url` for the official API/download, respect `rate_limit` and `data_policy`; for `link_only: true`, link to it and never copy its data.",
+         f"- Option 6 (public data): choose sources from the manifest (`type: public`) by workflow; use `direct_url` for the official API/download, respect `rate_limit` and `data_policy`; for `link_only: true`, link to it and never copy its data.",
          f"- Option 7 (prompt): ask for a one-line goal and single task vs swarm, call {abs_('api/optimize')}, show the result, and offer to run it. Starter ideas are on {site}/#optimizer.",
          f"- Option 8 (hackathon): ask which team mission, read its brief (missions.json `team_missions`), run it on synthetic data, and prepare the readout the team will present.",
          "- Option 9: map the request to the closest skills via medical-affairs-orchestrator, then proceed as above.", "",
@@ -694,7 +694,7 @@ def render(content, cfg):
     ps = content.get("public_sources") or {"counts": {"sources": 0}}
     L += ["", "## Data: two repositories, two truth statuses",
           f"- Synthetic workshop data: {cfg['datasets_source']['repo_url']} `synthetic/` (index: {cfg['datasets_source']['raw_base']}synthetic/index.json). Clone it into the skills repo as `Data-Sources/` so paths like `Data-Sources/synthetic/oncology-mm/product-profile.md` resolve, or read the raw links.",
-          f"- Real public sources: {ps['counts']['sources']} cataloged in {cfg['datasets_source']['raw_base']}public/catalog.json (grouped by Medical Affairs job, top 15 ranked). Respect `rate_limit` and `data_policy`; never copy data from a `link-only` source.",
+          f"- Real public sources: {ps['counts']['sources']} cataloged in {cfg['datasets_source']['raw_base']}public/catalog.json (grouped by Medical Affairs workflow, top 15 ranked). Respect `rate_limit` and `data_policy`; never copy data from a `link-only` source.",
           f"- Clone both: `git clone {R['url']}.git && cd Medical-Affairs-Skills && git clone {cfg['datasets_source']['repo_url']}.git Data-Sources`"]
     L += ["", "## Rules you must keep",
           "- Workshop data is synthetic and fictional (Nordvant Biopharma; NORVANTIB, DERMALYX, ADIPOSYN). Mark outputs SYNTHETIC and DRAFT.",
@@ -806,10 +806,10 @@ def optimizer_html(cfg, lib):
 <section id="optimizer" class="section section--opt" aria-labelledby="opt-h">
   <div class="wrap">
     <div class="sec-head"><p class="kicker">Prompt Optimizer</p><h2 id="opt-h">Turn a question into <em>an assignment</em>.</h2>
-    <p class="sec-sub">Pick the job, answer a few plain questions, and copy a goal-oriented assignment your agent can execute. The AI optimizer sends only your short goal (and, if you add one, your short data description) to this site’s server, which asks the Venice API to write the assignment. The template builder below runs entirely in your browser. Every assignment covers role, end goal, steps, narrowing, proof of done and stop conditions.</p></div>
+    <p class="sec-sub">Pick the task, answer a few plain questions, and copy a goal-oriented assignment your agent can execute. The AI optimizer sends only your short goal (and, if you add one, your short data description) to this site’s server, which asks the Venice API to write the assignment. The template builder below runs entirely in your browser. Every assignment covers role, end goal, steps, narrowing, proof of done and stop conditions.</p></div>
     <div class="opt" id="opt">
       <form class="opt-form" aria-label="Prompt optimizer inputs" onsubmit="return false">
-        <fieldset><legend class="fld-l">1 · The job</legend><div class="opt-types" role="radiogroup" aria-label="Task type">{types}</div></fieldset>
+        <fieldset><legend class="fld-l">1 · The task</legend><div class="opt-types" role="radiogroup" aria-label="Task type">{types}</div></fieldset>
         <div class="opt-row">
           <label class="fld"><span class="fld-l">2 · Data <span class="muted">(optional)</span></span><select name="ta">{tas}</select></label>
           <label class="fld"><span class="fld-l">Format</span><select name="dialect"><option value="markdown">Universal (Markdown)</option><option value="xml">Claude-style (XML tags)</option></select></label>
@@ -985,14 +985,14 @@ def render_html(content, cfg, lib):
                        f'<div class="dg-body"><ul class="files">{rows}</ul></div></details>')
         cid = Ids.next("cat")
         pub_html = (f'<div class="pub" id="public-sources"><div class="pub-head"><div><p class="kicker">Public sources · real data</p>'
-                    f'<h3 class="ds-h">{ps["counts"]["sources"]} public sources, <em>grouped by Medical Affairs job</em> <span class="badge badge--real">Real public data</span></h3>'
+                    f'<h3 class="ds-h">{ps["counts"]["sources"]} public sources, <em>grouped by Medical Affairs workflow</em> <span class="badge badge--real">Real public data</span></h3>'
                     f'<p class="muted">Real and free, from regulators, registries and journals. Linked, never copied. {ps["counts"]["already_used_by_skills"]} are already wired into the skills; '
                     f'{ps["counts"]["link_only"]} are <strong>link only</strong> because their licences restrict copying or commercial use. Checked {e(ps["verified_on"])}.</p></div>'
                     f'<div class="panel-actions"><a class="btn-ghost" href="{e(ds_cfg["blob_base"] + "public/catalog.md")}" target="_blank" rel="noopener">Full catalog ↗</a>'
                     f'<span id="{cid}" hidden>{e(ds_cfg["raw_base"] + "public/catalog.json")}</span>{copy_btn(cid, "Copy raw link to catalog.json", "btn-copy btn-copy--solid", "Copy catalog.json link")}</div></div>'
                     f'<p class="pol-legend"><span class="pol pol--open">Open</span> free with attribution <span class="pol pol--check">Check terms</span> read the licence first <span class="pol pol--link">Link only · do not copy data</span> point to it, never copy it</p>'
                     f'<h4 class="mini-h">Top 15 to start with</h4><ol class="tops">{top}</ol>'
-                    f'<h4 class="mini-h">All {ps["counts"]["sources"]}, by job</h4><div class="dgs">{groups}</div></div>')
+                    f'<h4 class="mini-h">All {ps["counts"]["sources"]}, by workflow</h4><div class="dgs">{groups}</div></div>')
     bundles = "".join(f'<li><a href="{e(blob("workshop/bundles/first-mission-" + t["id"] + ".md"))}" target="_blank" rel="noopener">{t["short"]} starter</a>'
                       f'<span id="b-{t["id"]}" hidden>{e(raw("workshop/bundles/first-mission-" + t["id"] + ".md"))}</span>{copy_btn("b-" + t["id"], "Copy raw link to " + t["short"] + " starter", "btn-copy btn-copy--mini", "Raw link")}</li>' for t in TAS)
 
@@ -1062,7 +1062,7 @@ TEMPLATE = r'''<!doctype html>
   <div class="wrap hero-grid">
     <div class="hero-main">
     <p class="eyebrow reveal"><span class="pulse" aria-hidden="true"></span>Oct 13–14, 2026 · Convene, Philadelphia</p>
-    <h1 id="hero-h" class="reveal">Stop asking AI questions.<br><em>Start giving it jobs.</em></h1>
+    <h1 id="hero-h" class="reveal">Stop asking AI questions.<br><em>Start giving it tasks.</em></h1>
     <p class="lede reveal">The companion to <strong>{E[name]}</strong>. Everything you need to give your agent a real Medical Affairs goal, with {ns} open skills, {nm} missions and a fictional pharma company’s data. No coding. No company systems.</p>
     <div class="hero-cta reveal"><a class="btn-primary" href="#start">Start in three steps</a><a class="btn-ghost" href="#optimizer">Optimize a prompt</a></div>
     <p class="pd-note reveal"><span class="pd-dot" aria-hidden="true"></span>Practice data is fictional and for learning; for real work, bring your own data.</p>
@@ -1174,13 +1174,13 @@ TEMPLATE = r'''<!doctype html>
     <p class="sec-sub">Open source (Apache-2.0) at <a href="{RU}" target="_blank" rel="noopener">Open-Medical-Affairs/Medical-Affairs-Skills</a>.</p></div>
     <div class="bento">
       <article class="bx bx--a reveal"><div class="bx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="18" cy="16" r="3"/></svg></div>
-        <h3>Skills <span class="bx-big">{ns}</span></h3><p>Written know-how for one Medical Affairs job, such as a KOL brief, a congress readout or an MI response. Your agent picks the right ones; you never need to name them.</p>
+        <h3>Skills <span class="bx-big">{ns}</span></h3><p>Written know-how for one Medical Affairs task, such as a KOL brief, a congress readout or an MI response. Your agent picks the right ones; you never need to name them.</p>
         <a class="lnk" href="#skills">Browse all {ns} →</a></article>
       <article class="bx bx--b reveal"><div class="bx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5z"/><path d="M9 12h6M9 16h4"/></svg></div>
         <h3>House rules <span class="bx-big">{hr}</span></h3><p>One file per skill where your team writes what an experienced colleague knows, like “MSL briefs are two pages.” Rules beat the defaults, so the agent works your way.</p>
         <a class="lnk" href="{HR_README}" target="_blank" rel="noopener">How to write a rule ↗</a></article>
       <article class="bx bx--c reveal"><div class="bx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></svg></div>
-        <h3>Missions <span class="bx-big">{nm}</span></h3><p>Ready-made jobs with a clear goal, the right input files and the deliverables to expect. Plus six 30-minute team missions for the hackathon.</p>
+        <h3>Missions <span class="bx-big">{nm}</span></h3><p>Ready-made tasks with a clear goal, the right input files and the deliverables to expect. Plus six 30-minute team missions for the hackathon.</p>
         <a class="lnk" href="#missions">See the missions →</a></article>
       <article class="bx bx--d reveal"><div class="bx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></div>
         <h3>Synthetic data <span class="bx-big">3+1</span></h3><p>A fictional company, Nordvant Biopharma, with three products: NORVANTIB, DERMALYX and ADIPOSYN. Field notes, enquiries, plans and manuscripts, plus a practice CRM with {HCPS} clinicians and {INTER} interactions. The flaws are deliberate.</p>
@@ -1193,7 +1193,7 @@ TEMPLATE = r'''<!doctype html>
 
 <section id="missions" class="section section--tint" aria-labelledby="missions-h">
   <div class="wrap">
-    <div class="sec-head sec-head--row"><div><p class="kicker">Missions</p><h2 id="missions-h">Pick a job. <em>Copy. Paste. Go.</em></h2>
+    <div class="sec-head sec-head--row"><div><p class="kicker">Missions</p><h2 id="missions-h">Pick a task. <em>Copy. Paste. Go.</em></h2>
     <p class="sec-sub">Choose your therapeutic area once. Every prompt on the page updates.</p></div>
     {ta_switch}</div>
     <h3 class="sub-h">Team missions · 30 minutes each</h3>
@@ -1339,6 +1339,12 @@ def main():
     files = render(content, cfg)
     import paginate  # separate pages + left sidebar + mission org charts (see paginate.py)
     files = paginate.paginate(files, cfg)
+    import wording  # no 'job'/'jobs' anywhere on the site (see wording.py)
+    files["data/mission-graphs.json"] = (HERE / "data/mission-graphs.json").read_text(encoding="utf-8")
+    files = {k: wording.soften(v) for k, v in files.items()}
+    left = {k: wording.remaining(v) for k, v in files.items() if wording.remaining(v)}
+    if left:
+        raise SystemExit(f"'job' wording left in the built site: {left}")
     for name, text in files.items():
         (HERE / name).parent.mkdir(parents=True, exist_ok=True)
         (HERE / name).write_text(text, encoding="utf-8")

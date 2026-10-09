@@ -218,7 +218,7 @@ if (process.env.DATA_MANIFEST_SYNC !== "off") { refreshManifest(); setInterval(r
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json; charset=utf-8",
   ".md": "text/markdown; charset=utf-8", ".txt": "text/plain; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".pdf": "application/pdf", ".pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation", ".jpeg": "image/jpeg",
   ".webp": "image/webp", ".ico": "image/x-icon", ".csv": "text/csv; charset=utf-8", ".pdf": "application/pdf", ".woff2": "font/woff2" };
-const BLOCKED = /^\/(server|node_modules|shots|tools|__pycache__)(\/|$)|\/\.|^\/(package(-lock)?\.json|railway\.json|Procfile|build\.py)$/i;
+const BLOCKED = /^\/(server|node_modules|shots|tools|__pycache__)(\/|$)|^\/data\/content\.json$|^\/(wording|paginate|mission_svg)\.py$|\/\.|^\/(package(-lock)?\.json|railway\.json|Procfile|build\.py)$/i;
 function sendFile(req, res, file, st, status) {
   const type = TYPES[path.extname(file).toLowerCase()];
   const cache = /\.(html|json|md|txt)$/.test(file) ? "no-cache" : "public, max-age=3600";
