@@ -507,6 +507,65 @@ def library_items(cfg):
 
 # ---------------------------------------------------------------- data outputs
 
+PASTE_TEMPLATE = "Go to {site} and follow the Instructions for agents."
+
+def agent_playbook(content, cfg, abs_, raw):
+    """The menu-driven playbook at the top of agents.md (also shown on the page)."""
+    ev = cfg["event"]; R = cfg["repo"]; site = cfg.get("site_url", "").rstrip("/") or "(this site)"
+    ds = cfg["datasets_source"]["repo_url"].rstrip("/")
+    latest = ds + "/releases/latest/download/"
+    ms = content["missions"]; tm = content["team_missions"]
+    swarm = next((m for m in ms if m["id"] == "launch-plan-swarm"), None)
+    L = [f"# Instructions for agents: {ev['name']}", "",
+         f"You are an AI agent. A person pointed you at {site} . This file tells you exactly what to do.",
+         f"The person is a Medical Affairs professional at {ev['name']} ({ev['dates']}, {ev['venue']}, {ev['address']}). They are not technical: give them useful, reviewed results, not repository internals.", "",
+         "## Your job in one breath",
+         "Read what this site points to, greet the person, ASK what they want to do (offer the numbered menu below), then carry out their choice step by step, checking in at the human-judgment points, and hand back the finished deliverable.", "",
+         "## 1. Read first (sources of truth)",
+         f"- This site: {abs_('agents.md')} (this file), {abs_('llms.txt')}, {abs_('missions.json')}, {abs_('skills.json')}, {abs_('prompts.json')}, {abs_('datasets.json')}.",
+         f"- Skills library: {R['url']} . Default branch: `{cfg['repo'].get('default_branch', 'HEAD')}`. Start with {raw('AGENTS.md')}.",
+         f"  The launch-planning swarm (skills medical-launch-plan, launch-timeline-and-governance, launch-field-training; mission `launch-plan-swarm`; team mission 7) is in open pull request {R['url']}/pull/8 on branch `launch-planning-swarm`. If a launch file is missing on the default branch, read it from that branch: {R['url']}/tree/launch-planning-swarm . This site's counts ({content['skill_count']} skills, {len(ms)} missions) include it.",
+         f"- Data: {ds} . Manifest of every dataset (synthetic and public, with licence, access type and links): {latest}manifest.json (also manifest.csv). Everything at once: {latest}all-synthetic-data.zip, {latest}all-synthetic.jsonl, {latest}all-data-catalog.zip.",
+         f"- Prompt optimizer: POST JSON {{\"goal\": \"<short goal>\", \"mode\": \"single\" or \"swarm\", \"ta\": \"oncology-mm|immunology-ad|cardiometabolic-obesity|own\"}} to {abs_('api/optimize')} (streams Markdown; on error, use the optimizer structure in {abs_('prompts.json')}).", "",
+         "## 2. Greet, then ask",
+         f"Say hello in one line, say you have read the {ev['name']} materials, then ask: \"What would you like to do?\" and offer this menu. Wait for the answer. Do not start work before they choose (if they already stated a goal, map it to an option and confirm).", "",
+         "1. Set up Grok Bot or another agent with the Medical Affairs skills library",
+         f"2. Run a workshop mission ({len(ms)} available, listed below)",
+         f"3. Use one specific skill ({content['skill_count']} available: {abs_('skills.json')})",
+         "4. Build the launch-planning agent swarm (a full medical launch plan for an upcoming asset)",
+         "5. Practise on synthetic data (pick a pack: oncology NORVANTIB, immunology DERMALYX, cardiometabolic ADIPOSYN, or the connected practice CRM)",
+         "6. Find and connect real public data sources",
+         "7. Write or optimize a prompt for an agent or an agent swarm",
+         f"8. Prepare for the hackathon team challenge ({len(tm)} team missions)",
+         "9. Something else (tell me)", "",
+         "Missions for option 2: " + "; ".join(f"`{m['id']}` ({m['title']})" for m in ms) + ".",
+         "Team missions for option 8: " + "; ".join(f"{m['number']}. {m['function']}" for m in tm) + ".", "",
+         "## 3. Do it",
+         "For every choice: restate the goal as an end state, list the skills and files you will use, give a short plan, then work. Pause at each human checkpoint.", "",
+         f"- Option 1 (set up an agent): follow {raw('docs/agents.md')}. Grok Bot is the event sandbox; sign-up links and credit codes are shared at the conference (see {site}/#grokbot). Other hosts: Claude Code (clone and read AGENTS.md, or `/plugin marketplace add Open-Medical-Affairs/Medical-Affairs-Skills`), Codex or Cursor (open the repository, read AGENTS.md), chat-only tools (upload a starter bundle from workshop/bundles/). For one agent per mission, use workshop/grokbot-agents.json and scripts/package_skills.py.",
+         f"- Option 2 (mission): ask which therapeutic area (default `{content['default_ta']}`), then follow \"Running a mission, step by step\" below. Inputs and prompts per area: {abs_('missions.json')}.",
+         f"- Option 3 (skill): load skills/<name>/SKILL.md plus medical-affairs-foundations and the skill's `requires`, and house-rules/<name>.md. Ask for the person's material or offer synthetic data.",
+         "- Option 4 (launch swarm): " + (f"run mission `launch-plan-swarm` ({swarm['title']}). Skills: {', '.join(swarm['skills'])}. " if swarm else "") + "Act as coordinator: build a shared context brief first, give each worker agent only its context packet, merge, have an independent reviewer check, then hand the plan to the person. Default asset: ADIPOSYN (synthetic).",
+         f"- Option 5 (practise): pick the pack, filter {latest}manifest.json by `group`, read only the files the task needs, and mark every output SYNTHETIC and DRAFT.",
+         f"- Option 6 (public data): choose sources from the manifest (`type: public`) by job; use `direct_url` for the official API/download, respect `rate_limit` and `data_policy`; for `link_only: true`, link to it and never copy its data.",
+         f"- Option 7 (prompt): ask for a one-line goal and single task vs swarm, call {abs_('api/optimize')}, show the result, and offer to run it. Starter ideas are on {site}/#optimizer.",
+         f"- Option 8 (hackathon): ask which team mission, read its brief (missions.json `team_missions`), run it on synthetic data, and prepare the readout the team will present.",
+         "- Option 9: map the request to the closest skills via medical-affairs-orchestrator, then proceed as above.", "",
+         "Human checkpoints (always stop and ask): before using any data beyond the synthetic packs; when a possible safety finding appears; before final conclusions or recommendations; before sending, sharing, publishing or posting anything.", "",
+         "Deliver designed files where your host can (Word/PowerPoint/PDF via the skill's scripts/ma_render.py). If you cannot create files or reach a source, say so plainly and deliver the complete content.", "",
+         "## 4. Guardrails",
+         "- The human is the final judge. Everything you produce is a draft for qualified review.",
+         "- Workshop data is synthetic and fictional (Nordvant Biopharma; NORVANTIB, DERMALYX, ADIPOSYN). Never present it as real or mix it with real evidence.",
+         "- No patient-identifiable information and no confidential company data, in prompts, files or public-source queries.",
+         "- Verify every citation against its source; never invent references, data or people. List what is missing instead.",
+         "- Respect licences: `link-only` sources are linked, never copied.",
+         "- Do not send messages, email, post, publish or update external systems without the person's explicit say-so.", "",
+         "## 5. Works with any harness",
+         "Grok Bot, Claude (Code or Cowork), Microsoft Copilot, ChatGPT, Cursor, Codex or your own agent. Use the tools you actually have (web, files, shell, sub-agents); if you lack one, state the gap and continue with what works. Never claim a search, script or file happened if it did not.", "",
+         "---", "", "# Reference", ""]
+    return L
+
+
 def render(content, cfg):
     Ids.n = 0
     R = cfg["repo"]; ev = cfg["event"]
@@ -566,12 +625,10 @@ def render(content, cfg):
     out["skills.json"] = json.dumps(skills_json, indent=2, ensure_ascii=False)
     out["prompts.json"] = json.dumps(prompts_json, indent=2, ensure_ascii=False)
 
-    L = [f"# {ev['name']}: instructions for AI agents", "",
-         f"You are helping a Medical Affairs professional at {ev['name']} ({ev['dates']}, {ev['venue']}, {ev['address']}).",
-         "They are not technical. Give them a useful, reviewed result, not an explanation of repository internals.", "",
+    L = agent_playbook(content, cfg, abs_, raw) + [
          "## What this is",
          f"This site is a companion to the open repository {R['url']} ({content['skill_count']} Medical Affairs skills, {len(content['missions'])} workshop missions, 3 therapeutic areas, synthetic data). Everything you need is in that repository; this file tells you where to start and how to work.", "",
-         "## Step by step",
+         "## Running a mission, step by step",
          f"1. Read the repository's agent entry point: {raw('AGENTS.md')} and then {raw('docs/execution.md')}.",
          f"2. For a workshop or first demonstration, load the workshop launcher: {raw('skills/workshop-launcher/SKILL.md')}.",
          f"   For a specific Medical Affairs objective, load the orchestrator: {raw('skills/medical-affairs-orchestrator/SKILL.md')}.",
@@ -613,9 +670,10 @@ def render(content, cfg):
     for i in range(0, len(parts), 2):
         parts[i] = re.sub(r"(?<![<(])(https?://[^\s<>()]+?)([.,;:]?)(?=\s|$)", r"<\1>\2", parts[i])
     out["agents.md"] = "```".join(parts)
+    cfg["_agents_md"] = out["agents.md"]
     out["llms.txt"] = "\n".join([f"# {ev['name']}", "",
         f"> Companion site for {ev['name']} ({ev['dates']}, {ev['venue']}, {ev['address']}). It turns the open Medical-Affairs-Skills and Data-Sources repositories into copy-ready prompts, missions, datasets and a prompt optimizer for non-technical Medical Affairs professionals and their AI agents. Grok Bot is the event sandbox. All workshop data is synthetic.", "",
-        "Agents: start with agents.md. It is a step-by-step guide that lets you do everything the repository supports.", "",
+        f"Agents: follow the Instructions for agents at {abs_('agents.md')}. In short: read this site and its two repositories, greet the user, ASK what they want to do from a numbered menu (set up an agent, run a mission or skill, build the launch-planning swarm, practise on synthetic data, find public data sources, write or optimize a prompt, prepare for the hackathon team challenge, or something else), then do it step by step. The human is the final judge; workshop data is fictional; never send or publish anything without the user's say-so.", "",
         "## Start here", f"- [Agent instructions]({abs_('agents.md')}): how to run a mission end to end", f"- [Repository]({R['url']}): the source of truth",
         f"- [AGENTS.md (raw)]({raw('AGENTS.md')}): the repository's own agent entry point", "",
         "## Data repository",
@@ -895,14 +953,18 @@ def render_html(content, cfg, lib):
                       f'<span id="b-{t["id"]}" hidden>{e(raw("workshop/bundles/first-mission-" + t["id"] + ".md"))}</span>{copy_btn("b-" + t["id"], "Copy raw link to " + t["short"] + " starter", "btn-copy btn-copy--mini", "Raw link")}</li>' for t in TAS)
 
     nav = [("start", "Start"), ("agenda", "Agenda"), ("ideas", "Ideas"), ("inside", "Inside"), ("missions", "Missions"),
-           ("prompts", "Prompts"), ("optimizer", "Optimizer"), ("data", "Data"), ("grokbot", "Grok Bot"), ("agents", "Agents")]
-    navhtml = "".join(f'<a href="#{a}">{b}</a>' for a, b in nav)
+           ("prompts", "Prompts"), ("optimizer", "Optimizer"), ("data", "Data"), ("grokbot", "Grok Bot"), ("agents", "For agents")]
+    navhtml = "".join(f'<a href="#{a}"' + (' class="nav-agents"' if a == "agents" else "") + f'>{b}</a>' for a, b in nav)
     jsonld = json.dumps({"@context": "https://schema.org", "@type": "Event", "name": ev["name"], "startDate": "2026-10-13T07:45:00-04:00",
                          "endDate": "2026-10-14T13:30:00-04:00", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
                          "location": {"@type": "Place", "name": "Convene, Two Commerce Square", "address": ev["address"]},
                          "organizer": {"@type": "Organization", "name": ev["organizer"]}, "performer": {"@type": "Person", "name": ev["host"]}}, ensure_ascii=False)
     copy = copy_btn(repo_id, "Copy repository link", "btn-copy btn-copy--solid", "Copy")
     give_copy = copy_btn("give", "Copy instructions for your agent", "btn-copy btn-copy--solid", "Copy")
+    agent_site = cfg.get("site_url", "").rstrip("/")
+    paste = PASTE_TEMPLATE.format(site=agent_site or "this page")
+    paste_copy = copy_btn("ap-paste", "Copy the sentence for your agent", "btn-copy btn-copy--solid", "Copy")
+    playbook_md = e(cfg.get("_agents_md", ""))
     signup = placeholder(gb.get("signup_url"), gb["signup_label"], "url")
     credits = placeholder(gb.get("credits_code"), gb["credits_label"], "code")
     return TEMPLATE.format(sprite=SPRITE, **{k: v for k, v in locals().items() if k not in ('ev', 'R', 'gb')}, opt=optimizer_html(cfg, lib), hr=content["house_rules_count"],
@@ -919,10 +981,11 @@ TEMPLATE = r'''<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{E[name]} · Oct 13–14, 2026 · Philadelphia</title>
-<meta name="description" content="Companion site for {E[name]}. Copy-ready prompts, {nm} workshop missions, {ns} Medical Affairs skills, a prompt optimizer and synthetic datasets for you and your AI agent.">
+<meta name="description" content="Companion site for {E[name]}. Copy-ready prompts, {nm} workshop missions, {ns} Medical Affairs skills, a prompt optimizer and synthetic datasets for you and your AI agent. AI agents: read /agents.md (Instructions for agents) and follow it.">
+<meta name="agent-instructions" content="/agents.md">
 <meta name="theme-color" content="#F6F8F8">
-<link rel="alternate" type="text/markdown" href="agents.md" title="Instructions for AI agents">
-<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="alternate" type="text/markdown" href="/agents.md" title="Instructions for agents">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
 <link rel="alternate" type="application/json" href="missions.json" title="Missions">
 <link rel="alternate" type="application/json" href="datasets.json" title="Datasets">
 <link rel="alternate" type="application/json" href="prompts.json" title="Prompts and optimizer templates">
@@ -932,10 +995,11 @@ TEMPLATE = r'''<!doctype html>
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="stylesheet" href="assets/ai-optimizer.css">
 <link rel="stylesheet" href="assets/get-data.css">
+<link rel="stylesheet" href="assets/agents-panel.css">
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
-<!-- AI agents: plain-text instructions are at agents.md (and llms.txt). Missions, datasets, skills and prompts are at missions.json, datasets.json, skills.json and prompts.json. -->
+<!-- AI agents: Instructions for agents are at /agents.md (plain text; also /llms.txt). Read them, greet the user, ask what they want to do from the menu, then do it. Missions, datasets, skills and prompts are at missions.json, datasets.json, skills.json and prompts.json. -->
 {sprite}<a class="skip" href="#main">Skip to content</a>
 <div class="grain" aria-hidden="true"></div>
 
@@ -951,7 +1015,8 @@ TEMPLATE = r'''<!doctype html>
 
 <section class="hero" aria-labelledby="hero-h">
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-  <div class="wrap">
+  <div class="wrap hero-grid">
+    <div class="hero-main">
     <p class="eyebrow reveal"><span class="pulse" aria-hidden="true"></span>Oct 13–14, 2026 · Convene, Philadelphia</p>
     <h1 id="hero-h" class="reveal">Stop asking AI questions.<br><em>Start giving it jobs.</em></h1>
     <p class="lede reveal">The companion to <strong>{E[name]}</strong>. Everything you need to give your agent a real Medical Affairs goal, with {ns} open skills, {nm} missions and a fictional pharma company’s data. No coding. No company systems.</p>
@@ -962,6 +1027,22 @@ TEMPLATE = r'''<!doctype html>
       <div><dt>Therapeutic areas</dt><dd>3</dd></div>
       <div><dt>Company data needed</dt><dd>0</dd></div>
     </dl>
+    </div>
+    <aside class="ap reveal" id="for-agents" aria-labelledby="ap-h">
+      <p class="ap-label"><span class="ap-dot" aria-hidden="true"></span>Instructions for agents</p>
+      <h2 class="ap-h" id="ap-h">Point your agent at this page and it will take it from here.</h2>
+      <div class="ap-paste"><p class="ap-paste-l">Paste this into Grok Bot or any agent</p>
+        <div class="ap-paste-row"><code id="ap-paste">{paste}</code>{paste_copy}</div></div>
+      <p class="ap-sub">What the agent does</p>
+      <ol class="ap-steps">
+        <li>Reads this site, the skills library and the data repository.</li>
+        <li>Greets you and asks what you want to do, from a numbered menu.</li>
+        <li>States a plan and loads the right skills and data.</li>
+        <li>Stops for your judgment at every checkpoint.</li>
+        <li>Hands back the finished deliverable. You decide.</li>
+      </ol>
+      <p class="ap-links"><a href="#agents">Read the full instructions</a><a href="/agents.md">agents.md</a><a href="/llms.txt">llms.txt</a></p>
+    </aside>
   </div>
 </section>
 
@@ -1157,14 +1238,17 @@ TEMPLATE = r'''<!doctype html>
 <section id="agents" class="section section--dark" aria-labelledby="agents-h">
   <div class="aurora aurora--dark" aria-hidden="true"><span></span><span></span></div>
   <div class="wrap">
-    <div class="sec-head"><p class="kicker kicker--light">For your agent</p><h2 id="agents-h">Give this page <em>to your agent</em>.</h2>
-    <p class="sec-sub">This site is agent-ready. Paste the block below, or just the page address. Your agent can do everything the repository supports.</p></div>
+    <div class="sec-head"><p class="kicker kicker--light">Instructions for agents</p><h2 id="agents-h">Give this page <em>to your agent</em>.</h2>
+    <p class="sec-sub">This site is agent-ready. Paste the sentence below, or just the page address. Your agent reads the playbook, asks you what you want to do, and then does it with you.</p></div>
+    <details class="playbook" id="agent-playbook"><summary><span>Read the full agent playbook</span><span class="playbook-hint">Plain text at <code>/agents.md</code></span></summary>
+      <div class="playbook-body"><a class="btn-ghost playbook-raw" href="/agents.md">Open agents.md</a><pre class="prompt-text playbook-text" tabindex="0">{playbook_md}</pre></div>
+    </details>
     <div class="give">
       <figure class="prompt prompt--dark"><div class="prompt-head"><span class="prompt-title">Paste into Grok Bot</span>{give_copy}</div>
       <pre id="give" class="prompt-text" data-site-template="{give_tpl}"><code>{give_def}</code></pre></figure>
       <ul class="endpoints">
-        <li><a href="agents.md"><code>agents.md</code><span>Step-by-step agent instructions</span></a></li>
-        <li><a href="llms.txt"><code>llms.txt</code><span>Index for language models</span></a></li>
+        <li><a href="/agents.md"><code>agents.md</code><span>Instructions for agents (the playbook)</span></a></li>
+        <li><a href="/llms.txt"><code>llms.txt</code><span>Index for language models</span></a></li>
         <li><a href="missions.json"><code>missions.json</code><span>Missions with prompts per area</span></a></li>
         <li><a href="datasets.json"><code>datasets.json</code><span>Synthetic datasets and public sources, with raw links</span></a></li>
         <li><a href="{DS_URL}" target="_blank" rel="noopener"><code>Data-Sources</code><span>The datasets repository</span></a></li>

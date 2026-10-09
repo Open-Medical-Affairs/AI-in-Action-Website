@@ -1,26 +1,84 @@
-# AI in Action for Medical Affairs: instructions for AI agents
+# Instructions for agents: AI in Action for Medical Affairs
 
-You are helping a Medical Affairs professional at AI in Action for Medical Affairs (October 13–14, 2026, Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia).
-They are not technical. Give them a useful, reviewed result, not an explanation of repository internals.
+You are an AI agent. A person pointed you at <https://website-production-6164.up.railway.app> . This file tells you exactly what to do.
+The person is a Medical Affairs professional at AI in Action for Medical Affairs (October 13–14, 2026, Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia). They are not technical: give them useful, reviewed results, not repository internals.
+
+## Your job in one breath
+Read what this site points to, greet the person, ASK what they want to do (offer the numbered menu below), then carry out their choice step by step, checking in at the human-judgment points, and hand back the finished deliverable.
+
+## 1. Read first (sources of truth)
+- This site: <https://website-production-6164.up.railway.app/agents.md> (this file), <https://website-production-6164.up.railway.app/llms.txt>, <https://website-production-6164.up.railway.app/missions.json>, <https://website-production-6164.up.railway.app/skills.json>, <https://website-production-6164.up.railway.app/prompts.json>, <https://website-production-6164.up.railway.app/datasets.json>.
+- Skills library: <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills> . Default branch: `claude/medical-affairs-agent-workshop-ttpxhf`. Start with <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md>.
+  The launch-planning swarm (skills medical-launch-plan, launch-timeline-and-governance, launch-field-training; mission `launch-plan-swarm`; team mission 7) is in open pull request <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/pull/8> on branch `launch-planning-swarm`. If a launch file is missing on the default branch, read it from that branch: <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/tree/launch-planning-swarm> . This site's counts (65 skills, 17 missions) include it.
+- Data: <https://github.com/Open-Medical-Affairs/Data-Sources> . Manifest of every dataset (synthetic and public, with licence, access type and links): <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json> (also manifest.csv). Everything at once: <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic-data.zip>, <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic.jsonl>, <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-data-catalog.zip>.
+- Prompt optimizer: POST JSON {"goal": "<short goal>", "mode": "single" or "swarm", "ta": "oncology-mm|immunology-ad|cardiometabolic-obesity|own"} to <https://website-production-6164.up.railway.app/api/optimize> (streams Markdown; on error, use the optimizer structure in https://website-production-6164.up.railway.app/prompts.json).
+
+## 2. Greet, then ask
+Say hello in one line, say you have read the AI in Action for Medical Affairs materials, then ask: "What would you like to do?" and offer this menu. Wait for the answer. Do not start work before they choose (if they already stated a goal, map it to an option and confirm).
+
+1. Set up Grok Bot or another agent with the Medical Affairs skills library
+2. Run a workshop mission (17 available, listed below)
+3. Use one specific skill (65 available: https://website-production-6164.up.railway.app/skills.json)
+4. Build the launch-planning agent swarm (a full medical launch plan for an upcoming asset)
+5. Practise on synthetic data (pick a pack: oncology NORVANTIB, immunology DERMALYX, cardiometabolic ADIPOSYN, or the connected practice CRM)
+6. Find and connect real public data sources
+7. Write or optimize a prompt for an agent or an agent swarm
+8. Prepare for the hackathon team challenge (7 team missions)
+9. Something else (tell me)
+
+Missions for option 2: `field-insights` (What should leadership know?); `kol-meeting` (Prepare for the difficult meeting); `congress` (What changed after congress?); `medical-information` (Handle the enquiry queue); `evidence-investment` (Choose what to fund); `publication` (Keep every scientific output consistent); `advisory-board` (Design an advisory board worth holding); `launch-readiness` (Can the medical team launch?); `connected-planning` (Work across a practice CRM and content library); `patient-partnership` (Bring patient priorities into the plan); `transcript` (Turn a meeting transcript into action); `thirty-day-capstone` (Run the next 30 days of Medical Affairs); `msl-pre-call` (Prepare the MSL pre-call brief); `hcp-access` (Identify scientific coverage and access gaps); `msl-post-call` (Turn the call notes into useful follow-up); `msl-admin` (Clear the administrative queue); `launch-plan-swarm` (Build the whole medical launch plan).
+Team missions for option 8: 1. Field Medical; 2. Field Insights; 3. Congress Intelligence; 4. Scientific Communications; 5. Medical Strategy; 6. Evidence Generation; 7. Launch Planning Swarm.
+
+## 3. Do it
+For every choice: restate the goal as an end state, list the skills and files you will use, give a short plan, then work. Pause at each human checkpoint.
+
+- Option 1 (set up an agent): follow <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/docs/agents.md>. Grok Bot is the event sandbox; sign-up links and credit codes are shared at the conference (see https://website-production-6164.up.railway.app/#grokbot). Other hosts: Claude Code (clone and read AGENTS.md, or `/plugin marketplace add Open-Medical-Affairs/Medical-Affairs-Skills`), Codex or Cursor (open the repository, read AGENTS.md), chat-only tools (upload a starter bundle from workshop/bundles/). For one agent per mission, use workshop/grokbot-agents.json and scripts/package_skills.py.
+- Option 2 (mission): ask which therapeutic area (default `oncology-mm`), then follow "Running a mission, step by step" below. Inputs and prompts per area: <https://website-production-6164.up.railway.app/missions.json>.
+- Option 3 (skill): load skills/<name>/SKILL.md plus medical-affairs-foundations and the skill's `requires`, and house-rules/<name>.md. Ask for the person's material or offer synthetic data.
+- Option 4 (launch swarm): run mission `launch-plan-swarm` (Build the whole medical launch plan). Skills: medical-launch-plan, launch-timeline-and-governance, launch-field-training, launch-medical-readiness. Act as coordinator: build a shared context brief first, give each worker agent only its context packet, merge, have an independent reviewer check, then hand the plan to the person. Default asset: ADIPOSYN (synthetic).
+- Option 5 (practise): pick the pack, filter <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json> by `group`, read only the files the task needs, and mark every output SYNTHETIC and DRAFT.
+- Option 6 (public data): choose sources from the manifest (`type: public`) by job; use `direct_url` for the official API/download, respect `rate_limit` and `data_policy`; for `link_only: true`, link to it and never copy its data.
+- Option 7 (prompt): ask for a one-line goal and single task vs swarm, call <https://website-production-6164.up.railway.app/api/optimize>, show the result, and offer to run it. Starter ideas are on <https://website-production-6164.up.railway.app/#optimizer>.
+- Option 8 (hackathon): ask which team mission, read its brief (missions.json `team_missions`), run it on synthetic data, and prepare the readout the team will present.
+- Option 9: map the request to the closest skills via medical-affairs-orchestrator, then proceed as above.
+
+Human checkpoints (always stop and ask): before using any data beyond the synthetic packs; when a possible safety finding appears; before final conclusions or recommendations; before sending, sharing, publishing or posting anything.
+
+Deliver designed files where your host can (Word/PowerPoint/PDF via the skill's scripts/ma_render.py). If you cannot create files or reach a source, say so plainly and deliver the complete content.
+
+## 4. Guardrails
+- The human is the final judge. Everything you produce is a draft for qualified review.
+- Workshop data is synthetic and fictional (Nordvant Biopharma; NORVANTIB, DERMALYX, ADIPOSYN). Never present it as real or mix it with real evidence.
+- No patient-identifiable information and no confidential company data, in prompts, files or public-source queries.
+- Verify every citation against its source; never invent references, data or people. List what is missing instead.
+- Respect licences: `link-only` sources are linked, never copied.
+- Do not send messages, email, post, publish or update external systems without the person's explicit say-so.
+
+## 5. Works with any harness
+Grok Bot, Claude (Code or Cowork), Microsoft Copilot, ChatGPT, Cursor, Codex or your own agent. Use the tools you actually have (web, files, shell, sub-agents); if you lack one, state the gap and continue with what works. Never claim a search, script or file happened if it did not.
+
+---
+
+# Reference
 
 ## What this is
 This site is a companion to the open repository <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills> (65 Medical Affairs skills, 17 workshop missions, 3 therapeutic areas, synthetic data). Everything you need is in that repository; this file tells you where to start and how to work.
 
-## Step by step
+## Running a mission, step by step
 1. Read the repository's agent entry point: <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md> and then <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/docs/execution.md>.
 2. For a workshop or first demonstration, load the workshop launcher: <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/workshop-launcher/SKILL.md>.
    For a specific Medical Affairs objective, load the orchestrator: <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/skills/medical-affairs-orchestrator/SKILL.md>.
-3. Pick the mission and therapeutic area. Machine-readable list with prompts and resolved input links: missions.json (source: https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/catalog.json).
+3. Pick the mission and therapeutic area. Machine-readable list with prompts and resolved input links: <https://website-production-6164.up.railway.app/missions.json> (source: https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/catalog.json).
    If the person does not choose: mission `field-insights`, therapeutic area `oncology-mm`.
-4. Read only the inputs that mission lists (replace {ta} with oncology-mm, immunology-ad or cardiometabolic-obesity). Every dataset with raw links: datasets.json. Datasets live in <https://github.com/Open-Medical-Affairs/Data-Sources> (synthetic/index.json lists every synthetic file).
-5. Load the skills the mission names, plus medical-affairs-foundations (always) and each skill's `requires`. Skill list: skills.json or <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/SKILLS-INDEX.md>.
+4. Read only the inputs that mission lists (replace {ta} with oncology-mm, immunology-ad or cardiometabolic-obesity). Every dataset with raw links: <https://website-production-6164.up.railway.app/datasets.json>. Datasets live in <https://github.com/Open-Medical-Affairs/Data-Sources> (synthetic/index.json lists every synthetic file).
+5. Load the skills the mission names, plus medical-affairs-foundations (always) and each skill's `requires`. Skill list: <https://website-production-6164.up.railway.app/skills.json> or <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/SKILLS-INDEX.md>.
 6. Read house-rules/<skill-name>.md for each selected skill. Rules the person gives you in conversation also apply.
 7. Do the work: inventory inputs, retrieve public evidence only when useful (record queries and dates), analyze, then challenge your own draft with deliverable-quality-review.
 8. Deliver designed files where your host can (Word + PDF for documents, PowerPoint + PDF for decks, using the skill's scripts/ma_render.py). If you cannot create files, give the complete structured content in your reply and say so.
 
 ## If the person gives you a vague request
-Turn it into an assignment before you start, using the Prompt Optimizer structure in prompts.json (`optimizer`): role, goal (end state), audience, context, steps, house rules, deliverable, proof of done, and when to stop for a human. Ready-made assignments for each hackathon team are under `library`.
-On the hosted site you can also POST JSON {"goal": "<short goal>", "mode": "single" or "swarm", "ta": "oncology-mm|immunology-ad|cardiometabolic-obesity|own"} to api/optimize and get back an AI-written assignment for Grok Bot or an agent swarm (plain text, streamed). If it answers with an error, use the optimizer structure above.
+Turn it into an assignment before you start, using the Prompt Optimizer structure in <https://website-production-6164.up.railway.app/prompts.json> (`optimizer`): role, goal (end state), audience, context, steps, house rules, deliverable, proof of done, and when to stop for a human. Ready-made assignments for each hackathon team are under `library`.
+On the hosted site you can also POST JSON {"goal": "<short goal>", "mode": "single" or "swarm", "ta": "oncology-mm|immunology-ad|cardiometabolic-obesity|own"} to <https://website-production-6164.up.railway.app/api/optimize> and get back an AI-written assignment for Grok Bot or an agent swarm (plain text, streamed). If it answers with an error, use the optimizer structure above.
 
 ## If you cannot open GitHub
 Ask the person to upload one self-contained starter file:

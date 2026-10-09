@@ -1,0 +1,37 @@
+/* Hero "Instructions for agents" panel + full playbook */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,1fr);gap:48px;align-items:center}
+.hero-grid .hero-main{min-width:0}
+.hero-grid h1{font-size:clamp(44px,6vw,84px)}
+.ap{position:relative;background:linear-gradient(165deg,#0B2545,#0A3B4E);color:#E6F4F2;border-radius:var(--r-xl);padding:26px 26px 22px;box-shadow:0 40px 80px -36px rgba(11,37,69,.6),0 0 0 1px rgba(20,184,166,.35);overflow:hidden}
+.ap::before{content:"";position:absolute;inset:-40% -30% auto auto;width:320px;height:320px;background:radial-gradient(closest-side,rgba(20,184,166,.35),transparent);pointer-events:none}
+.ap>*{position:relative}
+.ap-label{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:#04201F;background:#5EEAD4;padding:8px 12px;border-radius:999px}
+.ap-dot{width:8px;height:8px;border-radius:50%;background:#04201F;animation:ap-pulse 1.8s ease-in-out infinite}
+@keyframes ap-pulse{50%{opacity:.35}}
+.ap-h{margin:14px 0 16px;font-size:22px;line-height:1.25;color:#fff;letter-spacing:-.015em}
+.ap-paste{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px 12px 12px 14px}
+.ap-paste-l{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#8FB3C9;margin-bottom:8px}
+.ap-paste-row{display:flex;align-items:center;gap:10px}
+.ap-paste-row code{flex:1;font:500 13.5px/1.45 var(--f-mono);color:#CFFAF3;word-break:break-word}
+.ap .btn-copy--solid{background:#5EEAD4;border-color:#5EEAD4;color:#04201F}
+.ap .btn-copy--solid:hover{background:#99F6E4;border-color:#99F6E4}
+.ap-sub{margin:18px 0 8px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#8FB3C9}
+.ap-steps{margin:0;padding:0;list-style:none;counter-reset:ap;display:grid;gap:7px}
+.ap-steps li{counter-increment:ap;display:flex;gap:10px;font-size:14.5px;line-height:1.45;color:#E6F4F2}
+.ap-steps li::before{content:counter(ap);flex:none;width:22px;height:22px;border-radius:50%;background:rgba(94,234,212,.16);color:#5EEAD4;font:600 12px/22px var(--f-mono);text-align:center}
+.ap-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:14px}
+.ap-links a{color:#5EEAD4;font-weight:500}
+.ap-links a:first-child::after{content:" →"}
+.nav-links a.nav-agents{color:var(--teal-ink);background:var(--teal-soft);font-weight:600}
+.playbook{margin:0 0 28px;border:1px solid rgba(255,255,255,.14);border-radius:var(--r-lg);background:rgba(255,255,255,.04)}
+.playbook summary{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:18px 22px;cursor:pointer;font-weight:600;color:#fff;list-style:none}
+.playbook summary::-webkit-details-marker{display:none}
+.playbook summary::after{content:"+";font:400 24px/1 var(--f-sans);color:#5EEAD4}
+.playbook[open] summary::after{content:"–"}
+.playbook-hint{font:400 13px var(--f-sans);color:#8FB3C9;margin-left:auto}
+.playbook-body{padding:0 22px 22px}
+.playbook-raw{margin-bottom:12px}
+.playbook-text{max-height:560px;overflow:auto;background:rgba(0,0,0,.22);border-radius:14px;color:#D9F3EF;font-size:12.5px}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr;gap:0}.hero-grid .hero-main{display:contents}.hero-grid .ap{order:1;margin-top:28px}.hero-grid .stats{order:2;margin-top:40px}.hero-grid .eyebrow{justify-self:start}}
+@media (max-width:560px){.ap{padding:20px 18px;border-radius:var(--r-lg)}.ap-h{font-size:19px}.ap-paste-row{flex-direction:column;align-items:stretch}.ap-paste-row .btn-copy{justify-content:center}}
+@media (prefers-reduced-motion:reduce){.ap-dot{animation:none}}

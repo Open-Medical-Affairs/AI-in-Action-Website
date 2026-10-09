@@ -2,10 +2,10 @@
 
 > Companion site for AI in Action for Medical Affairs (October 13–14, 2026, Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia). It turns the open Medical-Affairs-Skills and Data-Sources repositories into copy-ready prompts, missions, datasets and a prompt optimizer for non-technical Medical Affairs professionals and their AI agents. Grok Bot is the event sandbox. All workshop data is synthetic.
 
-Agents: start with agents.md. It is a step-by-step guide that lets you do everything the repository supports.
+Agents: follow the Instructions for agents at https://website-production-6164.up.railway.app/agents.md. In short: read this site and its two repositories, greet the user, ASK what they want to do from a numbered menu (set up an agent, run a mission or skill, build the launch-planning swarm, practise on synthetic data, find public data sources, write or optimize a prompt, prepare for the hackathon team challenge, or something else), then do it step by step. The human is the final judge; workshop data is fictional; never send or publish anything without the user's say-so.
 
 ## Start here
-- [Agent instructions](agents.md): how to run a mission end to end
+- [Agent instructions](https://website-production-6164.up.railway.app/agents.md): how to run a mission end to end
 - [Repository](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills): the source of truth
 - [AGENTS.md (raw)](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md): the repository's own agent entry point
 
@@ -15,10 +15,10 @@ Agents: start with agents.md. It is a step-by-step guide that lets you do everyt
 - [public/catalog.json](https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/main/public/catalog.json): public sources with access, rate limits, licences and data_policy (link-only = do not copy)
 
 ## Machine-readable data
-- [missions.json](missions.json): 17 catalog missions and 7 team missions with prompts per therapeutic area
-- [datasets.json](datasets.json): every synthetic data pack (badged synthetic) and every public source, with raw links
-- [skills.json](skills.json): all 65 skills with summaries and links
-- [prompts.json](prompts.json): every prompt on the site, the Prompt Optimizer templates and the team prompt library
+- [missions.json](https://website-production-6164.up.railway.app/missions.json): 17 catalog missions and 7 team missions with prompts per therapeutic area
+- [datasets.json](https://website-production-6164.up.railway.app/datasets.json): every synthetic data pack (badged synthetic) and every public source, with raw links
+- [skills.json](https://website-production-6164.up.railway.app/skills.json): all 65 skills with summaries and links
+- [prompts.json](https://website-production-6164.up.railway.app/prompts.json): every prompt on the site, the Prompt Optimizer templates and the team prompt library
 
 ## Starter files (for agents that cannot open GitHub)
 - [Oncology starter](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/bundles/first-mission-oncology-mm.md)
