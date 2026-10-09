@@ -71,3 +71,4 @@
 .sc-tab--lead{border-color:#E07A2F}
 .sc-pre{max-height:640px;overflow:auto}
 @media (max-width:560px){.aiopt-modes{grid-template-columns:1fr}}
+.sc-pre{white-space:pre!important;font-size:12px!important;overflow-x:auto}
