@@ -1,6 +1,6 @@
 /* System prompt for the AI Prompt Optimizer.
-   Method adapted from https://github.com/vivmuk/Prompt-Optimizer (RISEN structure,
-   output contract, constraint pairs, "return only the prompt"), specialised for
+   RISEN structure, output contract, constraint pairs, "return only the prompt",
+   specialised for
    Grok Bot and Medical Affairs agent swarms. */
 "use strict";
 const D = require("../assets/optimizer-data.js");

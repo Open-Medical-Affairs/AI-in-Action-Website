@@ -235,8 +235,8 @@ def extract(repo: Path):
     return c
 
 # ---------------------------------------------------------------- prompt optimizer
-# Method adapted from vivmuk/Prompt-Optimizer: RISEN (Role, Instructions, Steps,
-# End goal, Narrowing) + its output contract and constraint pairs, the provider
+# Structure: RISEN (Role, Instructions, Steps,
+# End goal, Narrowing) + an output contract and constraint pairs, the provider
 # "dialects" (universal Markdown vs Claude-style XML), and Loop Engineering's
 # PROOF and STOP conditions. Composed deterministically here and in assets/app.js
 # from the SAME template data, so nothing calls an API.
@@ -424,7 +424,7 @@ def compose_prompt(type_id, fields, ta, dialect, repo_url):
     return "\n\n".join(out)
 
 def optimizer_data(cfg):
-    return {"about": "Client-side Medical Affairs assignment composer. Method adapted from https://github.com/vivmuk/Prompt-Optimizer (RISEN + output contract + constraint pairs, provider dialects, Loop Engineering proof and stop conditions).",
+    return {"about": "Client-side Medical Affairs assignment composer. Structure: RISEN + output contract + constraint pairs, provider dialects, Loop Engineering proof and stop conditions.",
             "repo": cfg["repo"]["url"], "sections": OPT_SECTIONS, "fields": OPT_FIELDS, "guardrails": OPT_GUARDRAILS,
             "common_steps_start": COMMON_STEPS_START, "common_steps_end": COMMON_STEPS_END, "types": OPT_TYPES,
             "library": OPT_LIBRARY, "therapeutic_areas": TAS,
@@ -524,7 +524,7 @@ def agent_playbook(content, cfg, abs_, raw):
          "## 1. Read first (sources of truth)",
          f"- This site: {abs_('agents.md')} (this file), {abs_('llms.txt')}, {abs_('missions.json')}, {abs_('skills.json')}, {abs_('prompts.json')}, {abs_('datasets.json')}.",
          f"- Skills library: {R['url']} . Default branch: `{cfg['repo'].get('default_branch', 'HEAD')}`. Start with {raw('AGENTS.md')}.",
-         f"  The launch-planning swarm (skills medical-launch-plan, launch-timeline-and-governance, launch-field-training; mission `launch-plan-swarm`; team mission 7) is in open pull request {R['url']}/pull/8 on branch `launch-planning-swarm`. If a launch file is missing on the default branch, read it from that branch: {R['url']}/tree/launch-planning-swarm . This site's counts ({content['skill_count']} skills, {len(ms)} missions) include it.",
+         f"  The launch-planning swarm (skills medical-launch-plan, launch-timeline-and-governance, launch-field-training and launch-medical-readiness; mission `launch-plan-swarm`; team mission 7) is on the default branch with everything else.",
          f"- Data: {ds} . Manifest of every dataset (synthetic and public, with licence, access type and links): {latest}manifest.json (also manifest.csv). Everything at once: {latest}all-synthetic-data.zip, {latest}all-synthetic.jsonl, {latest}all-data-catalog.zip.",
          f"- Getting data: fetch it straight onto YOUR OWN machine from the manifest URLs; never ask the person to download files to their laptop and upload them. Read {latest}manifest.json, then for each dataset you need where `link_only` is false and `access` is `download`, `api-sample` or `bulk-file`, download `direct_url` (raw.githubusercontent.com or releases/latest/download; follow redirects) into e.g. /workspace/data/<type>/<group>/ and unzip ZIPs. For `official-site` and `link-only` entries, open the official URL and work at the source under its licence; never copy or redistribute link-only data. Confirm synthetic files are labelled SYNTHETIC before using them. The Data page ({site}/data) has a 'Copy link' and a 'Copy for Grok Bot' instruction for every dataset and bundle.",
          f"- Prompt optimizer: POST JSON {{\"goal\": \"<short goal>\", \"mode\": \"single\" or \"swarm\", \"ta\": \"oncology-mm|immunology-ad|cardiometabolic-obesity|own\"}} to {abs_('api/optimize')} (streams Markdown; on error, use the optimizer structure in {abs_('prompts.json')}).", "",
@@ -568,6 +568,8 @@ def agent_playbook(content, cfg, abs_, raw):
 
 
 REL = "https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/"
+# tools/fetch_all.py is not on Data-Sources main yet; switch this to .../HEAD/tools/fetch_all.py once it is.
+FETCH_ALL = "https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/get-the-data/tools/fetch_all.py"
 
 def gd_copy_buttons(url, grok, label="Copy link", primary=True):
     """Two copy buttons: the direct URL and a ready-to-paste Grok Bot instruction (handled by assets/get-data.js)."""
@@ -595,7 +597,7 @@ def gd_big():
         <div class="gd-card gd-card--cat">
           <div class="gd-btn gd-btn--light"><span class="gd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 10h14M5 15h9M5 20h6"/></svg></span><span><span class="gd-btn-t">Full catalog</span><span class="gd-btn-s">Every dataset with licence and links, the public sources and real paper examples (.zip)</span><code class="gd-url">{e(cat)}</code></span></div>
           <div class="gd-cbar">{gd_copy_buttons(cat, g_cat)}<a class="gd-dl" href="{e(cat)}">or download</a></div>
-          <p class="gd-alt">Just the list: <button type="button" class="gd-mini" data-copy-text="{e(man)}" data-done="Link copied">manifest.json</button> · <button type="button" class="gd-mini" data-copy-text="{e(REL + 'manifest.csv')}" data-done="Link copied">manifest.csv</button> · script: <a href="https://raw.githubusercontent.com/Open-Medical-Affairs/Data-Sources/HEAD/tools/fetch_all.py">fetch_all.py</a></p>
+          <p class="gd-alt">Just the list: <button type="button" class="gd-mini" data-copy-text="{e(man)}" data-done="Link copied">manifest.json</button> · <button type="button" class="gd-mini" data-copy-text="{e(REL + 'manifest.csv')}" data-done="Link copied">manifest.csv</button> · script: <a href="{FETCH_ALL}">fetch_all.py</a></p>
         </div>
       </div>
       <div class="gd-every">
@@ -655,7 +657,6 @@ def render(content, cfg):
                                "next_moves": content["next_moves"], "recovery": content["recovery_prompts"]},
         "optimizer": optimizer_data(cfg),
         "library": lib,
-        "credit": "Prompt Optimizer method by Vivek Mukhatyar: https://github.com/vivmuk/Prompt-Optimizer",
     }
     out["missions.json"] = json.dumps(missions_json, indent=2, ensure_ascii=False)
     out["datasets.json"] = json.dumps(datasets_json, indent=2, ensure_ascii=False)
@@ -726,7 +727,7 @@ def render(content, cfg):
         "## Starter files (for agents that cannot open GitHub)"] +
         [f"- [{t['short']} starter]({raw('workshop/bundles/first-mission-' + t['id'] + '.md')})" for t in TAS] +
         ["", "## Optional", f"- [Skills index]({raw('SKILLS-INDEX.md')})", f"- [Participant quickstart]({raw('workshop/PARTICIPANT-QUICKSTART.md')})",
-         f"- [Workshop catalog]({raw('workshop/catalog.json')})", "- [Prompt Optimizer (method source)](https://github.com/vivmuk/Prompt-Optimizer)", ""])
+         f"- [Workshop catalog]({raw('workshop/catalog.json')})", ""])
     out["index.html"] = render_html(content, cfg, lib)
     return out
 
@@ -801,7 +802,7 @@ def optimizer_html(cfg, lib):
 <section id="optimizer" class="section section--opt" aria-labelledby="opt-h">
   <div class="wrap">
     <div class="sec-head"><p class="kicker">Prompt Optimizer</p><h2 id="opt-h">Turn a question into <em>an assignment</em>.</h2>
-    <p class="sec-sub">Pick the job, answer a few plain questions, and copy a goal-oriented assignment your agent can execute. The AI optimizer sends only your short goal to this site’s server, which asks the Venice API to write the assignment. The template builder below runs entirely in your browser. Method adapted from Vivek’s <a href="https://github.com/vivmuk/Prompt-Optimizer" target="_blank" rel="noopener">Prompt Optimizer</a>: role, end goal, steps, narrowing, proof of done and stop conditions.</p></div>
+    <p class="sec-sub">Pick the job, answer a few plain questions, and copy a goal-oriented assignment your agent can execute. The AI optimizer sends only your short goal to this site’s server, which asks the Venice API to write the assignment. The template builder below runs entirely in your browser. Every assignment covers role, end goal, steps, narrowing, proof of done and stop conditions.</p></div>
     <div class="opt" id="opt">
       <form class="opt-form" aria-label="Prompt optimizer inputs" onsubmit="return false">
         <fieldset><legend class="fld-l">1 · The job</legend><div class="opt-types" role="radiogroup" aria-label="Task type">{types}</div></fieldset>
@@ -1304,7 +1305,7 @@ TEMPLATE = r'''<!doctype html>
 <footer class="foot">
   <div class="wrap foot-in">
     <div><p class="foot-brand">{E[name]}</p><p class="muted">{E[dates]} · {E[venue]}, {E[address]}<br>Keynote: {E[host]} · With {E[organizer]}</p></div>
-    <div class="muted foot-fine"><p>Built from <a href="{RU}" target="_blank" rel="noopener">Medical-Affairs-Skills</a> (Apache-2.0){commit}. Prompt Optimizer method from <a href="https://github.com/vivmuk/Prompt-Optimizer" target="_blank" rel="noopener">vivmuk/Prompt-Optimizer</a>. All products, people and results in the workshop data are fictional. Outputs are drafts requiring qualified review; this is not a clinical decision, GxP or pharmacovigilance system.</p></div>
+    <div class="muted foot-fine"><p>Built from <a href="{RU}" target="_blank" rel="noopener">Medical-Affairs-Skills</a> (Apache-2.0){commit}. All products, people and results in the workshop data are fictional. Outputs are drafts requiring qualified review; this is not a clinical decision, GxP or pharmacovigilance system.</p></div>
   </div>
 </footer>
 <div class="toast" role="status" aria-live="polite" id="toast"></div>

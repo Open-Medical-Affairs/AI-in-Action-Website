@@ -61,7 +61,7 @@ def gate(cx, y, w, label, detail):
             + text(cx + 10, y + 24, [label], 13, 650, "#9A4A12") + "</g>"), h
 
 
-def node(x, y, w, h, nid, kicker, title, sub, kind="worker", color=TEAL, pending=False):
+def node(x, y, w, h, nid, kicker, title, sub, kind="worker", color=TEAL):
     fill = f"url(#g-lead-{nid.split('|')[0]})" if kind == "lead" else "#fff"
     ink = "#fff" if kind == "lead" else NAVY
     kink = "#8FE3DA" if kind == "lead" else color
@@ -77,8 +77,6 @@ def node(x, y, w, h, nid, kicker, title, sub, kind="worker", color=TEAL, pending
     parts.append(text(x + w / 2, y + 39, tl, 13.5 if kind == "lead" else 12.5, 650, ink))
     if sub:
         parts.append(text(x + w / 2, y + 39 + 16 * len(tl) + 2, wrap(sub, max(10, int(w / 6.6)), 1), 10.5, 400, "#BFD7E8" if kind == "lead" else MUTED, mono=True))
-    if pending:
-        parts.append(f'<rect x="{x + w - 64:.0f}" y="{y - 9:.0f}" width="60" height="18" rx="9" fill="{ORANGE}"/>' + text(x + w - 34, y + 4, ["PENDING"], 9, 700, "#fff"))
     parts.append("</g>")
     return "".join(parts)
 
@@ -90,7 +88,7 @@ def pill(x, y, nid, label):
             + text(x, y + 16, [label], 10.5, 500, INK2, mono=True) + "</g>"), w
 
 
-def render_team(g, S, uid):
+def render_team(g, S, uid, show_support=True):
     W, P = 980, 20
     out, nodes, y = [], {}, P
     cx = W / 2
@@ -101,12 +99,12 @@ def render_team(g, S, uid):
     out.append(arrow(cx, y, cx, y + 26, NAVY, marker="a-navy", curve=False)); y += 28
     ms = g["skills"]; lead = ms[0]; workers = ms[1:]
     LW, LH = 330, 82
-    out.append(node(cx - LW / 2, y, LW, LH, f"{uid}|{lead}", "Lead · coordinator" if workers else "Lead skill", lead, S[lead]["tier"] + " skill", "lead", pending=S[lead]["pending"]))
+    out.append(node(cx - LW / 2, y, LW, LH, f"{uid}|{lead}", "Lead · coordinator" if workers else "Lead skill", lead, S[lead]["tier"] + " skill", "lead"))
     nodes[f"{uid}|{lead}"] = {"kicker": "Lead skill", "skills": [lead]}
     lead_y = y; y += LH
     pos = {lead: (cx, lead_y, LH)}
     sup_owner = {}
-    for s in ms:
+    for s in (ms if show_support else []):
         for r in S[s]["requires"]:
             if r != "medical-affairs-foundations" and r not in ms:
                 sup_owner.setdefault(s, []).append(r)
@@ -120,7 +118,7 @@ def render_team(g, S, uid):
             x = x0 + i * (ww + gap)
             rel = next((h for h in g["handoffs"] if h["from"] == lead and h["to"] == s), None)
             out.append(arrow(cx, y, x + ww / 2, wy - 2, ORANGE if rel else TEAL, dash=bool(rel), marker="a-orange" if rel else "a-teal"))
-            out.append(node(x, wy, ww, 82, f"{uid}|{s}", f"Sub-worker {i + 1}", s, S[s]["tier"] + " skill", "worker", TEAL, S[s]["pending"]))
+            out.append(node(x, wy, ww, 82, f"{uid}|{s}", f"Sub-worker {i + 1}", s, S[s]["tier"] + " skill", "worker", TEAL))
             nodes[f"{uid}|{s}"] = {"kicker": f"Sub-worker {i + 1}", "skills": [s]}
             pos[s] = (x + ww / 2, wy, 82)
         mid = y + 30
@@ -235,8 +233,7 @@ def render_swarm(g, S, uid):
                     kind, color = ("review" if pod == "Independent" else "worker"), POD.get(pod, TEAL)
                 x = x0 + i * (ww + gap)
                 nid = f"{uid}|{role}"
-                pend = any(S.get(s, {}).get("pending") for s in sk)
-                out.append(node(x, ry, ww, 96, nid, pod or "Worker", role, sk[0] if sk else "", kind, color, pend))
+                out.append(node(x, ry, ww, 96, nid, pod or "Worker", role, sk[0] if sk else "", kind, color))
                 if len(sk) > 1:
                     out.append(text(x + ww / 2, ry + 86, [f"+ {len(sk) - 1} more skill{'s' if len(sk) > 2 else ''}"], 9.5, 600, color if kind != "lead" else "#8FE3DA", cls="g-cap"))
                 nodes[nid] = {"kicker": f"{wv['label']} · {pod}", "role": role, "skills": sk,
@@ -270,9 +267,9 @@ def wrap_svg(uid, W, H, parts, g):
             + defs(uid) + "".join(parts) + "</svg>")
 
 
-def render(g, S):
+def render(g, S, show_support=True):
     uid = g["id"]
-    return render_swarm(g, S, uid) if g["structure"] == "swarm" else render_team(g, S, uid)
+    return render_swarm(g, S, uid) if g["structure"] == "swarm" else render_team(g, S, uid, show_support)
 
 
 def mini(g):
@@ -314,4 +311,4 @@ def mini(g):
 
 def panel_data(nodes, S):
     used = {s for n in nodes.values() for s in n["skills"]}
-    return json.dumps({"nodes": nodes, "skills": {k: {kk: S[k][kk] for kk in ("summary", "tier", "url", "pending", "requires")} for k in used if k in S}}, ensure_ascii=False).replace("</", "<\\/")
+    return json.dumps({"nodes": nodes, "skills": {k: {kk: S[k][kk] for kk in ("summary", "tier", "url", "requires")} for k in used if k in S}}, ensure_ascii=False).replace("</", "<\\/")

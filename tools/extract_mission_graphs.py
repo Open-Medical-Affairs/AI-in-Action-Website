@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Extract mission graphs from the Medical-Affairs-Skills repository into data/mission-graphs.json.
 
-    python3 tools/extract_mission_graphs.py --repo /path/to/Medical-Affairs-Skills \
-        [--ref launch-planning-swarm] [--default-ref origin/claude/medical-affairs-agent-workshop-ttpxhf]
+    python3 tools/extract_mission_graphs.py --repo /path/to/Medical-Affairs-Skills   # a checkout of the default branch
 
 Everything comes from the repository, nothing is hand-written:
   * missions: workshop/catalog.json (id, title, objective, inputs, skills in order, deliverables)
@@ -12,7 +11,6 @@ Everything comes from the repository, nothing is hand-written:
               (files and upstream workers it consumes), and the wave/gate table in its SKILL.md
   * gates:    the repository's AGENTS.md rules (safety scan before analysis; challenge with
               deliverable-quality-review; designed delivery for human review) plus explicit gate rows
-  * pending:  missions/skills present on --ref but not on --default-ref are marked pending merge.
 Standard library only.
 """
 import argparse, json, re, subprocess
@@ -46,7 +44,7 @@ def first_sentence(s):
     return out if len(out) <= 320 else out[:317].rsplit(" ", 1)[0] + "…"
 
 
-def git_ls(repo, ref, path):
+def _unused_git_ls(repo, ref, path):
     try:
         out = subprocess.run(["git", "-C", repo, "ls-tree", "-r", "--name-only", ref, path], capture_output=True, text=True, check=True).stdout
         return set(out.split())
@@ -54,7 +52,7 @@ def git_ls(repo, ref, path):
         return None
 
 
-def git_show(repo, ref, path):
+def _unused_git_show(repo, ref, path):
     try:
         return subprocess.run(["git", "-C", repo, "show", f"{ref}:{path}"], capture_output=True, text=True, check=True).stdout
     except Exception:
@@ -124,26 +122,19 @@ def parse_waves(skill_md, workers):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True, help="checkout of Medical-Affairs-Skills (the --ref state)")
-    ap.add_argument("--ref", default="launch-planning-swarm", help="branch name used for links to pending files")
-    ap.add_argument("--default-ref", default="origin/claude/medical-affairs-agent-workshop-ttpxhf")
-    ap.add_argument("--default-name", default="claude/medical-affairs-agent-workshop-ttpxhf")
-    ap.add_argument("--pr", default=f"{GH}/pull/8")
+    ap.add_argument("--ref", default="HEAD", help="ref used in GitHub links (HEAD = the repository's default branch)")
     a = ap.parse_args()
     repo = Path(a.repo)
     cat = json.loads((repo / "workshop/catalog.json").read_text(encoding="utf-8"))
-    default_files = git_ls(str(repo), a.default_ref, "skills") or set()
-    default_cat = git_show(str(repo), a.default_ref, "workshop/catalog.json")
-    default_missions = {m["id"] for m in json.loads(default_cat)["missions"]} if default_cat else set()
     head = subprocess.run(["git", "-C", str(repo), "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip()
 
     skills = {}
     for p in sorted((repo / "skills").glob("*/SKILL.md")):
         name = p.parent.name
         fm = front(p.read_text(encoding="utf-8"))
-        pending = bool(default_files) and f"skills/{name}/SKILL.md" not in default_files
         skills[name] = {"name": name, "summary": first_sentence(fm["description"]), "tier": fm["tier"],
-                        "requires": fm["requires"], "suggests": fm["suggests"], "pending": pending,
-                        "url": f"{GH}/blob/{a.ref if pending else 'HEAD'}/skills/{name}/SKILL.md"}
+                        "requires": fm["requires"], "suggests": fm["suggests"],
+                        "url": f"{GH}/blob/{a.ref}/skills/{name}/SKILL.md"}
 
     def closure(names):
         seen, stack = [], list(names)
@@ -160,7 +151,6 @@ def main():
         lead, rest = ms[0], ms[1:]
         g = {"id": m["id"], "title": m["title"], "objective": m["objective"], "skills": ms,
              "inputs": [i.split("/")[-1] for i in m["inputs"]], "deliverables": m["deliverables"],
-             "pending": bool(default_missions) and m["id"] not in default_missions,
              "lead": lead, "workers": [], "support": [], "handoffs": [], "waves": [], "structure": "team"}
         dw = repo / "skills" / lead / "references" / "digital-workers.md"
         if dw.exists():
@@ -189,11 +179,11 @@ def main():
         g["reviewer"] = "deliverable-quality-review"
         missions.append(g)
 
-    out = {"source": GH, "ref": a.ref, "commit": head, "default_branch": a.default_name, "pr": a.pr,
+    out = {"source": GH, "ref": a.ref, "commit": head,
            "always_loaded": "medical-affairs-foundations", "skills": skills, "missions": missions}
     (ROOT / "data").mkdir(exist_ok=True)
     (ROOT / "data/mission-graphs.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"{len(missions)} missions ({sum(m['pending'] for m in missions)} pending merge), {len(skills)} skills ({sum(s['pending'] for s in skills.values())} pending) from {a.ref}@{head}")
+    print(f"{len(missions)} missions, {len(skills)} skills from {repo} @ {head}")
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
   "repository": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills",
   "agent_entry": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md",
   "catalog": "https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/catalog.json",
-  "source_commit": "635dcf2",
+  "source_commit": "006762f",
   "default_mission": "field-insights",
   "default_ta": "oncology-mm",
   "therapeutic_areas": [

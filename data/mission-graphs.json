@@ -1,9 +1,7 @@
 {
  "source": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills",
- "ref": "launch-planning-swarm",
- "commit": "d04c3c0",
- "default_branch": "claude/medical-affairs-agent-workshop-ttpxhf",
- "pr": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/pull/8",
+ "ref": "HEAD",
+ "commit": "006762f",
  "always_loaded": "medical-affairs-foundations",
  "skills": {
   "advisory-board-design": {
@@ -20,7 +18,6 @@
     "medical-strategy-plan",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/advisory-board-design/SKILL.md"
   },
   "capability-detection": {
@@ -29,7 +26,6 @@
    "tier": "foundation",
    "requires": [],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/capability-detection/SKILL.md"
   },
   "citation-integrity": {
@@ -40,7 +36,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/citation-integrity/SKILL.md"
   },
   "clinical-trials-search": {
@@ -54,7 +49,6 @@
     "evidence-appraisal",
     "pubmed-search"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/clinical-trials-search/SKILL.md"
   },
   "competitive-intelligence": {
@@ -73,7 +67,6 @@
     "congress-intelligence",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/competitive-intelligence/SKILL.md"
   },
   "congress-abstract-and-poster": {
@@ -91,7 +84,6 @@
     "deliverable-quality-review",
     "consulting-grade-design"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/congress-abstract-and-poster/SKILL.md"
   },
   "congress-intelligence": {
@@ -109,7 +101,6 @@
     "clinical-trials-search",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/congress-intelligence/SKILL.md"
   },
   "consulting-grade-design": {
@@ -126,7 +117,6 @@
     "interactive-html-report",
     "pdf-generation"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/consulting-grade-design/SKILL.md"
   },
   "data-connection": {
@@ -137,7 +127,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/data-connection/SKILL.md"
   },
   "data-visualization-for-medical": {
@@ -152,7 +141,6 @@
    "suggests": [
     "consulting-grade-design"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/data-visualization-for-medical/SKILL.md"
   },
   "deliverable-quality-review": {
@@ -166,7 +154,6 @@
     "evidence-appraisal",
     "citation-integrity"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/deliverable-quality-review/SKILL.md"
   },
   "diagram-and-schema": {
@@ -180,7 +167,6 @@
    "suggests": [
     "consulting-grade-design"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/diagram-and-schema/SKILL.md"
   },
   "document-ingestion": {
@@ -192,7 +178,6 @@
     "capability-detection"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/document-ingestion/SKILL.md"
   },
   "evidence-appraisal": {
@@ -203,7 +188,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-appraisal/SKILL.md"
   },
   "evidence-gap-analysis": {
@@ -221,7 +205,6 @@
     "clinical-trials-search",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-gap-analysis/SKILL.md"
   },
   "evidence-synthesis": {
@@ -235,7 +218,6 @@
    "suggests": [
     "citation-integrity"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/evidence-synthesis/SKILL.md"
   },
   "executive-briefing": {
@@ -252,7 +234,6 @@
     "pdf-generation",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/executive-briefing/SKILL.md"
   },
   "field-insight-synthesis": {
@@ -269,7 +250,6 @@
     "spreadsheet-analysis",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/field-insight-synthesis/SKILL.md"
   },
   "field-medical-planning": {
@@ -286,7 +266,6 @@
     "medical-affairs-metrics",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/field-medical-planning/SKILL.md"
   },
   "guideline-engagement": {
@@ -304,7 +283,6 @@
     "systematic-literature-review",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/guideline-engagement/SKILL.md"
   },
   "hcp-discovery-and-access": {
@@ -315,7 +293,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/hcp-discovery-and-access/SKILL.md"
   },
   "insight-generation": {
@@ -326,7 +303,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/insight-generation/SKILL.md"
   },
   "integrated-evidence-plan": {
@@ -344,7 +320,6 @@
     "payer-value-dossier",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/integrated-evidence-plan/SKILL.md"
   },
   "interactive-html-report": {
@@ -359,7 +334,6 @@
     "citation-integrity",
     "consulting-grade-design"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/interactive-html-report/SKILL.md"
   },
   "investigator-initiated-study-review": {
@@ -376,7 +350,6 @@
     "real-world-evidence-design",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/investigator-initiated-study-review/SKILL.md"
   },
   "kol-engagement-brief": {
@@ -393,7 +366,6 @@
     "clinical-trials-search",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/kol-engagement-brief/SKILL.md"
   },
   "launch-field-training": {
@@ -412,8 +384,7 @@
     "field-medical-planning",
     "deliverable-quality-review"
    ],
-   "pending": true,
-   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/launch-planning-swarm/skills/launch-field-training/SKILL.md"
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/launch-field-training/SKILL.md"
   },
   "launch-medical-readiness": {
    "name": "launch-medical-readiness",
@@ -429,7 +400,6 @@
     "medical-launch-plan",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/launch-medical-readiness/SKILL.md"
   },
   "launch-timeline-and-governance": {
@@ -447,8 +417,7 @@
     "diagram-and-schema",
     "deliverable-quality-review"
    ],
-   "pending": true,
-   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/launch-planning-swarm/skills/launch-timeline-and-governance/SKILL.md"
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/launch-timeline-and-governance/SKILL.md"
   },
   "library-menu": {
    "name": "library-menu",
@@ -461,7 +430,6 @@
     "medical-affairs-orchestrator",
     "consulting-grade-design"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/library-menu/SKILL.md"
   },
   "literature-surveillance": {
@@ -480,7 +448,6 @@
     "competitive-intelligence",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/literature-surveillance/SKILL.md"
   },
   "medical-affairs-foundations": {
@@ -489,7 +456,6 @@
    "tier": "foundation",
    "requires": [],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-foundations/SKILL.md"
   },
   "medical-affairs-metrics": {
@@ -506,7 +472,6 @@
     "field-insight-synthesis",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-metrics/SKILL.md"
   },
   "medical-affairs-orchestrator": {
@@ -517,7 +482,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-affairs-orchestrator/SKILL.md"
   },
   "medical-content-operations": {
@@ -528,7 +492,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-content-operations/SKILL.md"
   },
   "medical-correspondence": {
@@ -544,7 +507,6 @@
     "safety-communication",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-correspondence/SKILL.md"
   },
   "medical-education-program": {
@@ -561,7 +523,6 @@
     "medical-affairs-metrics",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-education-program/SKILL.md"
   },
   "medical-information-response": {
@@ -578,7 +539,6 @@
     "pubmed-search",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-information-response/SKILL.md"
   },
   "medical-launch-plan": {
@@ -601,8 +561,7 @@
     "medical-information-response",
     "deliverable-quality-review"
    ],
-   "pending": true,
-   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/launch-planning-swarm/skills/medical-launch-plan/SKILL.md"
+   "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-launch-plan/SKILL.md"
   },
   "medical-slide-deck": {
    "name": "medical-slide-deck",
@@ -619,7 +578,6 @@
     "consulting-grade-design",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-slide-deck/SKILL.md"
   },
   "medical-strategy-plan": {
@@ -636,7 +594,6 @@
     "clinical-trials-search",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-strategy-plan/SKILL.md"
   },
   "medical-terminology-mapping": {
@@ -647,7 +604,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/medical-terminology-mapping/SKILL.md"
   },
   "meeting-transcription": {
@@ -658,7 +614,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/meeting-transcription/SKILL.md"
   },
   "mlr-review-readiness": {
@@ -674,7 +629,6 @@
     "promotional-material-medical-review",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/mlr-review-readiness/SKILL.md"
   },
   "msl-administrative-operations": {
@@ -685,7 +639,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-administrative-operations/SKILL.md"
   },
   "msl-post-call-follow-up": {
@@ -696,7 +649,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-post-call-follow-up/SKILL.md"
   },
   "msl-pre-call-planning": {
@@ -707,7 +659,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/msl-pre-call-planning/SKILL.md"
   },
   "patient-engagement-planning": {
@@ -718,7 +669,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/patient-engagement-planning/SKILL.md"
   },
   "payer-value-dossier": {
@@ -735,7 +685,6 @@
     "citation-integrity",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/payer-value-dossier/SKILL.md"
   },
   "pdf-generation": {
@@ -750,7 +699,6 @@
     "citation-integrity",
     "consulting-grade-design"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/pdf-generation/SKILL.md"
   },
   "plain-language-summary": {
@@ -764,7 +712,6 @@
    "suggests": [
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/plain-language-summary/SKILL.md"
   },
   "promotional-material-medical-review": {
@@ -781,7 +728,6 @@
     "mlr-review-readiness",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/promotional-material-medical-review/SKILL.md"
   },
   "public-evidence-search": {
@@ -792,7 +738,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/public-evidence-search/SKILL.md"
   },
   "pubmed-search": {
@@ -806,7 +751,6 @@
     "evidence-appraisal",
     "medical-terminology-mapping"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/pubmed-search/SKILL.md"
   },
   "real-world-evidence-design": {
@@ -823,7 +767,6 @@
     "integrated-evidence-plan",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/real-world-evidence-design/SKILL.md"
   },
   "regulatory-label-intelligence": {
@@ -836,7 +779,6 @@
    "suggests": [
     "evidence-appraisal"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/regulatory-label-intelligence/SKILL.md"
   },
   "safety-communication": {
@@ -853,7 +795,6 @@
     "medical-correspondence",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/safety-communication/SKILL.md"
   },
   "scientific-communication-strategy": {
@@ -871,7 +812,6 @@
     "scientific-platform",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-communication-strategy/SKILL.md"
   },
   "scientific-manuscript": {
@@ -888,7 +828,6 @@
     "evidence-synthesis",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-manuscript/SKILL.md"
   },
   "scientific-platform": {
@@ -905,7 +844,6 @@
     "scientific-communication-strategy",
     "deliverable-quality-review"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/scientific-platform/SKILL.md"
   },
   "spreadsheet-analysis": {
@@ -917,7 +855,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/spreadsheet-analysis/SKILL.md"
   },
   "strategic-analysis": {
@@ -928,7 +865,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/strategic-analysis/SKILL.md"
   },
   "systematic-literature-review": {
@@ -943,7 +879,6 @@
     "citation-integrity",
     "evidence-synthesis"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/systematic-literature-review/SKILL.md"
   },
   "visual-abstract": {
@@ -958,7 +893,6 @@
    "suggests": [
     "consulting-grade-design"
    ],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/visual-abstract/SKILL.md"
   },
   "workshop-launcher": {
@@ -969,7 +903,6 @@
     "medical-affairs-foundations"
    ],
    "suggests": [],
-   "pending": false,
    "url": "https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/workshop-launcher/SKILL.md"
   }
  },
@@ -992,7 +925,6 @@
     "Insight table with source records",
     "Simulated safety escalation and missing-information list"
    ],
-   "pending": false,
    "lead": "field-insight-synthesis",
    "workers": [
     {
@@ -1041,7 +973,6 @@
     "Two-page meeting brief",
     "Questions, source links and unresolved evidence"
    ],
-   "pending": false,
    "lead": "kol-engagement-brief",
    "workers": [],
    "support": [
@@ -1083,7 +1014,6 @@
     "Congress readout",
     "Change recommendations with evidence limitations"
    ],
-   "pending": false,
    "lead": "congress-intelligence",
    "workers": [
     {
@@ -1138,7 +1068,6 @@
     "Draft response and gap log",
     "Simulated safety routing"
    ],
-   "pending": false,
    "lead": "medical-information-response",
    "workers": [],
    "support": [
@@ -1183,7 +1112,6 @@
     "Investment decision workbook or CSV",
     "Committee brief with trade-offs"
    ],
-   "pending": false,
    "lead": "integrated-evidence-plan",
    "workers": [
     {
@@ -1261,7 +1189,6 @@
     "Lay summary",
     "Cross-output discrepancy log"
    ],
-   "pending": false,
    "lead": "scientific-manuscript",
    "workers": [
     {
@@ -1333,7 +1260,6 @@
     "Pre-read deck or structured equivalent",
     "Advisor briefs"
    ],
-   "pending": false,
    "lead": "advisory-board-design",
    "workers": [
     {
@@ -1399,7 +1325,6 @@
     "Remediation tracker",
     "Leadership brief"
    ],
-   "pending": false,
    "lead": "launch-medical-readiness",
    "workers": [
     {
@@ -1454,7 +1379,6 @@
     "Content review queue",
     "Metric definitions and limitations"
    ],
-   "pending": false,
    "lead": "data-connection",
    "workers": [
     {
@@ -1510,7 +1434,6 @@
     "Discussion guide",
     "Feedback-to-decision table"
    ],
-   "pending": false,
    "lead": "patient-engagement-planning",
    "workers": [
     {
@@ -1557,7 +1480,6 @@
     "Reviewed transcript and correction queue",
     "Decision and follow-up log"
    ],
-   "pending": false,
    "lead": "meeting-transcription",
    "workers": [
     {
@@ -1616,7 +1538,6 @@
     "Scientific briefing",
     "Source dependencies and change log"
    ],
-   "pending": false,
    "lead": "medical-strategy-plan",
    "workers": [
     {
@@ -1701,7 +1622,6 @@
     "Source context and open questions",
     "Material and logistics check"
    ],
-   "pending": false,
    "lead": "msl-pre-call-planning",
    "workers": [],
    "support": [],
@@ -1744,7 +1664,6 @@
     "Institution-aware access plan",
     "Draft introduction for review"
    ],
-   "pending": false,
    "lead": "hcp-discovery-and-access",
    "workers": [
     {
@@ -1792,7 +1711,6 @@
     "Commitment and gap register",
     "Follow-up correspondence draft"
    ],
-   "pending": false,
    "lead": "msl-post-call-follow-up",
    "workers": [],
    "support": [],
@@ -1833,7 +1751,6 @@
     "Draft records with source IDs",
     "Weekly status brief"
    ],
-   "pending": false,
    "lead": "msl-administrative-operations",
    "workers": [],
    "support": [],
@@ -1887,7 +1804,6 @@
     "Independent readiness verdict and gap register",
     "Leadership deck"
    ],
-   "pending": true,
    "lead": "medical-launch-plan",
    "workers": [
     {

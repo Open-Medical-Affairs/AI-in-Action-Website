@@ -19,7 +19,7 @@
     var h = '<p class="kicker">' + esc(n.kicker || "") + '</p><h3>' + esc(n.role || n.skills[0]) + '</h3>';
     n.skills.forEach(function (s) {
       var k = D.skills[s]; if (!k) return;
-      h += '<div class="md-sk"><code>' + esc(s) + '</code>' + (k.pending ? ' <span class="mm-pend">Pending merge</span>' : '') +
+      h += '<div class="md-sk"><code>' + esc(s) + '</code>' +
         '<p>' + esc(k.summary) + '</p>' +
         (k.requires && k.requires.length ? '<p class="md-req">Loads first: ' + k.requires.map(esc).join(", ") + '</p>' : '') +
         '<a class="md-link" href="' + esc(k.url) + '" target="_blank" rel="noopener">Open SKILL.md on GitHub ↗</a></div>';
@@ -34,4 +34,10 @@
     if (e.key !== "Enter" && e.key !== " ") return;
     var el = e.target.closest && e.target.closest(".gnode,.g-gate"); if (el) { e.preventDefault(); show(el); }
   });
+})();
+/* Simple view by default; the checkbox reveals the skills each worker loads. */
+(function () {
+  var t = document.getElementById("md-sup"); if (!t) return;
+  var s = document.querySelector(".md-v--simple"), f = document.querySelector(".md-v--full");
+  t.addEventListener("change", function () { s.hidden = t.checked; f.hidden = !t.checked; });
 })();

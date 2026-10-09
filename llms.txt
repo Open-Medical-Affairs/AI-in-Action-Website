@@ -23,24 +23,24 @@ Each section is its own page (deep-linkable):
 - For agents: https://aiinaction.up.railway.app/agents (The playbook your AI agent follows)
 - Skills: https://aiinaction.up.railway.app/skills (All skills in the library)
 
-Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints), one page per mission:
-- field-insights: https://aiinaction.up.railway.app/missions/field-insights
-- kol-meeting: https://aiinaction.up.railway.app/missions/kol-meeting
-- congress: https://aiinaction.up.railway.app/missions/congress
-- medical-information: https://aiinaction.up.railway.app/missions/medical-information
-- evidence-investment: https://aiinaction.up.railway.app/missions/evidence-investment
-- publication: https://aiinaction.up.railway.app/missions/publication
-- advisory-board: https://aiinaction.up.railway.app/missions/advisory-board
-- launch-readiness: https://aiinaction.up.railway.app/missions/launch-readiness
-- connected-planning: https://aiinaction.up.railway.app/missions/connected-planning
-- patient-partnership: https://aiinaction.up.railway.app/missions/patient-partnership
-- transcript: https://aiinaction.up.railway.app/missions/transcript
-- thirty-day-capstone: https://aiinaction.up.railway.app/missions/thirty-day-capstone
-- msl-pre-call: https://aiinaction.up.railway.app/missions/msl-pre-call
-- hcp-access: https://aiinaction.up.railway.app/missions/hcp-access
-- msl-post-call: https://aiinaction.up.railway.app/missions/msl-post-call
-- msl-admin: https://aiinaction.up.railway.app/missions/msl-admin
-- launch-plan-swarm: https://aiinaction.up.railway.app/missions/launch-plan-swarm (pending merge, PR #8)
+Mission pages (directions first: prompt to paste, what you need, steps, where the human decides; then the org chart of skills). Levels: 1 Starter = one skill, 2 Pair = lead + one sub-worker, 3 Team = lead + two or more sub-workers, 4 Swarm = waves of digital workers with human gates:
+- Level 1 Starter · msl-admin: https://aiinaction.up.railway.app/missions/msl-admin
+- Level 1 Starter · msl-pre-call: https://aiinaction.up.railway.app/missions/msl-pre-call
+- Level 1 Starter · msl-post-call: https://aiinaction.up.railway.app/missions/msl-post-call
+- Level 1 Starter · kol-meeting: https://aiinaction.up.railway.app/missions/kol-meeting
+- Level 1 Starter · medical-information: https://aiinaction.up.railway.app/missions/medical-information
+- Level 2 Pair · patient-partnership: https://aiinaction.up.railway.app/missions/patient-partnership
+- Level 2 Pair · hcp-access: https://aiinaction.up.railway.app/missions/hcp-access
+- Level 2 Pair · transcript: https://aiinaction.up.railway.app/missions/transcript
+- Level 2 Pair · launch-readiness: https://aiinaction.up.railway.app/missions/launch-readiness
+- Level 2 Pair · field-insights: https://aiinaction.up.railway.app/missions/field-insights
+- Level 2 Pair · congress: https://aiinaction.up.railway.app/missions/congress
+- Level 3 Team · connected-planning: https://aiinaction.up.railway.app/missions/connected-planning
+- Level 3 Team · evidence-investment: https://aiinaction.up.railway.app/missions/evidence-investment
+- Level 3 Team · advisory-board: https://aiinaction.up.railway.app/missions/advisory-board
+- Level 3 Team · publication: https://aiinaction.up.railway.app/missions/publication
+- Level 3 Team · thirty-day-capstone: https://aiinaction.up.railway.app/missions/thirty-day-capstone
+- Level 4 Swarm · launch-plan-swarm: https://aiinaction.up.railway.app/missions/launch-plan-swarm
 - Machine-readable graph data: https://aiinaction.up.railway.app/data/mission-graphs.json
 
 
@@ -65,4 +65,3 @@ Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints)
 - [Skills index](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/SKILLS-INDEX.md)
 - [Participant quickstart](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/PARTICIPANT-QUICKSTART.md)
 - [Workshop catalog](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/workshop/catalog.json)
-- [Prompt Optimizer (method source)](https://github.com/vivmuk/Prompt-Optimizer)

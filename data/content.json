@@ -1,5 +1,5 @@
 {
-  "source_commit": "635dcf2",
+  "source_commit": "006762f",
   "source_date": "2026-10-08",
   "starter_prompt": "Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills\nRead AGENTS.md and start a workshop mission using the bundled synthetic data.\nBegin with oncology field insights unless I choose another area.\nFind the three things leadership should know, explain why they matter,\nand create a concise leadership brief with source records and next actions.\nUse available public APIs only when useful, keeping real evidence separate\nfrom fictional workshop facts. Do not ask me to connect company systems.\nIf you cannot retrieve the repository, tell me which starter file to upload.",
   "quickstart_prompt": "Use https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills\nRead AGENTS.md. Start the field-insights workshop mission using the oncology\nsynthetic data. Find the three things leadership should know, explain why,\nand create a short brief with sources and next actions.\nDo not ask me to connect company systems. Use public scientific sources only\nwhen useful and keep them separate from fictional workshop data.",

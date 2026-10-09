@@ -95,7 +95,7 @@ python3 build.py --repo ../Medical-Affairs-Skills
 
 ## Credits
 
-Prompt Optimizer method adapted from [vivmuk/Prompt-Optimizer](https://github.com/vivmuk/Prompt-Optimizer). Content from [Open-Medical-Affairs/Medical-Affairs-Skills](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills) (Apache-2.0). All products (NORVANTIB, DERMALYX, ADIPOSYN), people and results in the workshop data are fictional.
+Content from [Open-Medical-Affairs/Medical-Affairs-Skills](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills) (Apache-2.0). All products (NORVANTIB, DERMALYX, ADIPOSYN), people and results in the workshop data are fictional.
 
 *Illustrations generated for Open Medical Affairs.*
 

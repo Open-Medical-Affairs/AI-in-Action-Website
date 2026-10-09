@@ -9,7 +9,7 @@ Read what this site points to, greet the person, ASK what they want to do (offer
 ## 1. Read first (sources of truth)
 - This site: <https://aiinaction.up.railway.app/agents.md> (this file), <https://aiinaction.up.railway.app/llms.txt>, <https://aiinaction.up.railway.app/missions.json>, <https://aiinaction.up.railway.app/skills.json>, <https://aiinaction.up.railway.app/prompts.json>, <https://aiinaction.up.railway.app/datasets.json>.
 - Skills library: <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills> . Default branch: `claude/medical-affairs-agent-workshop-ttpxhf`. Start with <https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md>.
-  The launch-planning swarm (skills medical-launch-plan, launch-timeline-and-governance, launch-field-training; mission `launch-plan-swarm`; team mission 7) is in open pull request <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/pull/8> on branch `launch-planning-swarm`. If a launch file is missing on the default branch, read it from that branch: <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/tree/launch-planning-swarm> . This site's counts (65 skills, 17 missions) include it.
+  The launch-planning swarm (skills medical-launch-plan, launch-timeline-and-governance, launch-field-training and launch-medical-readiness; mission `launch-plan-swarm`; team mission 7) is on the default branch with everything else.
 - Data: <https://github.com/Open-Medical-Affairs/Data-Sources> . Manifest of every dataset (synthetic and public, with licence, access type and links): <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json> (also manifest.csv). Everything at once: <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic-data.zip>, <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-synthetic.jsonl>, <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/all-data-catalog.zip>.
 - Getting data: fetch it straight onto YOUR OWN machine from the manifest URLs; never ask the person to download files to their laptop and upload them. Read <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json>, then for each dataset you need where `link_only` is false and `access` is `download`, `api-sample` or `bulk-file`, download `direct_url` (raw.githubusercontent.com or releases/latest/download; follow redirects) into e.g. /workspace/data/<type>/<group>/ and unzip ZIPs. For `official-site` and `link-only` entries, open the official URL and work at the source under its licence; never copy or redistribute link-only data. Confirm synthetic files are labelled SYNTHETIC before using them. The Data page (https://aiinaction.up.railway.app/data) has a 'Copy link' and a 'Copy for Grok Bot' instruction for every dataset and bundle.
 - Prompt optimizer: POST JSON {"goal": "<short goal>", "mode": "single" or "swarm", "ta": "oncology-mm|immunology-ad|cardiometabolic-obesity|own"} to <https://aiinaction.up.railway.app/api/optimize> (streams Markdown; on error, use the optimizer structure in https://aiinaction.up.railway.app/prompts.json).
@@ -28,24 +28,24 @@ Each section is its own page (deep-linkable):
 - For agents: https://aiinaction.up.railway.app/agents (The playbook your AI agent follows)
 - Skills: https://aiinaction.up.railway.app/skills (All skills in the library)
 
-Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints), one page per mission:
-- field-insights: https://aiinaction.up.railway.app/missions/field-insights
-- kol-meeting: https://aiinaction.up.railway.app/missions/kol-meeting
-- congress: https://aiinaction.up.railway.app/missions/congress
-- medical-information: https://aiinaction.up.railway.app/missions/medical-information
-- evidence-investment: https://aiinaction.up.railway.app/missions/evidence-investment
-- publication: https://aiinaction.up.railway.app/missions/publication
-- advisory-board: https://aiinaction.up.railway.app/missions/advisory-board
-- launch-readiness: https://aiinaction.up.railway.app/missions/launch-readiness
-- connected-planning: https://aiinaction.up.railway.app/missions/connected-planning
-- patient-partnership: https://aiinaction.up.railway.app/missions/patient-partnership
-- transcript: https://aiinaction.up.railway.app/missions/transcript
-- thirty-day-capstone: https://aiinaction.up.railway.app/missions/thirty-day-capstone
-- msl-pre-call: https://aiinaction.up.railway.app/missions/msl-pre-call
-- hcp-access: https://aiinaction.up.railway.app/missions/hcp-access
-- msl-post-call: https://aiinaction.up.railway.app/missions/msl-post-call
-- msl-admin: https://aiinaction.up.railway.app/missions/msl-admin
-- launch-plan-swarm: https://aiinaction.up.railway.app/missions/launch-plan-swarm (pending merge, PR #8)
+Mission pages (directions first: prompt to paste, what you need, steps, where the human decides; then the org chart of skills). Levels: 1 Starter = one skill, 2 Pair = lead + one sub-worker, 3 Team = lead + two or more sub-workers, 4 Swarm = waves of digital workers with human gates:
+- Level 1 Starter · msl-admin: https://aiinaction.up.railway.app/missions/msl-admin
+- Level 1 Starter · msl-pre-call: https://aiinaction.up.railway.app/missions/msl-pre-call
+- Level 1 Starter · msl-post-call: https://aiinaction.up.railway.app/missions/msl-post-call
+- Level 1 Starter · kol-meeting: https://aiinaction.up.railway.app/missions/kol-meeting
+- Level 1 Starter · medical-information: https://aiinaction.up.railway.app/missions/medical-information
+- Level 2 Pair · patient-partnership: https://aiinaction.up.railway.app/missions/patient-partnership
+- Level 2 Pair · hcp-access: https://aiinaction.up.railway.app/missions/hcp-access
+- Level 2 Pair · transcript: https://aiinaction.up.railway.app/missions/transcript
+- Level 2 Pair · launch-readiness: https://aiinaction.up.railway.app/missions/launch-readiness
+- Level 2 Pair · field-insights: https://aiinaction.up.railway.app/missions/field-insights
+- Level 2 Pair · congress: https://aiinaction.up.railway.app/missions/congress
+- Level 3 Team · connected-planning: https://aiinaction.up.railway.app/missions/connected-planning
+- Level 3 Team · evidence-investment: https://aiinaction.up.railway.app/missions/evidence-investment
+- Level 3 Team · advisory-board: https://aiinaction.up.railway.app/missions/advisory-board
+- Level 3 Team · publication: https://aiinaction.up.railway.app/missions/publication
+- Level 3 Team · thirty-day-capstone: https://aiinaction.up.railway.app/missions/thirty-day-capstone
+- Level 4 Swarm · launch-plan-swarm: https://aiinaction.up.railway.app/missions/launch-plan-swarm
 - Machine-readable graph data: https://aiinaction.up.railway.app/data/mission-graphs.json
 
 
@@ -193,4 +193,4 @@ If you cannot retrieve the repository, tell me which starter file to upload.
 - Never claim a search, script or file happened if it did not. State what you could not do and finish the supported work.
 - Outputs are drafts requiring qualified human review. The human is the final judge.
 
-Source: <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills> at commit 635dcf2 (2026-10-08). Apache-2.0.
+Source: <https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills> at commit 006762f (2026-10-08). Apache-2.0.

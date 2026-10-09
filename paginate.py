@@ -132,59 +132,133 @@ def pager(slug):
     return f'<nav class="pager wrap" aria-label="Previous and next page">{a}{b}</nav>\n'
 
 
+LEVELS = {
+    1: ("Starter", "One skill does the job. No hand-offs."),
+    2: ("Pair", "A lead skill hands part of the work to one sub-worker."),
+    3: ("Team", "A lead skill coordinates two or more sub-workers."),
+    4: ("Swarm", "Waves of digital workers, each with its own context, with human gates between waves."),
+}
+
+
+def level(g):
+    """Complexity from the repository metadata: swarm structure = 4; otherwise by the number of skills the mission runs."""
+    if g["structure"] == "swarm":
+        return 4
+    n = len(g["skills"])
+    return 1 if n == 1 else 2 if n == 2 else 3
+
+
+def loaded_count(g):
+    names = set(g["skills"]) | set(g["support"]) | {s for w in g["workers"] for s in w.get("skills", [])}
+    names |= {"medical-affairs-foundations", g["reviewer"]}
+    if g["structure"] == "swarm":
+        names.add(g["lead"])
+    return len(names)
+
+
+def level_badge(lv):
+    dots = "".join(f'<i class="lv-d{" is-on" if k <= lv else ""}"></i>' for k in range(1, 5))
+    return f'<span class="lv lv-{lv}" title="Level {lv} of 4: {E(LEVELS[lv][0])}"><span class="lv-dots" aria-hidden="true">{dots}</span>Level {lv} · {E(LEVELS[lv][0])}</span>'
+
+
+def you_get(g):
+    d = g["deliverables"]
+    return d[0] + (f" + {len(d) - 1} more" if len(d) > 1 else "")
+
+
+def sorted_missions(G):
+    return sorted(G["missions"], key=lambda g: (level(g), loaded_count(g), len(g["handoffs"]), g["title"]))
+
+
 def maps_section(G):
-    S, cards = G["skills"], []
-    for i, g in enumerate(G["missions"], 1):
-        n_loaded = len(set(g["skills"]) | set(g["support"]) | {s for w in g["workers"] for s in w.get("skills", [])})
-        kind = f'{len(g["workers"])} digital workers in {sum(1 for w in g["waves"] if w["kind"] == "wave")} waves' if g["structure"] == "swarm" else (f'Lead + {len(g["workers"])} sub-worker{"s" if len(g["workers"]) != 1 else ""}' if g["workers"] else "Single lead skill")
-        pend = '<span class="mm-pend">Pending merge · PR #8</span>' if g["pending"] else ""
-        cards.append(f'''<a class="mm-card{' mm-card--swarm' if g['structure'] == 'swarm' else ''}" href="/missions/{E(g['id'])}">
-  <div class="mm-fig">{MS.mini(g)}</div>
-  <div class="mm-body"><div class="mm-top"><span class="mc-n">{i:02d}</span><code>{E(g['id'])}</code>{pend}</div>
-  <h3>{E(g['title'])}</h3>
-  <p class="mm-meta">{E(kind)} · {n_loaded + 2} skills loaded · {len([x for x in g['gates']])} human checkpoints</p>
-  <span class="mm-go">Open the org chart →</span></div>
-</a>''')
+    groups = []
+    for lv in (1, 2, 3, 4):
+        ms = [g for g in sorted_missions(G) if level(g) == lv]
+        if not ms:
+            continue
+        cards = "".join(f'''<a class="mm-card mm-card--l{lv}" href="/missions/{E(g['id'])}">
+  <div class="mm-body"><h3>{E(g['title'])}</h3>
+  <p class="mm-get">You get: {E(you_get(g))}</p>
+  <p class="mm-meta">{level_badge(lv)}<span class="mm-n">{loaded_count(g)} skills</span></p></div>
+  <div class="mm-thumb" aria-hidden="true">{MS.mini(g)}</div>
+</a>''' for g in ms)
+        groups.append(f'''<div class="mm-level" id="level-{lv}"><div class="mm-lh"><h3>{level_badge(lv)}</h3><p>{E(LEVELS[lv][1])}</p></div><div class="mm-grid">{cards}</div></div>''')
     return f'''<section id="mission-maps" class="section section--maps" aria-labelledby="maps-h">
   <div class="wrap">
-    <div class="sec-head"><p class="kicker">Mission maps</p><h2 id="maps-h">Every mission is a <em>team of skills.</em></h2>
-    <p class="sec-sub">Each card is an org chart built from the repository itself: the lead skill, the skills it loads as sub-workers, the hand-offs between them, the human checkpoints, and the data in and deliverables out. Open one to click through the workers.</p></div>
-    <div class="mm-legend" aria-hidden="true"><span><i class="lg lg-lead"></i>Lead skill</span><span><i class="lg lg-worker"></i>Sub-worker skill</span><span><i class="lg lg-support"></i>Loaded with it</span><span><i class="lg lg-gate"></i>Human checkpoint</span><span><i class="lg lg-hand"></i>Hand-off</span></div>
-    <div class="mm-grid">{"".join(cards)}</div>
-    <p class="mm-src muted">Built from <code>workshop/catalog.json</code> and each skill's <code>SKILL.md</code> metadata in Medical-Affairs-Skills ({E(G['ref'])} @ {E(G['commit'])}). Missions marked “Pending merge” are in <a href="{E(G['pr'])}" target="_blank" rel="noopener">PR #8</a> and not yet on the default branch. Machine-readable: <a href="/data/mission-graphs.json">/data/mission-graphs.json</a>.</p>
+    <div class="sec-head"><p class="kicker">Missions</p><h2 id="maps-h">Pick a mission. <em>Start simple.</em></h2>
+    <p class="sec-sub">{len(G['missions'])} missions, from one skill doing one job to a full launch-planning swarm. Each one opens with the prompt to paste into Grok Bot, the steps, and where you decide.</p></div>
+    {"".join(groups)}
   </div>
 </section>
 '''
 
 
-def mission_page(g, G, idx, prompt_fig):
+def mission_page(g, G, idx, prompt_fig, ta_switch):
     S = G["skills"]
-    svg, nodes = MS.render(g, S)
-    pend = (f'<p class="md-pend"><strong>Pending merge.</strong> This mission and the skills marked PENDING live on the <code>{E(G["ref"])}</code> branch in <a href="{E(G["pr"])}" target="_blank" rel="noopener">PR #8</a>; they are not on the default branch yet.</p>' if g["pending"] or any(S.get(s, {}).get("pending") for n in nodes.values() for s in n["skills"]) else "")
-    loaded = []
-    seen = set()
+    lv = level(g)
+    svg_simple, nodes = MS.render(g, S, show_support=False)
+    svg_full, nodes_full = MS.render(g, S, show_support=True)
+    nodes.update(nodes_full)
+    has_support = svg_simple != svg_full
+    short = lambda s: S.get(s, {}).get("summary", "")
+    # steps, from the same metadata as the chart
+    steps = [f"Paste the prompt into Grok Bot (or any agent). It loads <code>medical-affairs-foundations</code> and the lead skill <code>{E(g['lead'])}</code>."]
+    steps.append("It scans the data for possible safety findings first and tells you about any before doing anything else.")
+    if g["structure"] == "swarm":
+        for w in g["waves"]:
+            if w["kind"] == "wave":
+                steps.append(f"<strong>{E(w['label'])}:</strong> {E(', '.join(w['members']))}. {E(w['why'])}.")
+            else:
+                steps.append(f"<strong>{E(w['label'])} (you decide):</strong> {E(w['who'].replace('Human: ', ''))}. {E(w['why'])}.")
+    else:
+        steps.append(f"<code>{E(g['lead'])}</code> does the core job: {E(short(g['lead']))}")
+        for w in g["workers"]:
+            s0 = w["skills"][0]
+            steps.append(f"It hands off to <code>{E(s0)}</code>: {E(short(s0))}")
+        steps.append(f"<code>{E(g['reviewer'])}</code> checks the draft independently and the agent fixes what it finds.")
+    steps.append("It hands you the deliverables as designed files, marked as drafts. You review and decide.")
+    gates = "".join(f'<li><strong>{E(x["label"])}</strong> {E(x["detail"])}</li>' for x in g["gates"])
+    files = "".join(f"<li><code>{E(f)}</code></li>" for f in g["inputs"][:8]) + (f'<li class="muted">+ {len(g["inputs"]) - 8} more</li>' if len(g["inputs"]) > 8 else "")
+    loaded, seen = [], set()
     for n in nodes.values():
         for s in n["skills"]:
             if s in seen or s not in S:
                 continue
             seen.add(s)
-            loaded.append(f'<li><a href="{E(S[s]["url"])}" target="_blank" rel="noopener"><code>{E(s)}</code></a>{" <span class=mm-pend>Pending</span>" if S[s]["pending"] else ""}<span>{E(S[s]["summary"])}</span></li>')
-    prev_ = G["missions"][idx - 1] if idx > 0 else None
-    next_ = G["missions"][idx + 1] if idx + 1 < len(G["missions"]) else None
-    pg = ((f'<a class="pg-prev" href="/missions/{prev_["id"]}"><span>Previous mission</span>{E(prev_["title"])}</a>' if prev_ else '<a class="pg-prev" href="/missions"><span>Back</span>All missions</a>')
-          + (f'<a class="pg-next" href="/missions/{next_["id"]}"><span>Next mission</span>{E(next_["title"])}</a>' if next_ else '<a class="pg-next" href="/missions"><span>Back</span>All missions</a>'))
-    how = ("Read the waves top to bottom: the Launch Lead staffs the chart, each worker gets only its context packet, and nothing in Wave 2 starts until a human approves Gate 1. Dashed orange arrows show which worker consumes whose output."
+            loaded.append(f'<li><a href="{E(S[s]["url"])}" target="_blank" rel="noopener"><code>{E(s)}</code></a><span>{E(S[s]["summary"])}</span></li>')
+    order = sorted_missions(G); k = [m["id"] for m in order].index(g["id"])
+    prev_ = order[k - 1] if k > 0 else None
+    next_ = order[k + 1] if k + 1 < len(order) else None
+    pg = ((f'<a class="pg-prev" href="/missions/{prev_["id"]}"><span>Simpler</span>{E(prev_["title"])}</a>' if prev_ else '<a class="pg-prev" href="/missions"><span>Back</span>All missions</a>')
+          + (f'<a class="pg-next" href="/missions/{next_["id"]}"><span>Next level up</span>{E(next_["title"])}</a>' if next_ else '<a class="pg-next" href="/missions"><span>Back</span>All missions</a>'))
+    how = ("Read the waves top to bottom: the Launch Lead staffs the chart, each worker gets only its context packet, and nothing in Wave 2 starts until a person approves Gate 1. Dashed orange arrows show which worker uses whose output."
            if g["structure"] == "swarm" else
-           "The lead skill runs the mission and hands each sub-worker skill a context packet; dashed pills are skills they load with them; dashed orange arrows are hand-offs named in the skills' metadata. A safety scan comes first and you decide at the end.")
+           "The lead skill runs the mission and hands each sub-worker a context packet. Dashed orange arrows are hand-offs named in the skills' metadata. A safety scan comes first and you decide at the end.")
+    toggle = ('<label class="md-toggle"><input type="checkbox" id="md-sup"> Show the skills each worker loads</label>' if has_support else "")
+    graph = (f'<div class="md-scroll md-v md-v--simple">{svg_simple}</div><div class="md-scroll md-v md-v--full" hidden>{svg_full}</div>' if has_support else f'<div class="md-scroll">{svg_full}</div>')
     return f'''<section id="mission" class="section section--mission" aria-labelledby="md-h">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/missions">Missions</a><span aria-hidden="true">/</span><span>{E(g['id'])}</span></nav>
-    <div class="sec-head"><p class="kicker">Mission {idx + 1:02d} · {"Agent swarm" if g['structure'] == 'swarm' else "Skill team"}</p><h1 id="md-h" class="md-h">{E(g['title'])}</h1>
-    <p class="sec-sub">{E(g['objective'])}</p></div>
-    {pend}
-    <div class="mm-legend" aria-hidden="true"><span><i class="lg lg-lead"></i>Lead skill</span><span><i class="lg lg-worker"></i>Sub-worker skill</span><span><i class="lg lg-support"></i>Loaded with it</span><span><i class="lg lg-review"></i>Independent check</span><span><i class="lg lg-gate"></i>Human checkpoint</span><span><i class="lg lg-hand"></i>Hand-off</span><span class="mm-hint">Tip: click any skill or gate</span></div>
+    <div class="md-top">{level_badge(lv)}<span class="mm-n">{loaded_count(g)} skills</span></div>
+    <h1 id="md-h" class="md-h">{E(g['title'])}</h1>
+    <p class="md-what"><strong>What it does.</strong> {E(g['objective'])}</p>
+    <div class="md-dir">
+      <div class="md-card md-card--run"><h2 class="md-h2"><span class="md-k">1</span>Paste this into Grok Bot</h2>
+        <p class="muted md-ta-l">Pick the practice data, then copy.</p>{ta_switch}{prompt_fig or ""}</div>
+      <div class="md-card"><h2 class="md-h2"><span class="md-k">2</span>What you need</h2>
+        <ul class="md-need"><li>Grok Bot, or any agent that can read GitHub (<a href="/grokbot">set-up</a>).</li><li>Nothing to download: the agent fetches the synthetic files itself (<a href="/data">data</a>).</li><li>About {"45" if lv == 4 else "30" if lv == 3 else "15–20"} minutes.</li></ul>
+        <p class="md-sm">Files it reads ({len(g['inputs'])}):</p><ul class="md-files">{files}</ul></div>
+    </div>
+    <div class="md-dir">
+      <div class="md-card"><h2 class="md-h2"><span class="md-k">3</span>The steps</h2><ol class="md-steps">{"".join(f"<li>{x}</li>" for x in steps)}</ol></div>
+      <div class="md-card md-card--gate"><h2 class="md-h2"><span class="md-k">4</span>Where you decide</h2><ul class="md-gates">{gates}</ul>
+        <h3 class="md-sm">You get</h3><ul class="chips">{"".join(f"<li>{E(d)}</li>" for d in g["deliverables"])}</ul></div>
+    </div>
+    <h2 class="md-h2 md-h2--big" id="how">How the agents work together</h2>
+    <div class="mm-legend" aria-hidden="true"><span><i class="lg lg-lead"></i>Lead skill</span><span><i class="lg lg-worker"></i>Sub-worker skill</span>{'<span><i class="lg lg-support"></i>Loaded with it</span>' if has_support else ''}<span><i class="lg lg-review"></i>Independent check</span><span><i class="lg lg-gate"></i>You decide</span><span><i class="lg lg-hand"></i>Hand-off</span><span class="mm-hint">Click any skill</span></div>
+    {toggle}
     <figure class="md-graph" aria-describedby="md-how">
-      <div class="md-scroll">{svg}</div>
+      {graph}
       <p class="md-swipe" aria-hidden="true">← Swipe sideways to see the whole chart →</p>
       <figcaption id="md-how">{E(how)}</figcaption>
     </figure>
@@ -193,10 +267,7 @@ def mission_page(g, G, idx, prompt_fig):
       <div id="md-detail"></div>
     </aside>
     <script type="application/json" id="md-data">{MS.panel_data(nodes, S)}</script>
-    <div class="md-cols">
-      <div><h2 class="sub-h">Skills this mission loads ({len(loaded)})</h2><ul class="md-skills">{"".join(loaded)}</ul></div>
-      <div><h2 class="sub-h">Run it</h2>{prompt_fig or ""}<p class="muted md-src">Graph generated from <code>workshop/catalog.json</code> and {E(g['source'])} ({E(G['ref'])} @ {E(G['commit'])}). Data: <a href="/data">synthetic packs</a>.</p></div>
-    </div>
+    <details class="md-more"><summary>All {len(loaded)} skills this mission loads</summary><ul class="md-skills">{"".join(loaded)}</ul></details>
     <nav class="pager pager--in" aria-label="Previous and next mission">{pg}</nav>
   </div>
 </section>
@@ -209,10 +280,14 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
     site = (cfg.get("site_url") or "").rstrip("/")
     head, pre, chunks, ids, foot, tail = split_sections(files["index.html"])
     chunks["mission-maps"] = maps_section(G)
+    # the original prompt grid stays reachable (ids and links) but folded away under the team missions
+    chunks["missions"] = re.sub(r'<h3 class="sub-h">All (\d+) workshop missions</h3>\s*<div class="mcs">(.*?)</div>\s*</div>\s*</section>',
+        lambda m: f'<details class="mm-all"><summary>All {m.group(1)} mission prompts on one page</summary><div class="mcs">{m.group(2)}</div></details>\n  </div>\n</section>', chunks["missions"], count=1, flags=re.S)
+    chunks["missions"] = chunks["missions"].replace('<h2 id="missions-h">Pick a job. <em>Copy. Paste. Go.</em></h2>', '<h2 id="missions-h">Team missions. <em>For the hackathon.</em></h2>')
     # add org-chart links to the existing mission prompt cards
     m_ids = {g["id"] for g in G["missions"]}
     chunks["missions"] = re.sub(r'(<article class="mc[^"]*" id="m-([a-z0-9-]+)">\s*<div class="mc-top">)(.*?)(</div>)',
-                                lambda m: m.group(1) + m.group(3) + (f'<a class="mc-map" href="/missions/{m.group(2)}">Org chart →</a>' if m.group(2) in m_ids else "") + m.group(4),
+                                lambda m: m.group(1) + m.group(3) + (f'<a class="mc-map" href="/missions/{m.group(2)}">Open mission →</a>' if m.group(2) in m_ids else "") + m.group(4),
                                 chunks["missions"], flags=re.S)
     placed = {s for p in PAGES for s in p[2]}
     leftovers = [s for s in ids if s not in placed]
@@ -236,9 +311,11 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
         extra_css = ["missions.css"] if slug == "missions" else []
         out[f"{slug or 'index'}.html"] = assemble(page_head(head, full_title, desc, f"{site}{url(slug)}", extra_css), pre, slug, ev, body, foot, tail)
     # mission detail pages
+    tsw = re.search(r'<div class="ta-switch".*?</button></div>', chunks["missions"], re.S)
+    ta_html = tsw.group(0) if tsw else ""
     for i, g in enumerate(G["missions"]):
         fig = re.search(rf'<article class="mc[^"]*" id="m-{re.escape(g["id"])}">.*?(<figure class="prompt.*?</figure>)', chunks["missions"], re.S)
-        body = mission_page(g, G, i, absolutize(fig.group(1)) if fig else "")
+        body = mission_page(g, G, i, absolutize(fig.group(1)) if fig else "", ta_html)
         body = relink(body, set(re.findall(r'\bid="([A-Za-z0-9_-]+)"', body)), id_page)
         h = page_head(head, f"{g['title']} · Mission map · {ev.get('name', 'AI in Action')}", f"Org chart for the {g['id']} mission: lead skill, sub-workers, hand-offs and human checkpoints. AI agents: read /agents.md.", f"{site}/missions/{g['id']}", ["missions.css"])
         out[f"missions/{g['id']}.html"] = assemble(h, pre, "missions", ev, body, foot, tail, "is-mission", ("mission-graph.js",))
@@ -249,8 +326,8 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
     files.update(out)
     # agent-readable docs: page URLs instead of #anchors, and a page list
     pages_md = ["## Pages on this site", "Each section is its own page (deep-linkable):"] + [f"- {label}: {site}{url(slug)} ({blurb})" for slug, label, _, _, blurb in PAGES] + \
-               ["", "Mission org charts (lead skill, sub-worker skills, hand-offs, human checkpoints), one page per mission:"] + \
-               [f"- {g['id']}: {site}/missions/{g['id']}{' (pending merge, PR #8)' if g['pending'] else ''}" for g in G["missions"]] + \
+               ["", "Mission pages (directions first: prompt to paste, what you need, steps, where the human decides; then the org chart of skills). Levels: 1 Starter = one skill, 2 Pair = lead + one sub-worker, 3 Team = lead + two or more sub-workers, 4 Swarm = waves of digital workers with human gates:"] + \
+               [f"- Level {level(g)} {LEVELS[level(g)][0]} · {g['id']}: {site}/missions/{g['id']}" for g in sorted_missions(G)] + \
                [f"- Machine-readable graph data: {site}/data/mission-graphs.json", ""]
     block = "\n".join(pages_md) + "\n"
     for name in ("agents.md", "llms.txt"):
