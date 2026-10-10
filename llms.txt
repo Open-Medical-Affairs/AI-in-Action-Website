@@ -2,10 +2,11 @@
 
 > Companion site for AI in Action for Medical Affairs (October 13–14, 2026, Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia). It turns the open Medical-Affairs-Skills and Data-Sources repositories into copy-ready prompts, missions, datasets and a prompt optimizer for non-technical Medical Affairs professionals and their AI agents. Grok Bot is the event sandbox. All workshop data is synthetic.
 
-Agents: follow the Instructions for agents at https://aiinaction.up.railway.app/agents.md. In short: read this site and its two repositories, greet the user, ASK what they want to do from a numbered menu (set up an agent, run a mission or skill, build the launch-planning swarm, practise on synthetic data, find public data sources, write or optimize a prompt, prepare for the hackathon team challenge, or something else), then do it step by step. The human is the final judge; workshop data is fictional; never send or publish anything without the user's say-so.
+Agents: follow the Instructions for agents at https://aiinaction.up.railway.app/agents.md. In short: read this site and its two repositories, greet the user, ASK what they want to do from a numbered menu (set up an agent, run a mission or skill, build the launch-planning swarm, practise on synthetic data, find public data sources, write or optimize a prompt, guide a hackathon team through its vertical at /hackathon, or something else), then do it step by step. The human is the final judge; workshop data is fictional; never send or publish anything without the user's say-so.
 
 ## Start here
 - [Agent instructions](https://aiinaction.up.railway.app/agents.md): how to run a mission end to end
+- [Hackathon](https://aiinaction.up.railway.app/hackathon): two-day plan, four vertical guides (/hackathon/publications-brain, /hackathon/insights-engine, /hackathon/congress-monitor, /hackathon/field-intelligence-engine), final presentation template and agent instructions (https://aiinaction.up.railway.app/hackathon/files/final-presentation-agent-instructions.md)
 - [Repository](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills): the source of truth
 - [AGENTS.md (raw)](https://raw.githubusercontent.com/Open-Medical-Affairs/Medical-Affairs-Skills/HEAD/AGENTS.md): the repository's own agent entry point
 
@@ -14,6 +15,7 @@ Each section is its own page (deep-linkable):
 - Home: https://aiinaction.up.railway.app/ (Start here: what this is, and Instructions for agents)
 - The deck: https://aiinaction.up.railway.app/deck (The keynote slides: view online or download PDF / PowerPoint)
 - Agenda: https://aiinaction.up.railway.app/agenda (Two days in Philadelphia, session by session)
+- Hackathon: https://aiinaction.up.railway.app/hackathon (Hack the workflow: two-day plan, four verticals, final presentation template)
 - Ideas: https://aiinaction.up.railway.app/ideas (The ideas behind the keynote)
 - Inside: https://aiinaction.up.railway.app/inside (What the skills library contains)
 - Missions: https://aiinaction.up.railway.app/missions (Every mission as an org chart of skills, plus copy-ready prompts)
@@ -43,6 +45,12 @@ Mission pages (directions first: prompt to paste, what you need, steps, where th
 - Level 3 Team · thirty-day-capstone: https://aiinaction.up.railway.app/missions/thirty-day-capstone
 - Level 4 Swarm · launch-plan-swarm: https://aiinaction.up.railway.app/missions/launch-plan-swarm
 - Machine-readable graph data: https://aiinaction.up.railway.app/data/mission-graphs.json
+
+Hackathon vertical guides (Day 1 agenda, missions, data, AI ideas, swarm shape, human gates, copyable prompts, impact worksheet, facilitator questions):
+- 01 Publications Brain: https://aiinaction.up.railway.app/hackathon/publications-brain (Markdown: https://aiinaction.up.railway.app/hackathon/files/01-publications-brain.md)
+- 02 Insights Engine: https://aiinaction.up.railway.app/hackathon/insights-engine (Markdown: https://aiinaction.up.railway.app/hackathon/files/02-insights-engine.md)
+- 03 Congress Monitor: https://aiinaction.up.railway.app/hackathon/congress-monitor (Markdown: https://aiinaction.up.railway.app/hackathon/files/03-congress-monitor.md)
+- 04 Field Intelligence Engine: https://aiinaction.up.railway.app/hackathon/field-intelligence-engine (Markdown: https://aiinaction.up.railway.app/hackathon/files/04-field-intelligence-engine.md)
 
 
 ## Data repository

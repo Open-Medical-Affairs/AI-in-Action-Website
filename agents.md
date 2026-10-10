@@ -20,6 +20,7 @@ Each section is its own page (deep-linkable):
 - Home: https://aiinaction.up.railway.app/ (Start here: what this is, and Instructions for agents)
 - The deck: https://aiinaction.up.railway.app/deck (The keynote slides: view online or download PDF / PowerPoint)
 - Agenda: https://aiinaction.up.railway.app/agenda (Two days in Philadelphia, session by session)
+- Hackathon: https://aiinaction.up.railway.app/hackathon (Hack the workflow: two-day plan, four verticals, final presentation template)
 - Ideas: https://aiinaction.up.railway.app/ideas (The ideas behind the keynote)
 - Inside: https://aiinaction.up.railway.app/inside (What the skills library contains)
 - Missions: https://aiinaction.up.railway.app/missions (Every mission as an org chart of skills, plus copy-ready prompts)
@@ -50,6 +51,12 @@ Mission pages (directions first: prompt to paste, what you need, steps, where th
 - Level 4 Swarm · launch-plan-swarm: https://aiinaction.up.railway.app/missions/launch-plan-swarm
 - Machine-readable graph data: https://aiinaction.up.railway.app/data/mission-graphs.json
 
+Hackathon vertical guides (Day 1 agenda, missions, data, AI ideas, swarm shape, human gates, copyable prompts, impact worksheet, facilitator questions):
+- 01 Publications Brain: https://aiinaction.up.railway.app/hackathon/publications-brain (Markdown: https://aiinaction.up.railway.app/hackathon/files/01-publications-brain.md)
+- 02 Insights Engine: https://aiinaction.up.railway.app/hackathon/insights-engine (Markdown: https://aiinaction.up.railway.app/hackathon/files/02-insights-engine.md)
+- 03 Congress Monitor: https://aiinaction.up.railway.app/hackathon/congress-monitor (Markdown: https://aiinaction.up.railway.app/hackathon/files/03-congress-monitor.md)
+- 04 Field Intelligence Engine: https://aiinaction.up.railway.app/hackathon/field-intelligence-engine (Markdown: https://aiinaction.up.railway.app/hackathon/files/04-field-intelligence-engine.md)
+
 
 ## 2. Greet, then ask
 Say hello in one line, say you have read the AI in Action for Medical Affairs materials, then ask: "What would you like to do?" and offer this menu. Wait for the answer. Do not start work before they choose (if they already stated a goal, map it to an option and confirm).
@@ -61,7 +68,7 @@ Say hello in one line, say you have read the AI in Action for Medical Affairs ma
 5. Practise on synthetic data (pick a pack: oncology NORVANTIB, immunology DERMALYX, cardiometabolic ADIPOSYN, or the connected practice CRM)
 6. Find and connect real public data sources
 7. Write or optimize a prompt for an agent or an agent swarm
-8. Prepare for the hackathon team challenge (7 team missions)
+8. Hackathon: guide my team through our vertical (01 Publications Brain, 02 Insights Engine, 03 Congress Monitor, 04 Field Intelligence Engine) and build our final presentation
 9. Something else (tell me)
 
 Missions for option 2: `field-insights` (What should leadership know?); `kol-meeting` (Prepare for the difficult meeting); `congress` (What changed after congress?); `medical-information` (Handle the enquiry queue); `evidence-investment` (Choose what to fund); `publication` (Keep every scientific output consistent); `advisory-board` (Design an advisory board worth holding); `launch-readiness` (Can the medical team launch?); `connected-planning` (Work across a practice CRM and content library); `patient-partnership` (Bring patient priorities into the plan); `transcript` (Turn a meeting transcript into action); `thirty-day-capstone` (Run the next 30 days of Medical Affairs); `msl-pre-call` (Prepare the MSL pre-call brief); `hcp-access` (Identify scientific coverage and access gaps); `msl-post-call` (Turn the call notes into useful follow-up); `msl-admin` (Clear the administrative queue); `launch-plan-swarm` (Build the whole medical launch plan).
@@ -77,7 +84,7 @@ For every choice: restate the goal as an end state, list the skills and files yo
 - Option 5 (practise): pick the pack, filter <https://github.com/Open-Medical-Affairs/Data-Sources/releases/latest/download/manifest.json> by `group`, read only the files the task needs, and mark every output SYNTHETIC and DRAFT.
 - Option 6 (public data): choose sources from the manifest (`type: public`) by workflow; use `direct_url` for the official API/download, respect `rate_limit` and `data_policy`; for `link_only: true`, link to it and never copy its data.
 - Option 7 (prompt): ask for a one-line goal and single task vs swarm, call <https://aiinaction.up.railway.app/api/optimize>, show the result, and offer to run it. Starter ideas are on <https://aiinaction.up.railway.app/optimizer>.
-- Option 8 (hackathon): ask which team mission, read its brief (missions.json `team_missions`), run it on synthetic data, and prepare the readout the team will present.
+- Option 8 (hackathon): ask which vertical and which therapeutic area, then read that vertical's guide on <https://aiinaction.up.railway.app/hackathon> (Markdown copies: <https://aiinaction.up.railway.app/hackathon/files/01-publications-brain.md>, 02-insights-engine.md, 03-congress-monitor.md, 04-field-intelligence-engine.md). Guide the team block by block through the suggested (optional) Day 1 afternoon: 1:45 set up Grok Bot and load the skills (30 min) with the guide's setup prompt; 2:15 the two warm-up missions (pairs in parallel, then swap); 2:55 workflow ideation (map today's workflow, pick one problem, estimate hours, mark ideas Efficiency or Opportunity AI); 3:40 the hack, using the guide's assignment starter, swarm shape and two human gates (stop at each and let the team decide). From the start, follow <https://aiinaction.up.railway.app/hackathon/files/final-presentation-agent-instructions.md>: keep capture-log.md (format https://aiinaction.up.railway.app/hackathon/files/capture-log-template.md) and, on Day 2 at about 9:05 when the team says "Build the final deck now", fill the template <https://aiinaction.up.railway.app/hackathon/files/template/AI-in-Action-Final-Presentation-Template.pptx> into a talk of about 20 minutes, including a few questions (teams present 01→04 from 9:40). There is no formal Day 1 share-out; impact numbers are the team's own estimates, never yours; ask the team to review the deck before it is used.
 - Option 9: map the request to the closest skills via medical-affairs-orchestrator, then proceed as above.
 
 Human checkpoints (always stop and ask): before using any data beyond the synthetic packs; when a possible safety finding appears; before final conclusions or recommendations; before sending, sharing, publishing or posting anything.

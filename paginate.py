@@ -15,6 +15,7 @@ PAGES = [
     ("", "Home", ["hero", "start"], "Home", "Start here: what this is, and Instructions for agents"),
     ("deck", "The deck", ["deck"], "AI in Action — Vivek's Deck", "The keynote slides: view online or download PDF / PowerPoint"),
     ("agenda", "Agenda", ["agenda"], "Agenda", "Two days in Philadelphia, session by session"),
+    ("hackathon", "Hackathon", ["hackathon"], "Hackathon", "Hack the workflow: two-day plan, four verticals, final presentation template"),
     ("ideas", "Ideas", ["ideas"], "Big ideas", "The ideas behind the keynote"),
     ("inside", "Inside", ["inside"], "What's inside", "What the skills library contains"),
     ("missions", "Missions", ["mission-maps", "missions"], "Missions", "Every mission as an org chart of skills, plus copy-ready prompts"),
@@ -28,6 +29,7 @@ PAGES = [
 ICONS = {  # 24px line icons
     "": '<path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/>',
     "deck": '<rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8 20h8M7 12l3-3 2 2 4-4"/>',
+    "hackathon": '<path d="M13 3L5 13h6l-1 8 8-10h-6z"/>',
     "agenda": '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
     "ideas": '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
     "inside": '<path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/>',
@@ -313,6 +315,13 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
     head, pre, chunks, ids, foot, tail = split_sections(files["index.html"])
     chunks["mission-maps"] = maps_section(G)
     chunks["deck"] = deck_section(ev)
+    import hackathon_pages as HK
+    hk_pages = HK.pages()
+    if hk_pages:
+        chunks["hackathon"] = hk_pages[0][3]
+        chunks["hero"] = re.sub(r'(<a class="btn-ghost" href="[^"]*optimizer">Optimize a prompt</a>)', r'<a class="btn-ghost" href="/hackathon">Hackathon guide</a>\1', chunks["hero"], count=1)
+        chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Build the AI worker</span>', '<span class="ag-title">Build the AI worker</span><a class="ag-link" href="/hackathon">Hackathon guide: the afternoon flow and your vertical →</a>', 1)
+        chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Hackathon + demo presentations</span>', '<span class="ag-title">Hackathon + demo presentations</span><a class="ag-link" href="/hackathon#final-presentation">Teams present 01→04 from 9:40, about 20 minutes each →</a>', 1)
     if chunks["deck"]:
         chunks["hero"] = re.sub(r'(<a class="btn-ghost" href="[^"]*optimizer">Optimize a prompt</a>)', r'\1<a class="btn-ghost" href="/deck">See the deck</a>', chunks["hero"], count=1)
     # the original prompt grid stays reachable (ids and links) but folded away under the team missions
@@ -343,7 +352,7 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
         body = relink(absolutize(body), here, id_page) + pager(slug)
         full_title = f"{title} · {ev.get('name', 'AI in Action')}" if slug else re.search(r"<title>(.*?)</title>", head).group(1)
         desc = f"{blurb}. AI agents: read /agents.md (Instructions for agents) and follow it."
-        extra_css = ["missions.css"] if slug == "missions" else ["deck.css"] if slug == "deck" else []
+        extra_css = ["missions.css"] if slug == "missions" else ["deck.css"] if slug == "deck" else ["hackathon.css"] if slug == "hackathon" else []
         out[f"{slug or 'index'}.html"] = assemble(page_head(head, full_title, desc, f"{site}{url(slug)}", extra_css), pre, slug, ev, body, foot, tail, extra_js=("deck.js",) if slug == "deck" else ())
     # mission detail pages
     tsw = re.search(r'<div class="ta-switch".*?</button></div>', chunks["missions"], re.S)
@@ -354,6 +363,11 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
         body = relink(body, set(re.findall(r'\bid="([A-Za-z0-9_-]+)"', body)), id_page)
         h = page_head(head, f"{g['title']} · Mission map · {ev.get('name', 'AI in Action')}", f"Org chart for the {g['id']} mission: lead skill, sub-workers, hand-offs and human checkpoints. AI agents: read /agents.md.", f"{site}/missions/{g['id']}", ["missions.css"])
         out[f"missions/{g['id']}.html"] = assemble(h, pre, "missions", ev, body, foot, tail, "is-mission", ("mission-graph.js",))
+    # hackathon vertical pages
+    for path, title, desc, html_ in hk_pages[1:]:
+        body = relink(absolutize(html_), set(re.findall(r'\bid="([A-Za-z0-9_-]+)"', html_)), id_page)
+        h = page_head(head, f"{title} · {ev.get('name', 'AI in Action')}", desc + " AI agents: read /agents.md.", f"{site}/{path}", ["hackathon.css"])
+        out[f"{path}.html"] = assemble(h, pre, "hackathon", ev, body, foot, tail, "is-hackathon")
     # 404
     nf = ('<section class="section"><div class="wrap"><div class="sec-head"><p class="kicker">404</p><h1 class="md-h">That page isn’t here.</h1>'
           '<p class="sec-sub">Use the menu, or start at <a href="/">Home</a>. Agents: read <a href="/agents.md">/agents.md</a>.</p></div></div></section>\n')
@@ -363,7 +377,9 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
     pages_md = ["## Pages on this site", "Each section is its own page (deep-linkable):"] + [f"- {label}: {site}{url(slug)} ({blurb})" for slug, label, _, _, blurb in PAGES] + \
                ["", "Mission pages (directions first: prompt to paste, what you need, steps, where the human decides; then the org chart of skills). Levels: 1 Starter = one skill, 2 Pair = lead + one sub-worker, 3 Team = lead + two or more sub-workers, 4 Swarm = waves of digital workers with human gates:"] + \
                [f"- Level {level(g)} {LEVELS[level(g)][0]} · {g['id']}: {site}/missions/{g['id']}" for g in sorted_missions(G)] + \
-               [f"- Machine-readable graph data: {site}/data/mission-graphs.json", ""]
+               [f"- Machine-readable graph data: {site}/data/mission-graphs.json", ""] + \
+               (["Hackathon vertical guides (Day 1 agenda, missions, data, AI ideas, swarm shape, human gates, copyable prompts, impact worksheet, facilitator questions):"] +
+                [f"- 0{v[0]} {v[3]}: {site}/hackathon/{v[1]} (Markdown: {site}/hackathon/files/{v[2]})" for v in HK.VERTICALS] + [""] if hk_pages else [])
     block = "\n".join(pages_md) + "\n"
     for name in ("agents.md", "llms.txt"):
         t = files[name]

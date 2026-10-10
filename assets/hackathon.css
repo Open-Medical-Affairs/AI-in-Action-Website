@@ -1,0 +1,92 @@
+/* /hackathon and /hackathon/<vertical> */
+.hk-two{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:stretch;margin:8px 0 6px}
+.hk-ai{border-radius:18px;padding:22px 24px;border:1px solid var(--line-2,#d5dde5)}
+.hk-ai h3{margin:4px 0 6px;font-size:22px}
+.hk-ai p{margin:0}
+.hk-ai--eff{background:#E6F4F1;border-color:#BFE3DC}
+.hk-ai--opp{background:#FDEEE3;border-color:#F6D2B8}
+.hk-ai--opp .kicker{color:#C2410C}
+.hk-vs{align-self:center;font:700 26px var(--f-sans);color:#0B2340}
+.hk-credit{font-size:13px;color:var(--muted,#5b6b7c);margin:8px 0 0}
+.hk-h2{margin:44px 0 16px}
+.hk-days{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.hk-day{background:#fff;border:1px solid var(--line-2,#d5dde5);border-radius:18px;padding:20px 22px}
+.hk-flow{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:0}
+.hk-flow li{display:grid;grid-template-columns:56px 1fr;column-gap:12px;padding:10px 0 10px;border-left:2px solid #CFE7E3;margin-left:26px;padding-left:16px;position:relative}
+.hk-flow li::before{content:"";position:absolute;left:-7px;top:16px;width:12px;height:12px;border-radius:50%;background:#14B8A6;border:2px solid #fff;box-shadow:0 0 0 1px #14B8A6}
+.hk-day:last-child .hk-flow li::before{background:#E07A2F;box-shadow:0 0 0 1px #E07A2F}
+.hk-flow time{grid-row:span 2;font:600 13px var(--f-mono,monospace);color:#0B2340;padding-top:2px}
+.hk-flow b{font-size:15px}
+.hk-flow span{font-size:13.5px;color:var(--muted,#5b6b7c)}
+.hk-aside{font-size:14px;color:var(--muted,#5b6b7c);margin:12px 0 0}
+.hk-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.hk-card{display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid var(--line-2,#d5dde5);border-top:6px solid #0B2340;border-radius:16px;padding:18px;color:inherit;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.hk-card:hover{transform:translateY(-2px);box-shadow:0 14px 34px -18px rgba(11,35,64,.45)}
+.hk-card--2{border-top-color:#1F5F99}.hk-card--3{border-top-color:#0F766E}.hk-card--4{border-top-color:#E07A2F}
+.hk-num{font:700 13px var(--f-mono,monospace);color:var(--muted,#5b6b7c)}
+.hk-card h3{margin:0;font-size:19px}
+.hk-card p{margin:0;font-size:14px}
+.hk-card dl{margin:6px 0 0;display:grid;gap:6px;font-size:12.5px}
+.hk-card dt{font:600 11px var(--f-mono,monospace);text-transform:uppercase;letter-spacing:.05em;color:var(--muted,#5b6b7c)}
+.hk-card dd{margin:0}
+.hk-card code{font-size:11.5px}
+.hk-go{margin-top:auto;padding-top:8px;font-weight:600;color:#0F766E}
+.hk-rules{margin-top:36px;background:#0B2340;color:#E6EEF5;border-radius:18px;padding:22px 26px}
+.hk-rules .kicker{color:#5EEAD4}
+.hk-rules ol{margin:8px 0 10px;padding-left:20px;display:grid;gap:6px}
+.hk-rules a{color:#5EEAD4}
+.hk-final-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:start}
+.hk-sheet{margin:0}
+.hk-sheet img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line-2,#d5dde5);display:block}
+.hk-sheet figcaption{font-size:13px;color:var(--muted,#5b6b7c);margin-top:8px}
+.hk-steps{margin:0 0 16px;padding-left:20px;display:grid;gap:8px;font-size:14.5px}
+.hk-btns{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.hk-dl small{font-weight:400;opacity:.7;margin-left:6px}
+.hk-copy{display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.hk-copy svg{width:16px;height:16px}
+.hk-copy .i-check{display:none}
+.hk-copy.is-copied .i-check{display:inline}.hk-copy.is-copied .i-copy{display:none}
+.hk-instr{margin-top:10px}
+.hk-instr summary{cursor:pointer;font-weight:600}
+.hk-instr pre{max-height:420px;overflow:auto;white-space:pre-wrap;font-size:12px}
+.hk-dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hk-dl-card{background:#fff;border:1px solid var(--line-2,#d5dde5);border-radius:16px;padding:18px 20px}
+.hk-dl-card h3{margin:0 0 6px}
+.hk-dl-card p{font-size:14px;margin:0 0 10px}
+.hk-mdlist{margin:0;padding-left:18px;font-size:13.5px}
+/* vertical pages */
+.hk-crumb{font:500 13px var(--f-mono,monospace);color:var(--muted,#5b6b7c);margin:0 0 8px}
+.hk-crumb a{color:#0F766E}
+.hk-md{max-width:980px}
+.hk-md h2{margin:40px 0 12px;padding-top:14px;border-top:1px solid var(--line,#e5eaef);font-size:24px}
+.hk-md h3{margin:26px 0 10px;font-size:18px}
+.hk-md p,.hk-md li{font-size:15px;line-height:1.6}
+.hk-md code{font-size:.88em;background:#EEF3F6;border-radius:5px;padding:1px 5px}
+.hk-table{overflow-x:auto;margin:12px 0;border:1px solid var(--line-2,#d5dde5);border-radius:12px;background:#fff}
+.hk-table table{border-collapse:collapse;width:100%;font-size:14px}
+.hk-table th{text-align:left;background:#F2F6F8;font-weight:600;padding:9px 12px;border-bottom:1px solid var(--line-2,#d5dde5)}
+.hk-table td{padding:9px 12px;border-top:1px solid #EDF1F4;vertical-align:top}
+.hk-table td:first-child{white-space:nowrap;font-weight:500}
+.hk-note{margin:14px 0;padding:12px 16px;border-left:4px solid #14B8A6;background:#E9F6F3;border-radius:0 10px 10px 0}
+.hk-note p{margin:0}
+.hk-note--warn{border-left-color:#E07A2F;background:#FDF1E8}
+.hk-pre{background:#0B2340;color:#E6EEF5;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.45}
+.hk-code{margin:14px 0}
+.hk-code pre{white-space:pre-wrap}
+.hk-fac{margin-top:48px;background:#FFF8F1;border:2px dashed #F2B98C;border-radius:18px;padding:22px 26px}
+.hk-fac .kicker{color:#C2410C}
+.hk-fac h2{margin:4px 0 6px}
+.hk-fac .hk-md h2{border-top:0;margin-top:22px;font-size:20px}
+@media (max-width:1100px){.hk-cards{grid-template-columns:repeat(2,1fr)}.hk-final-grid{grid-template-columns:1fr}}
+@media (max-width:760px){.hk-two{grid-template-columns:1fr}.hk-vs{justify-self:center}.hk-days,.hk-dl-grid,.hk-cards{grid-template-columns:1fr}.hk-fac{padding:18px}}
+.hk-final-side{display:grid;gap:16px}
+.hk-howto{background:#fff;border:2px solid #14B8A6;border-radius:18px;padding:20px 22px;box-shadow:0 18px 40px -26px rgba(15,118,110,.55)}
+.hk-howto h3{margin:2px 0 10px;font-size:21px}
+.hk-howto ol{padding-left:20px;display:grid;gap:8px;font-size:14.5px}
+.hk-howto h3+h3,.hk-howto h4{font-size:15px;margin:14px 0 6px}
+.hk-howto .hk-code pre{max-height:320px;overflow:auto;font-size:12px}
+.hk-agent{background:#F2F6F8;border-radius:16px;padding:18px 20px}
+.hk-agent h3{margin:0 0 4px}.hk-agent p{margin:0;font-size:14px}
+.hk-guides{display:grid;gap:8px}
+.hk-guides .hk-dl{justify-content:space-between}
+.hk-dl.is-soon{opacity:.55;cursor:not-allowed;pointer-events:none}

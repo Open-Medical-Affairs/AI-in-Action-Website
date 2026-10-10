@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hackathon · AI in Action for Medical Affairs</title>
+<meta name="description" content="Hack the workflow: two-day plan, four verticals, final presentation template. AI agents: read /agents.md (Instructions for agents) and follow it.">
+<meta name="agent-instructions" content="/agents.md">
+<meta name="theme-color" content="#F6F8F8">
+<link rel="alternate" type="text/markdown" href="/agents.md" title="Instructions for agents">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+<link rel="alternate" type="application/json" href="/missions.json" title="Missions">
+<link rel="alternate" type="application/json" href="/datasets.json" title="Datasets">
+<link rel="alternate" type="application/json" href="/prompts.json" title="Prompts and optimizer templates">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/ai-optimizer.css">
+<link rel="stylesheet" href="/assets/get-data.css">
+<link rel="stylesheet" href="/assets/agents-panel.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "AI in Action for Medical Affairs", "startDate": "2026-10-13T07:45:00-04:00", "endDate": "2026-10-14T13:30:00-04:00", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Convene, Two Commerce Square", "address": "2001 Market St, Philadelphia"}, "organizer": {"@type": "Organization", "name": "Momentum Events"}, "performer": {"@type": "Person", "name": "Vivek Mukhatyar"}}</script>
+<link rel="canonical" href="https://aiinaction.up.railway.app/hackathon">
+<link rel="stylesheet" href="/assets/sidebar.css">
+<link rel="stylesheet" href="/assets/hackathon.css">
+</head>
+<body class="sb " data-page="hackathon">
+
+<!-- AI agents: Instructions for agents are at /agents.md (plain text; also /llms.txt). Read them, greet the user, ask what they want to do from the menu, then do it. Missions, datasets, skills and prompts are at missions.json, datasets.json, skills.json and prompts.json. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ic-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></symbol><symbol id="ic-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol></svg>
+<div class="grain" aria-hidden="true"></div>
+
+<a class="skip" href="#main">Skip to content</a>
+<aside class="sb-side" id="sb-side" aria-label="Site navigation">
+  <a class="brand sb-brand" href="/" aria-label="AI in Action for Medical Affairs, home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 21l5-10 4 7 2-3 4 6"/></svg></span><span class="brand-t">AI in Action<span class="brand-sub">for Medical Affairs</span></span></a>
+  <nav class="sb-nav" aria-label="Pages"><ul><li><a href="/" title="Start here: what this is, and Instructions for agents"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg><span>Home</span></a></li><li><a href="/deck" title="The keynote slides: view online or download PDF / PowerPoint"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8 20h8M7 12l3-3 2 2 4-4"/></svg><span>The deck</span></a></li><li><a href="/agenda" title="Two days in Philadelphia, session by session"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg><span>Agenda</span></a></li><li><a href="/hackathon" class="is-active" aria-current="page" title="Hack the workflow: two-day plan, four verticals, final presentation template"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></svg><span>Hackathon</span></a></li><li><a href="/ideas" title="The ideas behind the keynote"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg><span>Ideas</span></a></li><li><a href="/inside" title="What the skills library contains"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg><span>Inside</span></a></li><li><a href="/missions" title="Every mission as an org chart of skills, plus copy-ready prompts"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="12" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M12 7.2v8.6M12 10c-6 0-7 3-7 5.8M12 10c6 0 7 3 7 5.8"/></svg><span>Missions</span></a></li><li><a href="/prompts" title="Copy-ready prompts"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v10H9l-4 4z"/><path d="M9 9h6M9 12h4"/></svg><span>Prompts</span></a></li><li><a href="/optimizer" title="Turn a short ask into a full agent prompt"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg><span>Optimizer</span></a></li><li><a href="/data" title="Synthetic datasets and public data sources"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg><span>Data</span></a></li><li><a href="/grokbot" title="Set up Grok Bot or another agent"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M3 13v2M21 13v2"/></svg><span>Grok Bot</span></a></li><li><a href="/agents" data-agents="1" title="The playbook your AI agent follows"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7"/><path d="M16 15l2 2 4-4"/></svg><span>For agents</span></a></li><li><a href="/skills" title="All skills in the library"><svg class="sn-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v16l-5-3-5 3z"/></svg><span>Skills</span></a></li></ul></nav>
+  <div class="sb-foot"><p class="sb-when">October 13–14, 2026<br>Convene (2nd floor), Two Commerce Square</p><a class="sb-agent" href="/agents.md">Agents: read /agents.md</a></div>
+</aside>
+<div class="sb-scrim" id="sb-scrim" hidden></div>
+<div class="sb-main">
+<header class="mbar">
+  <button class="mbar-btn" id="sb-open" type="button" aria-controls="sb-side" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="/" aria-label="AI in Action for Medical Affairs, home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 21l5-10 4 7 2-3 4 6"/></svg></span><span class="brand-t">AI in Action<span class="brand-sub">for Medical Affairs</span></span></a>
+</header>
+<main id="main">
+<section id="hackathon" class="section hk-hub" aria-labelledby="hackathon-h">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">Hackathon · Oct 13–14</p><h1 class="md-h" id="hackathon-h">Hack the <em>workflow</em>.</h1>
+      <p class="sec-sub">For two days, you are hackers: prototype fast with practice data, prove it works, harden it later. Four teams, four Medical Affairs challenges, one AI workforce each, with a person deciding at every gate.</p></div>
+    <div class="hk-two">
+      <article class="hk-ai hk-ai--eff"><p class="kicker">Efficiency AI</p><h3>Do today’s work better</h3><p>Faster, cheaper, better processes: the same work, done with less effort per output. The foundation of most AI adoption.</p></article>
+      <span class="hk-vs" aria-hidden="true">+</span>
+      <article class="hk-ai hk-ai--opp"><p class="kicker">Opportunity AI</p><h3>Do what was never possible</h3><p>New work and new value: “What might we do now that we never would have considered before?” Build it on top of efficiency.</p></article>
+    </div>
+    <p class="hk-credit">Framework: Nathaniel Whittemore (NLW), The AI Daily Brief. Hack for opportunity, not just efficiency.</p>
+
+    <h2 class="hk-h2">The two days</h2>
+    <div class="hk-days">
+      <div class="hk-day"><p class="kicker">Day 1 · Tue Oct 13 · 1:45–5:00 PM · suggested, optional</p>
+        <ol class="hk-flow">
+          <li><time>1:45</time><b>Set up Grok Bot</b><span>30 min · sign in, load the skills, read one practice file, start the capture log</span></li>
+          <li><time>2:15</time><b>Warm-up missions</b><span>40 min · two pairs run two easier missions, then swap</span></li>
+          <li><time>2:55</time><b>Workflow ideation</b><span>45 min · map today’s workflow, choose one problem, Efficiency or Opportunity</span></li>
+          <li><time>3:40</time><b>The hack</b><span>80 min · build the swarm, stop at both human gates, capture screenshots and timings</span></li>
+        </ol>
+        <p class="hk-aside">Facilitators circulate and ask questions all afternoon. There is no formal share-out; at 5:00 everyone heads to the cocktail reception.</p></div>
+      <div class="hk-day"><p class="kicker">Day 2 · Wed Oct 14 · 9:00–11:00 AM</p>
+        <ol class="hk-flow">
+          <li><time>9:00</time><b>Final build</b><span>one last fix, the agent fills the template, review and rehearse</span></li>
+          <li><time>9:40</time><b>01 Publications Brain</b><span>about 20 minutes, including a few questions</span></li>
+          <li><time>10:00</time><b>02 Insights Engine</b><span>about 20 minutes</span></li>
+          <li><time>10:20</time><b>03 Congress Monitor</b><span>about 20 minutes</span></li>
+          <li><time>10:40</time><b>04 Field Intelligence Engine</b><span>about 20 minutes, then the 11:00 WPP demo</span></li>
+        </ol>
+        <p class="hk-aside">Each talk tells one story: problem, workflow redesign, human gates, a live swarm demo, impact. <a href="#final-presentation">Final presentation template ↓</a></p></div>
+    </div>
+
+    <h2 class="hk-h2">Pick your vertical</h2>
+    <div class="hk-cards"><a class="hk-card hk-card--1" href="/hackathon/publications-brain"><span class="hk-num">01</span><h3>Publications Brain</h3><p>What to publish, what to stop, and keeping every output consistent.</p><dl><div><dt>Warm-ups</dt><dd><code>medical-information</code> · <code>patient-partnership</code></dd></div><div><dt>Lead skill</dt><dd><code>scientific-communication-strategy</code></dd></div><div><dt>Presents</dt><dd>Day 2 · 9:40 AM</dd></div></dl><span class="hk-go">Open the guide →</span></a><a class="hk-card hk-card--2" href="/hackathon/insights-engine"><span class="hk-num">02</span><h3>Insights Engine</h3><p>Turn a quarter of field records into decisions leadership can act on.</p><dl><div><dt>Warm-ups</dt><dd><code>field-insights</code> · <code>transcript</code></dd></div><div><dt>Lead skill</dt><dd><code>field-insight-synthesis</code></dd></div><div><dt>Presents</dt><dd>Day 2 · 10:00 AM</dd></div></dl><span class="hk-go">Open the guide →</span></a><a class="hk-card hk-card--3" href="/hackathon/congress-monitor"><span class="hk-num">03</span><h3>Congress Monitor</h3><p>The congress just ended. What changed, and what do we do about it?</p><dl><div><dt>Warm-ups</dt><dd><code>congress</code> · <code>kol-meeting</code></dd></div><div><dt>Lead skill</dt><dd><code>congress-intelligence</code></dd></div><div><dt>Presents</dt><dd>Day 2 · 10:20 AM</dd></div></dl><span class="hk-go">Open the guide →</span></a><a class="hk-card hk-card--4" href="/hackathon/field-intelligence-engine"><span class="hk-num">04</span><h3>Field Intelligence Engine</h3><p>Walk into every HCP conversation prepared, and close the loop after.</p><dl><div><dt>Warm-ups</dt><dd><code>msl-pre-call</code> · <code>msl-post-call</code></dd></div><div><dt>Lead skill</dt><dd><code>field-medical-planning</code></dd></div><div><dt>Presents</dt><dd>Day 2 · 10:40 AM</dd></div></dl><span class="hk-go">Open the guide →</span></a></div>
+
+    <div class="hk-rules"><p class="kicker">Rules of the hack</p><ol>
+      <li><b>Practice data only.</b> Fictional Nordvant Biopharma, or your own non-confidential data. Never patient or confidential data. <a href="/data">Data →</a></li>
+      <li><b>Human at the helm, AI in the loop.</b> A person reviews and decides at every gate.</li>
+      <li><b>Ship something that works.</b> Prototype fast. Harden later.</li></ol>
+      <p>Start with <a href="/grokbot">Grok Bot setup</a> · browse <a href="/missions">missions</a> · build a missing skill with the <a href="/optimizer">Skill creator</a> · agents: <a href="/agents.md">/agents.md</a></p></div>
+  </div>
+</section>
+<section class="section hk-final" id="final-presentation" aria-labelledby="hk-final-h">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">Day 2</p><h2 id="hk-final-h">Final presentation</h2>
+      <p class="sec-sub">About 20 minutes per team, give or take, including a few questions. Teams present 01→04 from 9:40. Grok Bot keeps a capture log as you work on Day 1 and, on Day 2, fills the template into your final deck.</p></div>
+    <div class="hk-final-grid">
+      <div class="hk-final-main">
+        <figure class="hk-sheet"><a href="/hackathon/files/template/template-contact-sheet.jpg" target="_blank" rel="noopener"><img src="/hackathon/files/template/template-contact-sheet.jpg" alt="All slides of the final presentation template" loading="lazy"></a>
+          <figcaption>The final presentation template. Every slide has [bracket] placeholders and notes on what to fill in.</figcaption></figure>
+        <div class="hk-btns">
+          <a class="btn-primary hk-dl" href="/hackathon/files/template/AI-in-Action-Final-Presentation-Template.pptx" download>Download the template (.pptx) <small>1.2 MB</small></a>
+          <a class="btn-ghost hk-dl" href="/hackathon/files/capture-log-template.md" download>Capture log template (.md) <small>4 KB</small></a>
+        </div>
+      </div>
+      <div class="hk-final-side">
+        <div class="hk-howto" id="how-to-use-the-template"><p class="kicker">Step by step</p><h3>How to use the template with Grok Bot</h3><ol class="hk-steps"><li><b>Day 1, about 2:10 PM.</b> Copy the agent instructions below and paste them into your team’s Grok Bot conversation.</li><li><b>As you work.</b> Say “log that” and upload screenshots; the agent keeps <code>capture-log.md</code>.</li><li><b>Day 2, 9:05 AM.</b> Download the template, attach it in Grok Bot and say <em>“Build the final deck now.”</em> Review every slide before you present.</li></ol></div>
+        <div class="hk-agent"><h3>Agent instructions</h3><p>The full recorder and deck-builder instructions for Grok Bot (or any agent).</p>
+          <div class="hk-btns">
+            <button type="button" class="btn-primary hk-copy" data-copy="#hk-agent-instr" aria-label="Copy agent instructions"><svg class="i-copy" aria-hidden="true"><use href="#ic-copy"/></svg><svg class="i-check" aria-hidden="true"><use href="#ic-check"/></svg><span class="lbl">Copy agent instructions</span></button>
+            <a class="btn-ghost hk-dl" href="/hackathon/files/final-presentation-agent-instructions.md" download>Download (.md) <small>7 KB</small></a>
+          </div>
+          <details class="hk-instr"><summary>Read the agent instructions</summary><pre id="hk-agent-instr" class="prompt-text"><code># Agent instructions: capture the hackathon and build our final deck
+
+**For:** each AI in Action hackathon team (Publications Brain, Insights Engine, Congress Monitor, Field Intelligence Engine).
+**How to use:** on Day 1 at about 2:10 PM, paste everything inside the box below into your team&#x27;s Grok Bot conversation (or any agent). On Day 2 at 9:05 AM, attach the template file `AI-in-Action-Final-Presentation-Template.pptx` and say **&quot;Build the final deck now.&quot;**
+Files: the template and this pack are on https://aiinaction.up.railway.app/hackathon (Final presentation). The capture log format is in `capture-log-template.md`.
+
+---
+
+```text
+You are our team&#x27;s hackathon recorder and deck builder for &quot;AI in Action for Medical Affairs&quot;
+(October 13–14, 2026, Philadelphia). We are Medical Affairs professionals, not technical people.
+Write in plain English. Event wording rule: call a unit of work a &quot;task&quot; or a &quot;workflow&quot;, never anything else.
+
+TEAM: [team name]   VERTICAL: [01 Publications Brain | 02 Insights Engine | 03 Congress Monitor | 04 Field Intelligence Engine]
+MEMBERS: [names and roles: driver, navigator, scribe, timekeeper/presenter]
+DATA: [Nordvant Biopharma practice data, TA = oncology-mm | immunology-ad | cardiometabolic-obesity, plus the practice CRM]
+      or [our own NON-CONFIDENTIAL data: describe]. Practice data are FICTIONAL.
+
+PART 1 — CAPTURE AS WE GO (Day 1 afternoon and Day 2 morning)
+Keep one Markdown file called capture-log.md, using the structure of the capture log template
+(sections 0–13). Update it, without being asked, after every block and every time we:
+ 1. make a decision (what we chose, what we rejected, why, who decided) -&gt; Decisions log;
+ 2. describe today&#x27;s workflow (steps, roles, hand-offs, hours, waiting time) -&gt; Before workflow;
+ 3. design the redesigned workflow (which steps move to agents, which stay human) -&gt; After workflow;
+ 4. use a prompt that mattered (setup, mission, assignment, a push-back question) -&gt; Prompts used, verbatim;
+ 5. define or change the swarm (lead agent, sub-agents, the skill each loads, the hand-offs) -&gt; Swarm structure;
+ 6. reach a human gate (what we were shown, what we decided, how long it took) -&gt; Human gates;
+ 7. take a screenshot of a run (we will tell you or upload it) -&gt; Screenshots, with a one-line caption
+    and the slide it belongs to;
+ 8. finish a step: note the clock time and minutes for agent work and for our review -&gt; Timing notes;
+ 9. estimate impact (baseline hours per cycle, cycles per year, loaded hourly rate, AI-assisted hours
+    including human review) -&gt; Impact estimates. These are OUR estimates; never invent them.
+Rules for the log: record what actually happened; if you are unsure, write &quot;unconfirmed&quot; and ask us.
+Keep the safety rule: any possible adverse event, product complaint or off-label signal in the data
+is listed verbatim and flagged for a human, and goes in the log under Risks.
+At 4:50 PM on Day 1, show us the updated log and a one-line-per-slide outline of the deck.
+
+PART 2 — BUILD THE FINAL DECK (Day 2, about 9:05 AM, when we say &quot;Build the final deck now&quot;)
+Use the attached template AI-in-Action-Final-Presentation-Template.pptx. Keep its masters, colours,
+fonts, illustrations and layouts. Fill every [bracket] from the capture log, slide by slide:
+ 1 Title (team, vertical, one-line promise, presenters)        0:30
+ 2 Problem statement and three numbers                          1:30
+ 3 Today&#x27;s workflow as a swimlane (roles, steps, 3 pain points)  1:30
+ 4 Redesigned workflow swimlane with agents and gates G1/G2      2:00
+ 5 Human gates: where, who decides, what they see, why a human   1:30
+ 6 Swarm org chart: human owner, lead agent, 3–5 sub-agents,
+   skill per agent, hand-offs, independent checker               1:00
+ 7 Live demo: two screenshots + 5-step run of show               4:00
+ 8 Impact: formula tiles + bar chart + two big numbers           1:30
+ 9 Risks and guardrails: green / yellow / red lanes + 3 risks    1:00
+10 Efficiency vs Opportunity (what new thing becomes possible)   1:00
+11 Next steps: next week / 90 days / our ask                     1:00
+12 Thank you + questions                        0:30 + a few minutes
+Total: about 20 minutes, give or take, including a few questions. Do not add slides beyond 12
+(an appendix slide is allowed only if we ask). Delete the hidden template-guide slide (13).
+
+Design rules:
+- Very visual: diagrams, swimlanes, org charts and charts, not bullet lists. Edit the template&#x27;s
+  shapes; move, add or delete boxes so the diagram matches what we built.
+- At most about 25 words of visible text per slide (titles, labels and numbers count).
+- Titles are claims (&quot;Leadership hears about field signals in days, not weeks&quot;), not labels.
+- Impact slide: put our numbers in the formula tiles and replace the chart&#x27;s ILLUSTRATIVE values
+  with our baseline and AI-assisted hours per cycle; remove the word ILLUSTRATIVE only when the
+  numbers are ours. Annual hours saved = (baseline h - AI-assisted h incl. review) x cycles/yr;
+  annual value = hours saved x loaded hourly rate. Label them &quot;team estimates&quot;.
+- Put our screenshots in the demo slide&#x27;s dashed frames (crop to the useful part, readable at a distance).
+- Mark practice data as FICTIONAL wherever results appear (Nordvant Biopharma and its products
+  NORVANTIB, DERMALYX, ADIPOSYN are fictional). Never present outputs as real evidence.
+- No confidential data, no patient data, no real HCP names, no company logos we were not given.
+- Generic and disclosure-free: the team presents; do not add a speaker disclosure unless we ask.
+- Rewrite every slide&#x27;s speaker notes as our script: 2–4 short talking points, who speaks, and the
+  time for that slide. Keep the total to about 20 minutes.
+
+Before you finish:
+ 1. Search the deck for &quot;[&quot; and list anything still unfilled. Do not invent content to fill it;
+    ask us.
+ 2. Check the timing comes to about 20 minutes and every slide has notes.
+ 3. Show us a slide-by-slide summary (title + visual + word count) and a preview image if you can.
+ 4. ASK US TO REVIEW. Make our edits. Only then save the final file as
+    [TeamName]-AI-in-Action-Final.pptx. If you cannot edit .pptx files, give us the complete text,
+    numbers and notes for each slide so we can paste them in.
+Never send, post or share the deck or the log yourself.
+```
+
+---
+
+## Tips for the team
+
+- Say &quot;log that&quot; whenever something important happens; the agent adds it to the capture log.
+- Upload screenshots as you go (plan, a hand-off, each gate, the final output). Name them `shot-01-plan.png` etc.
+- Time the runs with a phone stopwatch and tell the agent the minutes; the impact slide depends on it.
+- If the agent cannot open the .pptx, ask for the slide text and notes, then paste them into the template yourselves.
+</code></pre></details></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section hk-dls" id="hackathon-downloads" aria-labelledby="hk-dl-h">
+  <div class="wrap">
+    <div class="sec-head"><p class="kicker">Downloads</p><h2 id="hk-dl-h">The whole pack</h2></div>
+    <div class="hk-dl-grid">
+      <div class="hk-dl-card"><h3>Facilitator guides (PDF)</h3><p>One designed guide per vertical: agenda, missions, data, ideas, swarm shape, gates, prompts, questions and impact worksheet.</p><div class="hk-guides"><span class="btn-ghost hk-dl is-soon" aria-disabled="true">01 Publications Brain <small>coming soon</small></span><span class="btn-ghost hk-dl is-soon" aria-disabled="true">02 Insights Engine <small>coming soon</small></span><span class="btn-ghost hk-dl is-soon" aria-disabled="true">03 Congress Monitor <small>coming soon</small></span><span class="btn-ghost hk-dl is-soon" aria-disabled="true">04 Field Intelligence Engine <small>coming soon</small></span></div></div>
+      <div class="hk-dl-card"><h3>Hackathon kickoff deck</h3><p>Hack the workflow: what a hack is, Efficiency vs Opportunity AI, the four challenges and the rules.</p>
+        <div class="hk-btns"><a class="btn-primary hk-dl" href="/hackathon/files/kickoff/AI-in-Action-Hackathon-Intro.pdf" download>PDF <small>2.8 MB</small></a><a class="btn-ghost hk-dl" href="/hackathon/files/kickoff/AI-in-Action-Hackathon-Intro.pptx" download>PowerPoint (.pptx) <small>3.2 MB</small></a></div></div>
+      <div class="hk-dl-card"><h3>Guides as Markdown</h3><p>For agents and for editing.</p><ul class="hk-mdlist"><li><a href="/hackathon/files/01-publications-brain.md">01-publications-brain.md</a></li><li><a href="/hackathon/files/02-insights-engine.md">02-insights-engine.md</a></li><li><a href="/hackathon/files/03-congress-monitor.md">03-congress-monitor.md</a></li><li><a href="/hackathon/files/04-field-intelligence-engine.md">04-field-intelligence-engine.md</a></li><li><a href="/hackathon/files/README.md">README.md</a></li></ul></div>
+    </div>
+  </div>
+</section>
+<nav class="pager wrap" aria-label="Previous and next page"><a class="pg-prev" href="/agenda"><span>Previous</span>Agenda</a><a class="pg-next" href="/ideas"><span>Next</span>Ideas</a></nav>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div><p class="foot-brand">AI in Action for Medical Affairs</p><p class="muted">October 13–14, 2026 · Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia<br>Keynote: Vivek Mukhatyar · With Momentum Events</p></div>
+    <div class="muted foot-fine"><p>Built from <a href="https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills" target="_blank" rel="noopener">Medical-Affairs-Skills</a> (Apache-2.0) at 006762f, 2026-10-08. All products, people and results in the workshop data are fictional. Outputs are drafts requiring qualified review; this is not a clinical decision, GxP or pharmacovigilance system.</p></div>
+  </div>
+</footer>
+</div>
+
+<div class="toast" role="status" aria-live="polite" id="toast"></div>
+<script src="/assets/app.js" defer></script>
+<script src="/assets/optimizer-data.js" defer></script>
+<script src="/assets/ai-optimizer.js" defer></script>
+<script src="/assets/skill-creator.js" defer></script>
+<script src="/assets/get-data.js" defer></script>
+<script src="/assets/sidebar.js" defer></script>
+</body>
+</html>
