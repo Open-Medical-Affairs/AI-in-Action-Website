@@ -12,7 +12,7 @@
 | Warm-up missions | [`field-insights`](https://aiinaction.up.railway.app/missions/field-insights) · Level 2 Pair · "What should leadership know?"; [`transcript`](https://aiinaction.up.railway.app/missions/transcript) · Level 2 Pair · "Turn a meeting transcript into action" |
 | Lead skill for the hack | [`field-insight-synthesis`](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/skills/field-insight-synthesis/SKILL.md) |
 | Practice data | Any TA. Each field-observations.csv contains deliberately seeded adverse events, a product quality complaint and an off-label use: the safety-first stop will trigger. |
-| Day 2 presentation slot | 10:00–10:20 AM (about 20 minutes, including a few questions; teams present 01→04 from 9:40) |
+| Day 2 presentation | This team presents second (02 of 04): teams present in order 01→04 after the final build, about 20 minutes each including a few questions |
 
 ## 1. Challenge statement
 
@@ -24,27 +24,27 @@ Every quarter MSLs log hundreds of field observations and sit in advisory boards
 
 Teams can keep this prompt or narrow it to one workflow they know. A good narrowed prompt names the role, the trigger, the deliverable and the decision it serves.
 
-## 3. Day 1 afternoon: suggested agenda (Tue Oct 13, 1:45–5:00 PM)
+## 3. Day 1 afternoon: suggested agenda (Tue Oct 13)
 
-Context: 7:45 registration · 8:30 opening keynote and sandbox intro · 11:15 team creation and function audit · lunch · **1:45 build block** · 5:00 cocktail reception.
+Context: Day 1 morning: registration, opening keynote and sandbox intro, team creation and function audit; lunch; then **the build afternoon** (four blocks, about 3¼ hours in all); evening cocktail reception. All durations below are approximate.
 
-| Time | Block | Done looks like |
+| About | Block (in order) | Done looks like |
 |---|---|---|
-| 1:45–2:15 (30 min) | 1 · Set up Grok Bot and load the skills | Every member signed in; the driver's conversation has the skills loaded and has read one practice file; capture log started |
-| 2:15–2:55 (40 min) | 2 · Warm-up missions: `field-insights` + `transcript` | A leadership brief and a decision log exist; the seeded safety finding was raised first and read aloud; 3 observations logged |
-| 2:55–3:40 (45 min) | 3 · Workflow ideation: the quarterly field-insight report | The quarterly insight cycle mapped; one problem chosen; hours per quarter and number of people involved estimated; ideas marked Efficiency or Opportunity |
-| 3:40–5:00 (80 min) | 4 · The hack: build the Insights Engine swarm | The swarm produced an insight table with source IDs and confidence, then a brief, stopping at both gates; the safety list came first; screenshots and timings captured |
+| about 30 min | 1 · Set up Grok Bot and load the skills | Every member signed in; the driver's conversation has the skills loaded and has read one practice file; capture log started |
+| about 40 min | 2 · Warm-up missions: `field-insights` + `transcript` | A leadership brief and a decision log exist; the seeded safety finding was raised first and read aloud; 3 observations logged |
+| about 45 min | 3 · Workflow ideation: the quarterly field-insight report | The quarterly insight cycle mapped; one problem chosen; hours per quarter and number of people involved estimated; ideas marked Efficiency or Opportunity |
+| about 80 min (about 1½ hours) | 4 · The hack: build the Insights Engine swarm | The swarm produced an insight table with source IDs and confidence, then a brief, stopping at both gates; the safety list came first; screenshots and timings captured |
 
 Suggested roles (rotate if you like): **driver** (types into Grok Bot), **navigator** (reads the mission and pushes back), **scribe** (owns the capture log), **timekeeper and presenter**.
 
-### Block 1 · Set up Grok Bot and load the skills (1:45–2:15)
+### Block 1 · Set up Grok Bot and load the skills (about 30 min)
 
-| Time | What happens |
+| About | What happens (in order) |
 |---|---|
-| 1:45–1:50 | Huddle: agree roles and pick one practice therapeutic area (TA). |
-| 1:50–2:02 | Everyone opens [https://aiinaction.up.railway.app/grokbot](https://aiinaction.up.railway.app/grokbot): event sign-up link, credits code (both shared at the conference), new conversation. Can't open GitHub? Upload the starter bundle linked on that page. |
-| 2:02–2:10 | The driver pastes the setup prompt below. Others follow along on their own laptops. |
-| 2:10–2:15 | Smoke test passes (skills listed, a SYNTHETIC file read). The scribe pastes the capture-log instructions ([final-presentation-agent-instructions.md](final-presentation-agent-instructions.md)) into the conversation and starts [capture-log-template.md](capture-log-template.md). |
+| about 5 min | Huddle: agree roles and pick one practice therapeutic area (TA). |
+| about 10 min | Everyone opens [https://aiinaction.up.railway.app/grokbot](https://aiinaction.up.railway.app/grokbot): event sign-up link, credits code (both shared at the conference), new conversation. Can't open GitHub? Upload the starter bundle linked on that page. |
+| about 10 min | The driver pastes the setup prompt below. Others follow along on their own laptops. |
+| about 5 min | Smoke test passes (skills listed, a SYNTHETIC file read). The scribe pastes the capture-log instructions ([final-presentation-agent-instructions.md](final-presentation-agent-instructions.md)) into the conversation and starts [capture-log-template.md](capture-log-template.md). |
 
 Setup prompt (paste into Grok Bot; replace the TA):
 
@@ -59,41 +59,41 @@ Do not ask me to connect company systems. Do not send, post or change anything o
 
 **Done looks like:** all members have a working Grok Bot; the agent lists the loaded skills and shows a file marked SYNTHETIC; the capture log exists.
 
-### Block 2 · Warm-up missions (2:15–2:55)
+### Block 2 · Warm-up missions (about 40 min)
 
 - **Pair A:** [`field-insights`](https://aiinaction.up.railway.app/missions/field-insights) · Level 2 Pair · "What should leadership know?". The core insight task. Watch for the safety finding the agent should raise before any analysis.
 - **Pair B:** [`transcript`](https://aiinaction.up.railway.app/missions/transcript) · Level 2 Pair · "Turn a meeting transcript into action". Advisory-board transcript to reviewed transcript, correction queue and decision log: a second insight source.
 - Simpler alternative: [`msl-post-call`](https://aiinaction.up.railway.app/missions/msl-post-call) · Level 1 Starter · "Turn the call notes into useful follow-up" (one MSL's notes to CRM draft). Background reading: [Team mission 2](https://github.com/Open-Medical-Affairs/Medical-Affairs-Skills/blob/HEAD/workshop/missions/mission-2.md) ("Find what humans would miss").
 
-| Time | What happens |
+| About | What happens (in order) |
 |---|---|
-| 2:15–2:18 | Split into two pairs. Pair A opens /missions/field-insights, Pair B opens /missions/transcript. Same practice TA. |
-| 2:18–2:40 | Run both missions in parallel. When the agent raises a safety finding, stop and read it aloud to the team. |
-| 2:40–2:50 | Push on it: "Which three should leadership care about most, and why those three?" then "What would change your mind about the first one?" |
-| 2:50–2:55 | Swap outputs. Scribe logs: did the safety scan happen first? Were source IDs kept? One surprise. |
+| about 5 min | Split into two pairs. Pair A opens /missions/field-insights, Pair B opens /missions/transcript. Same practice TA. |
+| about 20 min | Run both missions in parallel. When the agent raises a safety finding, stop and read it aloud to the team. |
+| about 10 min | Push on it: "Which three should leadership care about most, and why those three?" then "What would change your mind about the first one?" |
+| about 5 min | Swap outputs. Scribe logs: did the safety scan happen first? Were source IDs kept? One surprise. |
 
 **Done looks like:** at least one finished draft deliverable; the team saw where the agent stopped for a human (safety scan first, human is the final judge); three observations in the capture log ("it was good at…", "it missed…", "we had to decide…").
 
-### Block 3 · Workflow ideation (2:55–3:40)
+### Block 3 · Workflow ideation (about 45 min)
 
-| Time | What happens |
+| About | What happens (in order) |
 |---|---|
-| 2:55–3:10 | **Map today's workflow** for one real quarterly field-insight report (from MSL notes to the leadership readout): steps, who does each, hand-offs, waiting time, hours. Sticky notes or a whiteboard; photograph it for the log. |
-| 3:10–3:22 | **Spot the AI ideas.** Mark each step **E** (Efficiency AI: do today's work faster) or **O** (Opportunity AI: something not possible today). Use the examples in section 8 to spark ideas. Dot-vote. |
-| 3:22–3:32 | **Pick one problem.** Write it as: "When [role] needs [outcome], today it takes [time] because [cause]." Fill the baseline column of the impact worksheet (section 12). |
-| 3:32–3:40 | **Sketch the swarm** on paper: one lead agent, 3–5 sub-agents, the skill each loads, the hand-offs, and two human gates (section 9). Optional: the [Optimizer](https://aiinaction.up.railway.app/optimizer) "Agent swarm / coordinator" task. |
+| about 15 min | **Map today's workflow** for one real quarterly field-insight report (from MSL notes to the leadership readout): steps, who does each, hand-offs, waiting time, hours. Sticky notes or a whiteboard; photograph it for the log. |
+| about 10 min | **Spot the AI ideas.** Mark each step **E** (Efficiency AI: do today's work faster) or **O** (Opportunity AI: something not possible today). Use the examples in section 8 to spark ideas. Dot-vote. |
+| about 10 min | **Pick one problem.** Write it as: "When [role] needs [outcome], today it takes [time] because [cause]." Fill the baseline column of the impact worksheet (section 12). |
+| about 10 min | **Sketch the swarm** on paper: one lead agent, 3–5 sub-agents, the skill each loads, the hand-offs, and two human gates (section 9). Optional: the [Optimizer](https://aiinaction.up.railway.app/optimizer) "Agent swarm / coordinator" task. |
 
 **Done looks like:** a photo of today's workflow; ideas marked E or O; one problem statement; baseline hours and frequency estimated; a swarm sketch with two gates. All in the capture log.
 
-### Block 4 · The hack: build the swarm (3:40–5:00)
+### Block 4 · The hack: build the swarm (about 80 min)
 
-| Time | What happens |
+| About | What happens (in order) |
 |---|---|
-| 3:40–3:50 | Write the assignment (starter below, or the [Optimizer](https://aiinaction.up.railway.app/optimizer) in swarm mode). Missing a skill? Use the **Skill creator** on the Optimizer page; read every SKILL.md it produces and approve it before use. |
-| 3:50–4:25 | **Run 1.** Lead agent plans, sub-agents work; stop at Gate 1 (the top three insights and the safety routing) and make the decision as a team. Note the minutes. |
-| 4:25–4:30 | Optional stretch break. |
-| 4:30–4:50 | **Run 2.** Fix the weakest hand-off (add a house rule, tighten a context packet), then run through Gate 2 (the head of medical signs off the brief). Optional stress test with a change card. |
-| 4:50–5:00 | **Capture.** Screenshots of the plan, a hand-off and each gate; timing notes; ask the agent to update the capture log and draft the slide outline from the template. Save everything. |
+| about 10 min | Write the assignment (starter below, or the [Optimizer](https://aiinaction.up.railway.app/optimizer) in swarm mode). Missing a skill? Use the **Skill creator** on the Optimizer page; read every SKILL.md it produces and approve it before use. |
+| about 35 min | **Run 1.** Lead agent plans, sub-agents work; stop at Gate 1 (the top three insights and the safety routing) and make the decision as a team. Note the minutes. |
+| about 5 min | Optional stretch break. |
+| about 20 min | **Run 2.** Fix the weakest hand-off (add a house rule, tighten a context packet), then run through Gate 2 (the head of medical signs off the brief). Optional stress test with a change card. |
+| about 10 min | **Capture.** Screenshots of the plan, a hand-off and each gate; timing notes; ask the agent to update the capture log and draft the slide outline from the template. Save everything. |
 
 Reference missions: [`field-insights`](https://aiinaction.up.railway.app/missions/field-insights) · Level 2 Pair · "What should leadership know?" as the core, [`connected-planning`](https://aiinaction.up.railway.app/missions/connected-planning) · Level 3 Team · "Work across a practice CRM and content library" for working across the practice CRM, [`launch-plan-swarm`](https://aiinaction.up.railway.app/missions/launch-plan-swarm) · Level 4 Swarm · "Build the whole medical launch plan" for the wave-and-gate pattern.
 
@@ -132,22 +132,22 @@ You are the Insights Lead, a lead agent coordinating a small team of digital wor
 
 **Done looks like:** the swarm ran end to end at least once on practice data; it stopped at Gate 1 and Gate 2 and the team made both decisions; screenshots and minute-level timings are in the capture log; the agent has drafted a slide outline.
 
-**5:00 PM: no formal share-out.** Teams go to the cocktail reception. During the afternoon, facilitators walk around and ask the questions in section 10; from 4:45 they check that every team has saved screenshots and its capture log.
+**End of the afternoon: no formal share-out.** Teams go to the cocktail reception. During the afternoon, facilitators walk around and ask the questions in section 10; near the end of the afternoon they check that every team has saved screenshots and its capture log.
 
-## 4. Day 2: final build and presentation (Wed Oct 14, 9:00–11:00 AM)
+## 4. Day 2 morning: final build and presentation (Wed Oct 14)
 
-Context: 8:00 breakfast · **9:00 hackathon + demo presentations** · 11:00 interactive demo by WPP · 11:50 closing panel · 1:30 end.
+Context: Day 2 morning: breakfast · **hackathon final build and team presentations** · interactive demo by WPP · closing panel.
 
-| Time | What happens |
+| About | What happens (in order) |
 |---|---|
-| 9:00–9:05 | Re-open yesterday's conversation. The agent re-reads the capture log. |
-| 9:05–9:25 | One last build fix at most. The agent fills the [final presentation template](template/AI-in-Action-Final-Presentation-Template.pptx) using the [agent instructions](final-presentation-agent-instructions.md). |
-| 9:25–9:32 | Team review: no [brackets] left, impact numbers are the team's own, practice data marked fictional, the LIVE DEMO slide left empty, backup screenshots in place. |
-| 9:32–9:38 | Rehearse the demo and the first two slides. Hand the deck to the AV desk / presentation laptop. |
-| 9:38–9:40 | MC opens the session. |
-| **10:00–10:20 AM** | **Insights Engine presents** (about 20 minutes, give or take, including a short live demo and a few questions). |
+| about 5 min | Re-open yesterday's conversation. The agent re-reads the capture log. |
+| about 20 min | One last build fix at most. The agent fills the [final presentation template](template/AI-in-Action-Final-Presentation-Template.pptx) using the [agent instructions](final-presentation-agent-instructions.md). |
+| about 5 min | Team review: no [brackets] left, impact numbers are the team's own, practice data marked fictional, the LIVE DEMO slide left empty, backup screenshots in place. |
+| about 5 min | Rehearse the demo and the first two slides. Hand the deck to the AV desk / presentation laptop. |
+| a couple of minutes | MC opens the session. |
+| **about 20 min** | **Insights Engine presents second (02 of 04)** (about 20 minutes, give or take, including a short live demo and a few questions). |
 
-> **Timing.** Teams present 01→04 from 9:40, about 20 minutes each including a few questions, before the 11:00 WPP demo. The morning build is short, so keep all decks on one laptop and treat the Day 1 4:50–5:00 capture as essential. Watch the other teams; make final edits only in the minutes before your slot.
+> **Timing.** The final build and rehearsal take about 30–40 min at the start of Day 2; then teams present in order 01→04, about 20 minutes each including a few questions, before the WPP demo. The morning build is short, so keep all decks on one laptop and treat the capture step near the end of Day 1 as essential. Watch the other teams; make final edits only in the minutes before your turn.
 
 ## 5. Recommended missions
 
@@ -255,14 +255,14 @@ Insights lead (human) · final judge
 
 Facilitators: no share-out at the end of Day 1, so these questions are the feedback loop. Ask one or two per visit, then leave.
 
-**During ideation (2:55–3:40)**
+**During ideation (block 3)**
 
 1. What is the difference between an observation and an insight in your team today? Who decides?
 2. How long after the quarter ends does leadership see the insights today? What decision is late as a result?
 3. Which data would you need from the CRM that the field notes do not have?
 4. What would leadership do differently with a weekly pulse instead of a quarterly report?
 
-**During the hack (3:40–5:00)**
+**During the hack (block 4)**
 
 5. Did your swarm raise the seeded safety finding before anything else? Who receives it, and what does the agent stop doing?
 6. Show me one insight and the record IDs behind it. How many records support it?

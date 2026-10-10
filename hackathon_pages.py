@@ -8,10 +8,10 @@ HERE = Path(__file__).resolve().parent
 FILES = HERE / "hackathon" / "files"
 SITE = "https://aiinaction.up.railway.app"
 VERTICALS = [  # number, slug (route), md file, name, one line, slot
-    (1, "publications-brain", "01-publications-brain.md", "Publications Brain", "What to publish, what to stop, and keeping every output consistent.", "9:40"),
-    (2, "insights-engine", "02-insights-engine.md", "Insights Engine", "Turn a quarter of field records into decisions leadership can act on.", "10:00"),
-    (3, "congress-monitor", "03-congress-monitor.md", "Congress Monitor", "The congress just ended. What changed, and what do we do about it?", "10:20"),
-    (4, "field-intelligence-engine", "04-field-intelligence-engine.md", "Field Intelligence Engine", "Walk into every HCP conversation prepared, and close the loop after.", "10:40"),
+    (1, "publications-brain", "01-publications-brain.md", "Publications Brain", "What to publish, what to stop, and keeping every output consistent.", ""),
+    (2, "insights-engine", "02-insights-engine.md", "Insights Engine", "Turn a quarter of field records into decisions leadership can act on.", ""),
+    (3, "congress-monitor", "03-congress-monitor.md", "Congress Monitor", "The congress just ended. What changed, and what do we do about it?", ""),
+    (4, "field-intelligence-engine", "04-field-intelligence-engine.md", "Field Intelligence Engine", "Walk into every HCP conversation prepared, and close the loop after.", ""),
 ]
 F = lambda p: f"/hackathon/files/{p}"
 FACILITATOR = ("walk-around question bank", "common pitfalls")
@@ -69,7 +69,7 @@ def vertical_card(v):
     return (f'<div class="hk-cardwrap"><a class="hk-card hk-card--{n}" href="/hackathon/{slug}">{img}<span class="hk-num">0{n}</span><h3>{E(name)}</h3><p>{E(line)}</p>'
             f'<dl><div><dt>Warm-ups</dt><dd>{" · ".join(f"<code>{E(w)}</code>" for w in warm_ids)}</dd></div>'
             f'<div><dt>Lead skill</dt><dd><code>{E(lead.group(1) if lead else "")}</code></dd></div>'
-            f'<div><dt>Presents</dt><dd>Day 2 · {slot} AM</dd></div></dl><span class="hk-go">Open the guide →</span></a>{guide_btn(v, False)}</div>')
+            f'<div><dt>Presents</dt><dd>Day 2 · {["first", "second", "third", "fourth"][n - 1]}, about 20 min</dd></div></dl><span class="hk-go">Open the guide →</span></a>{guide_btn(v, False)}</div>')
 
 
 def howto_block():
@@ -80,9 +80,9 @@ def howto_block():
         more = f'<p class="hk-aside"><a href="{F("how-to-use-template.md")}">how-to-use-template.md</a></p>'
     else:
         body = ('<ol class="hk-steps">'
-                '<li><b>Day 1, about 2:10 PM.</b> Copy the agent instructions below and paste them into your team’s Grok Bot conversation.</li>'
+                '<li><b>Day 1, near the end of Grok Bot setup.</b> Copy the agent instructions below and paste them into your team’s Grok Bot conversation.</li>'
                 '<li><b>As you work.</b> Say “log that” and upload screenshots; the agent keeps <code>capture-log.md</code>.</li>'
-                '<li><b>Day 2, 9:05 AM.</b> Download the template, attach it in Grok Bot and say <em>“Build the final deck now.”</em> Review every slide before you present.</li></ol>')
+                '<li><b>At the start of Day 2.</b> Download the template, attach it in Grok Bot and say <em>“Build the final deck now.”</em> Review every slide before you present.</li></ol>')
         more = ""
     return f'<div class="hk-howto" id="how-to-use-the-template"><p class="kicker">Step by step</p><h3>How to use the template with Grok Bot</h3>{body}{more}</div>'
 
@@ -92,7 +92,7 @@ def final_block():
     return f'''<section class="section hk-final" id="final-presentation" aria-labelledby="hk-final-h">
   <div class="wrap">
     <div class="sec-head"><p class="kicker">Day 2</p><h2 id="hk-final-h">Final presentation</h2>
-      <p class="sec-sub">About 20 minutes per team, give or take, including a few questions. Teams present 01→04 from 9:40. Grok Bot keeps a capture log as you work on Day 1 and, on Day 2, fills the template into your final deck.</p></div>
+      <p class="sec-sub">About 20 minutes per team, give or take, including a few questions. Teams present in order 01→04 on Day 2. Grok Bot keeps a capture log as you work on Day 1 and, on Day 2, fills the template into your final deck.</p></div>
     <div class="hk-final-grid">
       <div class="hk-final-main">
         <figure class="hk-sheet"><a href="{F("template/template-contact-sheet.jpg")}" target="_blank" rel="noopener"><img src="{F("template/template-contact-sheet.jpg")}" alt="All slides of the final presentation template" loading="lazy"></a>
@@ -147,21 +147,21 @@ def hub():
 
     <h2 class="hk-h2">The two days</h2>
     <div class="hk-days">
-      <div class="hk-day"><p class="kicker">Day 1 · Tue Oct 13 · 1:45–5:00 PM · suggested, optional</p>
+      <div class="hk-day"><p class="kicker">Day 1 · Tue Oct 13 · afternoon · suggested, optional</p>
         <ol class="hk-flow">
-          <li><time>1:45</time><b>Set up Grok Bot</b><span>30 min · sign in, load the skills, read one practice file, start the capture log</span></li>
-          <li><time>2:15</time><b>Warm-up missions</b><span>40 min · two pairs run two easier missions, then swap</span></li>
-          <li><time>2:55</time><b>Workflow ideation</b><span>45 min · map today’s workflow, choose one problem, Efficiency or Opportunity</span></li>
-          <li><time>3:40</time><b>The hack</b><span>80 min · build the swarm, stop at both human gates, capture screenshots and timings</span></li>
+          <li><i class="hk-dur">about 30 min</i><b>Set up Grok Bot</b><span>sign in, load the skills, read one practice file, start the capture log</span></li>
+          <li><i class="hk-dur">about 40 min</i><b>Warm-up missions</b><span>two pairs run two easier missions, then swap</span></li>
+          <li><i class="hk-dur">about 45 min</i><b>Workflow ideation</b><span>map today’s workflow, choose one problem, Efficiency or Opportunity</span></li>
+          <li><i class="hk-dur">about 1½ hours</i><b>The hack</b><span>build the swarm, stop at both human gates, capture screenshots and timings</span></li>
         </ol>
-        <p class="hk-aside">Facilitators circulate and ask questions all afternoon. There is no formal share-out; at 5:00 everyone heads to the cocktail reception.</p></div>
-      <div class="hk-day"><p class="kicker">Day 2 · Wed Oct 14 · 9:00–11:00 AM</p>
+        <p class="hk-aside">Facilitators circulate and ask questions all afternoon. There is no formal share-out; the day ends with the cocktail reception.</p></div>
+      <div class="hk-day"><p class="kicker">Day 2 · Wed Oct 14 · morning</p>
         <ol class="hk-flow">
-          <li><time>9:00</time><b>Final build</b><span>one last fix, the agent fills the template, review and rehearse</span></li>
-          <li><time>9:40</time><b>01 Publications Brain</b><span>about 20 minutes, including a few questions</span></li>
-          <li><time>10:00</time><b>02 Insights Engine</b><span>about 20 minutes</span></li>
-          <li><time>10:20</time><b>03 Congress Monitor</b><span>about 20 minutes</span></li>
-          <li><time>10:40</time><b>04 Field Intelligence Engine</b><span>about 20 minutes, then the 11:00 WPP demo</span></li>
+          <li><i class="hk-dur">about 30–40 min</i><b>Final build and rehearsal</b><span>one last fix, the agent fills the template, review and rehearse</span></li>
+          <li><i class="hk-dur">about 20 min</i><b>01 Publications Brain</b><span>presents first, including a few questions</span></li>
+          <li><i class="hk-dur">about 20 min</i><b>02 Insights Engine</b><span>presents second</span></li>
+          <li><i class="hk-dur">about 20 min</i><b>03 Congress Monitor</b><span>presents third</span></li>
+          <li><i class="hk-dur">about 20 min</i><b>04 Field Intelligence Engine</b><span>presents fourth, then the WPP demo</span></li>
         </ol>
         <p class="hk-aside">Each talk tells one story: problem, workflow redesign, human gates, a live swarm demo, impact. <a href="#final-presentation">Final presentation template ↓</a></p></div>
     </div>
@@ -209,7 +209,7 @@ def vertical_page(v):
     return f'''<section class="section hk-v hk-v--{n}" id="hackathon-{slug}" aria-labelledby="hkv-h">
   <div class="wrap hk-v-wrap">
     <p class="hk-crumb"><a href="/hackathon">Hackathon</a> / Vertical 0{n}</p>
-    <div class="sec-head"><p class="kicker">Vertical 0{n} · presents Day 2 at {slot} AM</p><h1 class="md-h" id="hkv-h">{E(name)}</h1><p class="sec-sub">{E(line)}</p>
+    <div class="sec-head"><p class="kicker">Vertical 0{n} · presents {["first", "second", "third", "fourth"][n - 1]} on Day 2</p><h1 class="md-h" id="hkv-h">{E(name)}</h1><p class="sec-sub">{E(line)}</p>
       <div class="hk-btns">{guide_btn(v)}<a class="btn-ghost" href="#{day1}">Day 1 agenda</a><a class="btn-ghost" href="/hackathon#final-presentation">Final presentation</a><a class="btn-ghost" href="#for-facilitators">For facilitators</a><a class="btn-ghost" href="{F(md)}">Markdown</a></div>
       {f'<p class="hk-aside"><b>Assumption:</b> {E(assumption)}</p>' if assumption else ""}</div>
     <div class="hk-md">{body}</div>

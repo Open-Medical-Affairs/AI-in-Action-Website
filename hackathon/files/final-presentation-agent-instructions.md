@@ -1,7 +1,7 @@
 # Agent instructions: capture the hackathon and build our final deck
 
 **For:** each AI in Action hackathon team (Publications Brain, Insights Engine, Congress Monitor, Field Intelligence Engine).
-**How to use:** on Day 1 at about 2:10 PM, paste everything inside the box below into your team's Grok Bot conversation (or any agent). On Day 2 at 9:05 AM, give the agent the template file `AI-in-Action-Final-Presentation-Template.pptx`, these instructions and your capture log, and say **"Build the final deck now."** Step-by-step for humans: `how-to-use-template.md`.
+**How to use:** near the end of Grok Bot setup on Day 1 (the first block of the afternoon), paste everything inside the box below into your team's Grok Bot conversation (or any agent). At the start of Day 2, give the agent the template file `AI-in-Action-Final-Presentation-Template.pptx`, these instructions and your capture log, and say **"Build the final deck now."** Step-by-step for humans: `how-to-use-template.md`.
 Files: the template and this pack are on https://aiinaction.up.railway.app/hackathon (Final presentation). The capture log format is in `capture-log-template.md`.
 
 ---
@@ -27,15 +27,15 @@ Keep one Markdown file called capture-log.md, using the structure of the capture
  6. reach a human gate (what we were shown, what we decided, how long it took) -> Human gates;
  7. take a screenshot of a run (we will tell you or upload it) -> Screenshots, with a one-line caption
     and the slide it belongs to;
- 8. finish a step: note the clock time and minutes for agent work and for our review -> Timing notes;
+ 8. finish a step: note the block and the minutes for agent work and for our review -> Timing notes;
  9. estimate impact (baseline hours per cycle, cycles per year, loaded hourly rate, AI-assisted hours
     including human review) -> Impact estimates. These are OUR estimates; never invent them.
 Rules for the log: record what actually happened; if you are unsure, write "unconfirmed" and ask us.
 Keep the safety rule: any possible adverse event, product complaint or off-label signal in the data
 is listed verbatim and flagged for a human, and goes in the log under Risks.
-At 4:50 PM on Day 1, show us the updated log and a one-line-per-slide outline of the deck.
+Near the end of the Day 1 afternoon (the capture step), show us the updated log and a one-line-per-slide outline of the deck.
 
-PART 2 — BUILD THE FINAL DECK (Day 2, about 9:05 AM, when we say "Build the final deck now")
+PART 2 — BUILD THE FINAL DECK (at the start of Day 2, when we say "Build the final deck now")
 We will give you three things: the template AI-in-Action-Final-Presentation-Template.pptx,
 these instructions, and our capture log (capture-log.md). Then:
  1. OPEN THE TEMPLATE and work in a copy of it. Do not rebuild the deck from scratch.

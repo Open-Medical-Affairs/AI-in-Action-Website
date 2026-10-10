@@ -1,17 +1,17 @@
 # Capture log · [Team name] · [Vertical]
 
-*AI in Action for Medical Affairs · Oct 13–14, 2026. The agent maintains this file during Day 1 and Day 2; the team checks it at 4:50 PM Day 1 and 9:05 AM Day 2. Practice data are fictional (Nordvant Biopharma) unless stated.*
+*AI in Action for Medical Affairs · Oct 13–14, 2026. The agent maintains this file during Day 1 and Day 2; the team checks it near the end of the Day 1 afternoon and at the start of Day 2. Practice data are fictional (Nordvant Biopharma) unless stated.*
 
 ## 0. Team and setup
 - Members and roles: [driver] · [navigator] · [scribe] · [timekeeper/presenter]
 - Data: [practice TA: oncology-mm / immunology-ad / cardiometabolic-obesity] + [practice CRM files] / [own non-confidential data: describe]
 - Skills loaded: [list]
-- Setup finished at: [clock time]
+- Setup took: [about N min]
 
 ## 1. Decisions log
-| Time | Decision | Options rejected | Why | Who decided |
+| Block | Decision | Options rejected | Why | Who decided |
 |---|---|---|---|---|
-| [14:05] | [e.g. use the oncology pack] | [immunology, obesity] | [source-correction change card exists] | [team] |
+| [e.g. Block 1 · setup] | [e.g. use the oncology pack] | [immunology, obesity] | [source-correction change card exists] | [team] |
 
 ## 2. Warm-up missions
 | Mission | Who ran it | Minutes | What it did well | What it missed | Where it stopped for us |
@@ -60,9 +60,9 @@ Photo of the map: [file name]
 4. [push-back questions that changed the output]
 
 ## 9. Runs, screenshots and timing notes
-| Run | Start | End | Agent minutes | Human review minutes | What changed vs last run | Screenshot(s) | For slide |
+| Run | Block | Duration | Agent minutes | Human review minutes | What changed vs last run | Screenshot(s) | For slide |
 |---|---|---|---|---|---|---|---|
-| 1 | [15:50] | [16:25] | [ ] | [ ] | [ ] | [shot-01-plan.png] | [7] |
+| 1 | [Block 4 · the hack] | [about 35 min] | [ ] | [ ] | [ ] | [shot-01-plan.png] | [7] |
 
 ## 10. Impact estimates (team estimates, not measured)
 | Line | Today | AI-assisted | Source of estimate |
@@ -85,7 +85,7 @@ Photo of the map: [file name]
 - Our ask today: [sponsor / data / pilot team / decision]
 
 ## 13. Deck status (Day 2)
-- Outline drafted (Day 1, 4:50 PM): [yes/no]
+- Outline drafted (end of Day 1 afternoon): [yes/no]
 - Unfilled [brackets]: [list]
-- Team review done by: [names] at [time]
+- Team review done by: [names]
 - Final file: [TeamName]-AI-in-Action-Final.pptx

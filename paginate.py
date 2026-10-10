@@ -321,7 +321,7 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
         chunks["hackathon"] = hk_pages[0][3]
         chunks["hero"] = re.sub(r'(<a class="btn-ghost" href="[^"]*optimizer">Optimize a prompt</a>)', r'<a class="btn-ghost" href="/hackathon">Hackathon guide</a>\1', chunks["hero"], count=1)
         chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Build the AI worker</span>', '<span class="ag-title">Build the AI worker</span><a class="ag-link" href="/hackathon">Hackathon guide: the afternoon flow and your vertical →</a>', 1)
-        chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Hackathon + demo presentations</span>', '<span class="ag-title">Hackathon + demo presentations</span><a class="ag-link" href="/hackathon#final-presentation">Teams present 01→04 from 9:40, about 20 minutes each →</a>', 1)
+        chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Hackathon + demo presentations</span>', '<span class="ag-title">Hackathon + demo presentations</span><a class="ag-link" href="/hackathon#final-presentation">Teams present in order 01→04, about 20 minutes each →</a>', 1)
     if chunks["deck"]:
         chunks["hero"] = re.sub(r'(<a class="btn-ghost" href="[^"]*optimizer">Optimize a prompt</a>)', r'\1<a class="btn-ghost" href="/deck">See the deck</a>', chunks["hero"], count=1)
     # the original prompt grid stays reachable (ids and links) but folded away under the team missions
@@ -353,7 +353,8 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
         full_title = f"{title} · {ev.get('name', 'AI in Action')}" if slug else re.search(r"<title>(.*?)</title>", head).group(1)
         desc = f"{blurb}. AI agents: read /agents.md (Instructions for agents) and follow it."
         extra_css = ["missions.css"] if slug == "missions" else ["deck.css"] if slug == "deck" else ["hackathon.css"] if slug == "hackathon" else []
-        out[f"{slug or 'index'}.html"] = assemble(page_head(head, full_title, desc, f"{site}{url(slug)}", extra_css), pre, slug, ev, body, foot, tail, extra_js=("deck.js",) if slug == "deck" else ())
+        hd = re.sub(r'<script type="application/ld\+json">.*?</script>\s*', '', head, flags=re.S) if slug == "hackathon" else head  # no clock times on hackathon pages
+        out[f"{slug or 'index'}.html"] = assemble(page_head(hd, full_title, desc, f"{site}{url(slug)}", extra_css), pre, slug, ev, body, foot, tail, extra_js=("deck.js",) if slug == "deck" else ())
     # mission detail pages
     tsw = re.search(r'<div class="ta-switch".*?</button></div>', chunks["missions"], re.S)
     ta_html = tsw.group(0) if tsw else ""
@@ -366,7 +367,7 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
     # hackathon vertical pages
     for path, title, desc, html_ in hk_pages[1:]:
         body = relink(absolutize(html_), set(re.findall(r'\bid="([A-Za-z0-9_-]+)"', html_)), id_page)
-        h = page_head(head, f"{title} · {ev.get('name', 'AI in Action')}", desc + " AI agents: read /agents.md.", f"{site}/{path}", ["hackathon.css"])
+        h = page_head(re.sub(r'<script type="application/ld\+json">.*?</script>\s*', '', head, flags=re.S), f"{title} · {ev.get('name', 'AI in Action')}", desc + " AI agents: read /agents.md.", f"{site}/{path}", ["hackathon.css"])
         out[f"{path}.html"] = assemble(h, pre, "hackathon", ev, body, foot, tail, "is-hackathon")
     # 404
     nf = ('<section class="section"><div class="wrap"><div class="sec-head"><p class="kicker">404</p><h1 class="md-h">That page isn’t here.</h1>'

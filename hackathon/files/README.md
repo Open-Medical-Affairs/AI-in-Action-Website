@@ -2,7 +2,7 @@
 
 October 13–14, 2026 · Convene (2nd floor), Two Commerce Square, 2001 Market St, Philadelphia · Host and keynote: Vivek Mukhatyar · Companion site: https://aiinaction.up.railway.app
 
-Everything facilitators and teams need for the build afternoon (Day 1, 1:45–5:00 PM) and the final presentations (Day 2, 9:00–11:00 AM). Four verticals, one team each.
+Everything facilitators and teams need for the build afternoon (Day 1 afternoon) and the final presentations (Day 2 morning). Four verticals, one team each.
 
 ## For facilitators
 
@@ -31,8 +31,8 @@ Each guide has: the challenge and a sharpened problem prompt; a suggested, minut
 
 ## Timing at a glance
 
-- **Day 1, 1:45–5:00 PM (suggested, optional):** 1:45 set up Grok Bot and load skills (30 min) · 2:15 warm-up missions (40) · 2:55 workflow ideation (45) · 3:40 the hack (80). No formal share-out at 5:00; facilitators walk around and ask questions. 5:00 cocktail reception.
-- **Day 2, 9:00–11:00 AM:** 9:00–9:38 final build and rehearsal · teams present 01→04 from 9:40 (about 9:40 / 10:00 / 10:20 / 10:40), about 20 minutes each including a few questions, before the 11:00 WPP demo.
+- **Day 1 afternoon (suggested, optional), in order:** set up Grok Bot and load skills (about 30 min) → warm-up missions (about 40 min) → workflow ideation (about 45 min) → the hack (about 80 min, roughly 1½ hours). No formal share-out at the end of the afternoon; facilitators walk around and ask questions. Then the cocktail reception.
+- **Day 2 morning:** final build and rehearsal (about 30–40 min) → teams present in order 01→04, about 20 minutes each including a few questions, before the WPP demo.
 
 ## Links
 
