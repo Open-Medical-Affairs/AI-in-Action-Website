@@ -3,7 +3,7 @@
  "sizes": {
   "03-congress-monitor.md": 31268,
   "04-field-intelligence-engine.md": 31551,
-  "how-to-use-template.md": 3177,
+  "how-to-use-template.md": 3167,
   "capture-log-template.md": 3649,
   "01-publications-brain.md": 33625,
   "02-insights-engine.md": 31750,
@@ -12,6 +12,14 @@
   "template/template-contact-sheet.jpg": 236381,
   "template/AI-in-Action-Final-Presentation-Template.pptx": 1163001,
   "kickoff/AI-in-Action-Hackathon-Intro.pdf": 2776708,
-  "kickoff/AI-in-Action-Hackathon-Intro.pptx": 3230025
+  "kickoff/AI-in-Action-Hackathon-Intro.pptx": 3230025,
+  "guides/04-Field-Intelligence-Engine-Facilitator-Guide.pdf": 968109,
+  "guides/01-Publications-Brain-Facilitator-Guide-p1.jpg": 71198,
+  "guides/02-Insights-Engine-Facilitator-Guide.pdf": 919305,
+  "guides/03-Congress-Monitor-Facilitator-Guide.pdf": 957769,
+  "guides/02-Insights-Engine-Facilitator-Guide-p1.jpg": 69371,
+  "guides/04-Field-Intelligence-Engine-Facilitator-Guide-p1.jpg": 72160,
+  "guides/03-Congress-Monitor-Facilitator-Guide-p1.jpg": 74888,
+  "guides/01-Publications-Brain-Facilitator-Guide.pdf": 929532
  }
 }

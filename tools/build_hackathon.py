@@ -48,6 +48,12 @@ def main():
             subprocess.run(["soffice", "--headless", "--convert-to", "pdf", "--outdir", tmp, str(OUT / "kickoff" / f"{KICK}.pptx")], check=True,
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=600)
             shutil.copyfile(Path(tmp) / f"{KICK}.pdf", OUT / "kickoff" / f"{KICK}.pdf")
+    for g in GUIDES:  # page-1 thumbnail for the hub cards
+        pdf_g = OUT / "guides" / g
+        if pdf_g.exists():
+            stem = OUT / "guides" / g.replace(".pdf", "-p1")
+            subprocess.run(["pdftoppm", "-jpeg", "-jpegopt", "quality=80,optimize=y", "-f", "1", "-l", "1", "-singlefile",
+                            "-scale-to-x", "480", "-scale-to-y", "-1", str(pdf_g), str(stem)], check=True)
     sizes = {str(p.relative_to(OUT)): p.stat().st_size for p in OUT.rglob("*") if p.is_file()}
     meta = {"kickoff_slides": slide_count(OUT / "kickoff" / f"{KICK}.pptx"), "sizes": sizes}
     (ROOT / "hackathon" / "pack.json").write_text(json.dumps(meta, indent=1))

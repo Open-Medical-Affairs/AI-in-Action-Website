@@ -90,3 +90,7 @@
 .hk-guides{display:grid;gap:8px}
 .hk-guides .hk-dl{justify-content:space-between}
 .hk-dl.is-soon{opacity:.55;cursor:not-allowed;pointer-events:none}
+.hk-cardwrap{display:flex;flex-direction:column;gap:8px}
+.hk-cardwrap .hk-card{flex:1}
+.hk-cardwrap>.hk-dl{justify-content:center;font-size:13px}
+.hk-thumb{width:100%;height:auto;aspect-ratio:210/297;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--line-2,#d5dde5);margin-bottom:6px;max-height:220px}

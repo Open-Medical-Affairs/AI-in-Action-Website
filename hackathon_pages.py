@@ -64,10 +64,12 @@ def vertical_card(v):
     warm = re.search(r"\| Warm-up missions \| (.*?) \|\n", t)
     warm_ids = re.findall(r"\[`([a-z0-9-]+)`\]", warm.group(1)) if warm else []
     lead = re.search(r"\| Lead skill for the hack \| \[`([a-z0-9-]+)`\]", t)
-    return (f'<a class="hk-card hk-card--{n}" href="/hackathon/{slug}"><span class="hk-num">0{n}</span><h3>{E(name)}</h3><p>{E(line)}</p>'
+    thumb = f"guides/{guide_name(v).replace('.pdf', '-p1.jpg')}"
+    img = (f'<img class="hk-thumb" src="{F(thumb)}" alt="Page 1 of the {E(name)} facilitator guide" loading="lazy">' if (FILES / thumb).exists() else "")
+    return (f'<div class="hk-cardwrap"><a class="hk-card hk-card--{n}" href="/hackathon/{slug}">{img}<span class="hk-num">0{n}</span><h3>{E(name)}</h3><p>{E(line)}</p>'
             f'<dl><div><dt>Warm-ups</dt><dd>{" · ".join(f"<code>{E(w)}</code>" for w in warm_ids)}</dd></div>'
             f'<div><dt>Lead skill</dt><dd><code>{E(lead.group(1) if lead else "")}</code></dd></div>'
-            f'<div><dt>Presents</dt><dd>Day 2 · {slot} AM</dd></div></dl><span class="hk-go">Open the guide →</span></a>')
+            f'<div><dt>Presents</dt><dd>Day 2 · {slot} AM</dd></div></dl><span class="hk-go">Open the guide →</span></a>{guide_btn(v, False)}</div>')
 
 
 def howto_block():

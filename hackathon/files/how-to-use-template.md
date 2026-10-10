@@ -26,6 +26,6 @@ Your team presents on Day 2 (Wed Oct 14) from 9:40 AM, in order 01 → 04, for a
 
 5. **Leave the demo slide empty and run the live demo there.** Slide 7 says LIVE DEMO and nothing else, on purpose. When you reach it, switch to your Grok Bot conversation and run the swarm live: the assignment, the plan, the hand-offs, the human gate (decide out loud), the output. If the live run fails, go to slide 8 (Backup) and show your screenshots.
 
-6. **Present in about 20 minutes.** Rehearse once with a timer, give or take a minute or two, and leave time for a few questions. Hand the final .pptx to the presentation laptop before 9:38 AM.
+6. **Present in about 20 minutes.** Rehearse it once, give or take a minute or two, and leave time for a few questions. Hand the final .pptx to the presentation laptop before 9:38 AM.
 
 *Practice data are fictional (Nordvant Biopharma; NORVANTIB, DERMALYX, ADIPOSYN). Outputs are drafts for qualified human review.*
