@@ -38,10 +38,11 @@ def render(md, link=lambda u: u, prefix="hk", shift=0, copy_all=False):
     out, i, last_para = [], 0, ""
     while i < len(lines):
         ln = lines[i]
-        if ln.startswith("```"):
+        if ln.lstrip().startswith("```") and len(ln) - len(ln.lstrip()) <= 4:
+            ind = len(ln) - len(ln.lstrip())
             j = i + 1
-            while j < len(lines) and not lines[j].startswith("```"): j += 1
-            code = "\n".join(lines[i + 1:j])
+            while j < len(lines) and not lines[j].lstrip().startswith("```"): j += 1
+            code = "\n".join(l[ind:] if l[:ind].strip() == "" else l for l in lines[i + 1:j])
             label = "Prompt to paste"
             lp = re.sub(r"<[^>]+>", "", last_para).strip()
             if re.search(r"prompt|paste|instruction|Grok Bot", lp, re.I) and len(lp) < 140:

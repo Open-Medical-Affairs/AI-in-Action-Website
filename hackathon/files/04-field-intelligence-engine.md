@@ -142,7 +142,7 @@ Context: 8:00 breakfast · **9:00 hackathon + demo presentations** · 11:00 inte
 |---|---|
 | 9:00–9:05 | Re-open yesterday's conversation. The agent re-reads the capture log. |
 | 9:05–9:25 | One last build fix at most. The agent fills the [final presentation template](template/AI-in-Action-Final-Presentation-Template.pptx) using the [agent instructions](final-presentation-agent-instructions.md). |
-| 9:25–9:32 | Team review: no [brackets] left, impact numbers are the team's own, practice data marked fictional, demo screenshots in place. |
+| 9:25–9:32 | Team review: no [brackets] left, impact numbers are the team's own, practice data marked fictional, the LIVE DEMO slide left empty, backup screenshots in place. |
 | 9:32–9:38 | Rehearse the demo and the first two slides. Hand the deck to the AV desk / presentation laptop. |
 | 9:38–9:40 | MC opens the session. |
 | **10:40–11:00 AM** | **Field Intelligence Engine presents** (about 20 minutes, give or take, including a short live demo and a few questions). |
@@ -302,7 +302,7 @@ Teams supply their own estimates. Count every person involved and **include huma
 
 > **ILLUSTRATIVE ONLY, not data:** 2.5 h → 0.75 h per cycle × 200 cycles/year = 350 h saved; × $120/h = $42,000 per year. Replace every number with the team's own estimate.
 
-These numbers go on slide 8 of the final template (formula tiles and bar chart).
+These numbers go on the Impact slide of the final template (slide 9: formula tiles and a bar chart built from the team's own estimates).
 
 ---
 
