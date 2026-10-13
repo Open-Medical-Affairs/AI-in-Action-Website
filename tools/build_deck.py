@@ -45,6 +45,40 @@ def slide_count(pptx: Path) -> int:
         return len([n for n in z.namelist() if re.match(r"ppt/slides/slide\d+\.xml$", n)])
 
 
+VIDEO_EXT = (".mp4", ".mov", ".m4v", ".avi", ".wmv", ".webm", ".mkv", ".mpg", ".mpeg")
+
+
+def strip_video(path):
+    """Remove embedded/linked video from the public pptx (poster image stays). Returns files removed."""
+    import re, zipfile
+    src = zipfile.ZipFile(path)
+    items = {i.filename: src.read(i.filename) for i in src.infolist()}
+    src.close()
+    gone = [n for n in items if n.lower().endswith(VIDEO_EXT)]
+    if not gone:
+        return []
+    for n in gone:
+        del items[n]
+    for n in list(items):
+        if n.endswith(".rels"):
+            t = items[n].decode("utf8")
+            t2 = re.sub(r'<Relationship [^>]*Type="[^"]*/(?:video|media)"[^>]*/>', "", t)
+            t2 = re.sub(r'<Relationship [^>]*Target="[^"]*\.(?:mp4|mov|m4v|avi|wmv|webm|mkv|mpg|mpeg)"[^>]*/>', "", t2, flags=re.I)
+            items[n] = t2.encode("utf8")
+        elif n.startswith("ppt/slides/slide") and n.endswith(".xml"):
+            t = items[n].decode("utf8")
+            t = re.sub(r'<a:videoFile [^>]*/>', "", t)
+            t = re.sub(r'<p:extLst><p:ext uri="\{DAA4B4D4-6D71-4841-9C94-3DE7FCFB9230\}"><p14:media [^>]*/></p:ext></p:extLst>', "", t)
+            t = re.sub(r'<p:timing>.*?</p:timing>', lambda m: "" if "<p:video" in m.group(0) else m.group(0), t, flags=re.S)
+            items[n] = t.encode("utf8")
+    ct = items["[Content_Types].xml"].decode("utf8")
+    items["[Content_Types].xml"] = re.sub(r'<Default Extension="(?:mp4|mov|m4v|avi|wmv|webm|mkv|mpg|mpeg)"[^>]*/>', "", ct, flags=re.I).encode("utf8")
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
+        for n, b in items.items():
+            z.writestr(n, b)
+    return gone
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pptx", default=str(SRC / f"{NAME}.pptx"))
@@ -64,6 +98,8 @@ def main():
 
     pub_pptx = OUT / f"{NAME}.pptx"
     removed = strip_notes(pptx, pub_pptx)
+    vids = strip_video(pub_pptx)
+    print(f"removed embedded video: {vids or 'none'}")
     n_slides = slide_count(pub_pptx)
 
     with tempfile.TemporaryDirectory() as tmp:
