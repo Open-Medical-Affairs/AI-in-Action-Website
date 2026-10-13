@@ -185,7 +185,7 @@ If you cannot retrieve the repository, tell me which starter file to upload.
 ## Event teams
 
 - Publications Brain: What to publish, what to stop, and keeping every output consistent. Start with: mission-4, publication.
-- Insights Engine: Turn a quarter of field records into decisions leadership can act on. Start with: mission-2, field-insights, transcript.
+- Insights Engine: From field insights to care and knowledge gaps to curated HCP content for each persona and stage. Start with: mission-2, field-insights, medical-information, connected-planning.
 - Congress Monitor: The congress just ended. What changed, and what do we do about it? Start with: mission-3, congress.
 - Field Intelligence Engine: Walk into every HCP conversation prepared, and close the loop after. Start with: mission-1, msl-pre-call, msl-post-call, hcp-access, msl-admin.
 

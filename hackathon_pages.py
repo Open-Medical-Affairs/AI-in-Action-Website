@@ -9,10 +9,11 @@ FILES = HERE / "hackathon" / "files"
 SITE = "https://aiinaction.up.railway.app"
 VERTICALS = [  # number, slug (route), md file, name, one line, slot
     (1, "publications-brain", "01-publications-brain.md", "Publications Brain", "What to publish, what to stop, and keeping every output consistent.", ""),
-    (2, "insights-engine", "02-insights-engine.md", "Insights Engine", "Turn a quarter of field records into decisions leadership can act on.", ""),
+    (2, "insights-engine", "02-insights-engine.md", "Insights Engine", "From field insights to care and knowledge gaps to curated HCP content for each persona and stage.", ""),
     (3, "congress-monitor", "03-congress-monitor.md", "Congress Monitor", "The congress just ended. What changed, and what do we do about it?", ""),
     (4, "field-intelligence-engine", "04-field-intelligence-engine.md", "Field Intelligence Engine", "Walk into every HCP conversation prepared, and close the loop after.", ""),
 ]
+FACIL = {2: "John and Anjali"}  # named facilitators per vertical
 F = lambda p: f"/hackathon/files/{p}"
 FACILITATOR = ("walk-around question bank", "common pitfalls")
 
@@ -68,6 +69,7 @@ def vertical_card(v):
     img = (f'<img class="hk-thumb" src="{F(thumb)}" alt="Page 1 of the {E(name)} facilitator guide" loading="lazy">' if (FILES / thumb).exists() else "")
     return (f'<div class="hk-cardwrap"><a class="hk-card hk-card--{n}" href="/hackathon/{slug}">{img}<span class="hk-num">0{n}</span><h3>{E(name)}</h3><p>{E(line)}</p>'
             f'<dl><div><dt>Warm-ups</dt><dd>{" · ".join(f"<code>{E(w)}</code>" for w in warm_ids)}</dd></div>'
+            + (f'<div><dt>Facilitators</dt><dd>{E(FACIL[v[0]])}</dd></div>' if v[0] in FACIL else '') +
             f'<div><dt>Lead skill</dt><dd><code>{E(lead.group(1) if lead else "")}</code></dd></div>'
             f'<div><dt>Presents</dt><dd>Day 2 · {["first", "second", "third", "fourth"][n - 1]}, about 20 min</dd></div></dl><span class="hk-go">Open the guide →</span></a>{guide_btn(v, False)}</div>')
 
@@ -209,7 +211,7 @@ def vertical_page(v):
     return f'''<section class="section hk-v hk-v--{n}" id="hackathon-{slug}" aria-labelledby="hkv-h">
   <div class="wrap hk-v-wrap">
     <p class="hk-crumb"><a href="/hackathon">Hackathon</a> / Vertical 0{n}</p>
-    <div class="sec-head"><p class="kicker">Vertical 0{n} · presents {["first", "second", "third", "fourth"][n - 1]} on Day 2</p><h1 class="md-h" id="hkv-h">{E(name)}</h1><p class="sec-sub">{E(line)}</p>
+    <div class="sec-head"><p class="kicker">Vertical 0{n} · presents {["first", "second", "third", "fourth"][n - 1]} on Day 2</p><h1 class="md-h" id="hkv-h">{E(name)}</h1><p class="sec-sub">{E(line)}</p>{f'<p class="hk-facil">Facilitators: <b>{E(FACIL[n])}</b>, insights pillar leads</p>' if n in FACIL else ''}
       <div class="hk-btns">{guide_btn(v)}<a class="btn-ghost" href="#{day1}">Day 1 agenda</a><a class="btn-ghost" href="/hackathon#final-presentation">Final presentation</a><a class="btn-ghost" href="#for-facilitators">For facilitators</a><a class="btn-ghost" href="{F(md)}">Markdown</a></div>
       {f'<p class="hk-aside"><b>Assumption:</b> {E(assumption)}</p>' if assumption else ""}</div>
     <div class="hk-md">{body}</div>

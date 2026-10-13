@@ -1363,13 +1363,14 @@
     },
     {
       "name": "Insights Engine",
-      "blurb": "Turn a quarter of field records into decisions leadership can act on.",
+      "blurb": "From field insights to care and knowledge gaps to curated HCP content for each persona and stage.",
       "team_missions": [
         "mission-2"
       ],
       "missions": [
         "field-insights",
-        "transcript"
+        "medical-information",
+        "connected-planning"
       ]
     },
     {

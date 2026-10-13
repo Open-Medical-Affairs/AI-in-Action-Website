@@ -40,7 +40,7 @@ CONNECTED_DESC = {
 }
 TEAMS = [
     {"name": "Publications Brain", "blurb": "What to publish, what to stop, and keeping every output consistent.", "team_missions": ["mission-4"], "missions": ["publication"]},
-    {"name": "Insights Engine", "blurb": "Turn a quarter of field records into decisions leadership can act on.", "team_missions": ["mission-2"], "missions": ["field-insights", "transcript"]},
+    {"name": "Insights Engine", "blurb": "From field insights to care and knowledge gaps to curated HCP content for each persona and stage.", "team_missions": ["mission-2"], "missions": ["field-insights", "medical-information", "connected-planning"]},
     {"name": "Congress Monitor", "blurb": "The congress just ended. What changed, and what do we do about it?", "team_missions": ["mission-3"], "missions": ["congress"]},
     {"name": "Field Intelligence Engine", "blurb": "Walk into every HCP conversation prepared, and close the loop after.", "team_missions": ["mission-1"], "missions": ["msl-pre-call", "msl-post-call", "hcp-access", "msl-admin"]},
 ]
