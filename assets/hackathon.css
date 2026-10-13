@@ -49,7 +49,7 @@
 .hk-instr{margin-top:10px}
 .hk-instr summary{cursor:pointer;font-weight:600}
 .hk-instr pre{max-height:420px;overflow:auto;white-space:pre-wrap;font-size:12px}
-.hk-dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hk-dl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .hk-dl-card{background:#fff;border:1px solid var(--line-2,#d5dde5);border-radius:16px;padding:18px 20px}
 .hk-dl-card h3{margin:0 0 6px}
 .hk-dl-card p{font-size:14px;margin:0 0 10px}
@@ -97,3 +97,29 @@
 .hk-flow li{grid-template-columns:104px 1fr}
 .hk-dur{grid-row:span 2;font:600 12.5px var(--f-mono,monospace);font-style:normal;color:#0B2340;padding-top:3px}
 .hk-facil{margin:.4rem 0 0;color:var(--navy,#0b2545);font-size:.95rem}
+
+/* teams (/hackathon#teams and /hackathon/teams) */
+.hk-teams{margin-top:40px}
+.hk-teams .hk-h2{margin:2px 0 6px}
+.hk-teams .hk-aside{margin:0}
+.hk-teams-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.hk-teams-head .hk-btns,.hk-teams-page .sec-head .hk-btns{margin-top:12px}
+.hk-tm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.hk-tm{display:flex;flex-direction:column;gap:4px;background:#fff;border:1px solid var(--line-2,#d5dde5);border-left:6px solid #0B2340;border-radius:14px;padding:14px 16px;color:inherit;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.hk-tm:hover{transform:translateY(-2px);box-shadow:0 14px 34px -18px rgba(11,35,64,.45)}
+.hk-tm b{font-size:17px}.hk-tm span:last-child{font-size:13.5px;color:var(--muted,#5b6b7c)}
+.hk-tm--2,.hk-team--2{border-left-color:#1F5F99}.hk-tm--3,.hk-team--3{border-left-color:#0F766E}.hk-tm--4,.hk-team--4{border-left-color:#E07A2F}
+.hk-team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
+.hk-team{background:#fff;border:1px solid var(--line-2,#d5dde5);border-left:6px solid #0B2340;border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:10px;scroll-margin-top:90px}
+.hk-team h2{margin:2px 0 2px;font-size:24px}
+.hk-team-sub{margin:0;font-weight:600;font-size:14px}
+.hk-team-line{margin:4px 0 0;font-size:14.5px;font-style:italic;color:var(--muted,#5b6b7c)}
+.hk-members{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.hk-members li{display:flex;align-items:center;gap:10px;background:#FBFAF6;border:1px solid #E6E0D3;border-radius:12px;padding:8px 10px;font-weight:600;font-size:14.5px}
+.hk-members li small{margin-left:auto;font:600 11px var(--f-mono,monospace);text-transform:uppercase;letter-spacing:.04em;color:#1F5F99}
+.hk-members li.is-lead{border-color:#1F5F99;box-shadow:inset 0 0 0 1px #1F5F99}
+.hk-ini{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:700 12px var(--f-sans);background:#E8EEF5;color:#0B2340}
+.hk-team--2 .hk-ini{background:#E4EDF7;color:#1F5F99}.hk-team--3 .hk-ini{background:#E3F1F0;color:#0F766E}.hk-team--4 .hk-ini{background:#FDEBE1;color:#B4501F}
+.hk-tm-fig{margin-top:26px}
+@media (max-width:900px){.hk-tm-grid{grid-template-columns:repeat(2,1fr)}.hk-team-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.hk-tm-grid,.hk-members{grid-template-columns:1fr}}

@@ -22,14 +22,16 @@ GUIDES = ["01-Publications-Brain-Facilitator-Guide.pdf", "02-Insights-Engine-Fac
           "03-Congress-Monitor-Facilitator-Guide.pdf", "04-Field-Intelligence-Engine-Facilitator-Guide.pdf"]
 OPTIONAL = ["how-to-use-template.md"] + [f"guides/{g}" for g in GUIDES]  # pages show placeholders until these exist  # rendered on /hackathon beside the template download when present
 KICK = "AI-in-Action-Hackathon-Intro"
+TEAMS = "AI-in-Action-Hackathon-Teams"  # team map deck (tools: /workspace/slides/hackathon-teams/build.py)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pack", default="/workspace/hackathon-pack")
     ap.add_argument("--kickoff", default="/workspace/slides/hackathon-intro-H0sOFV")
+    ap.add_argument("--teams", default="/workspace/slides/hackathon-teams")
     a = ap.parse_args()
-    pack, kick = Path(a.pack), Path(a.kickoff)
+    pack, kick, teams = Path(a.pack), Path(a.kickoff), Path(a.teams)
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "template").mkdir(parents=True); (OUT / "kickoff").mkdir(); (OUT / "guides").mkdir()
@@ -48,6 +50,12 @@ def main():
             subprocess.run(["soffice", "--headless", "--convert-to", "pdf", "--outdir", tmp, str(OUT / "kickoff" / f"{KICK}.pptx")], check=True,
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=600)
             shutil.copyfile(Path(tmp) / f"{KICK}.pdf", OUT / "kickoff" / f"{KICK}.pdf")
+    if (teams / f"{TEAMS}.pptx").exists():  # team map deck: notes removed, PDF + overview slide image for /hackathon/teams
+        (OUT / "teams").mkdir()
+        strip_notes(teams / f"{TEAMS}.pptx", OUT / "teams" / f"{TEAMS}.pptx")
+        shutil.copyfile(teams / f"{TEAMS}.pdf", OUT / "teams" / f"{TEAMS}.pdf")
+        subprocess.run(["pdftoppm", "-jpeg", "-jpegopt", "quality=85,optimize=y", "-f", "2", "-l", "2", "-singlefile", "-scale-to-x", "1600", "-scale-to-y", "-1",
+                        str(OUT / "teams" / f"{TEAMS}.pdf"), str(OUT / "teams" / "team-map-overview")], check=True)
     for g in GUIDES:  # page-1 thumbnail for the hub cards
         pdf_g = OUT / "guides" / g
         if pdf_g.exists():
