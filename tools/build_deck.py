@@ -48,9 +48,32 @@ def slide_count(pptx: Path) -> int:
 VIDEO_EXT = (".mp4", ".mov", ".m4v", ".avi", ".wmv", ".webm", ".mkv", ".mpg", ".mpeg")
 
 
-def strip_video(path):
-    """Remove embedded/linked video from the public pptx (poster image stays). Returns files removed."""
-    import re, zipfile
+LINK_W, LINK_H = 3383280, 1219200  # 'Watch the clip' card, matches the public PDF
+
+
+def link_card(sid, x, y, rid, url):
+    """Navy card with an orange play button, clickable to the clip URL (no film imagery)."""
+    host = "YouTube" if "youtu" in url else "your browser"
+    d = 274320
+    cx, cy = x + 182880, y + (LINK_H - 640080) // 2
+    link = f'<a:hlinkClick r:id="{rid}"/>'
+    return (f'<p:grpSp><p:nvGrpSpPr><p:cNvPr id="{sid}" name="Watch the clip link card">{link}</p:cNvPr><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>'
+            f'<p:grpSpPr><a:xfrm><a:off x="{x}" y="{y}"/><a:ext cx="{LINK_W}" cy="{LINK_H}"/><a:chOff x="{x}" y="{y}"/><a:chExt cx="{LINK_W}" cy="{LINK_H}"/></a:xfrm></p:grpSpPr>'
+            f'<p:sp><p:nvSpPr><p:cNvPr id="{sid+1}" name="Clip card">{link}</p:cNvPr><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="{x}" y="{y}"/><a:ext cx="{LINK_W}" cy="{LINK_H}"/></a:xfrm>'
+            f'<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val 8000"/></a:avLst></a:prstGeom><a:solidFill><a:srgbClr val="002B55"/></a:solidFill><a:ln><a:noFill/></a:ln></p:spPr>'
+            f'<p:txBody><a:bodyPr lIns="1005840" tIns="91440" rIns="137160" bIns="91440" anchor="ctr"/><a:lstStyle/>'
+            f'<a:p><a:r><a:rPr lang="en-US" sz="1800" b="1"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill></a:rPr><a:t>Watch the clip</a:t></a:r></a:p>'
+            f'<a:p><a:r><a:rPr lang="en-US" sz="1100"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill></a:rPr><a:t>Opens on {host}</a:t></a:r></a:p></p:txBody></p:sp>'
+            f'<p:sp><p:nvSpPr><p:cNvPr id="{sid+2}" name="Play button">{link}</p:cNvPr><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="{cx}" y="{cy}"/><a:ext cx="640080" cy="640080"/></a:xfrm>'
+            f'<a:prstGeom prst="ellipse"><a:avLst/></a:prstGeom><a:solidFill><a:srgbClr val="F37021"/></a:solidFill><a:ln><a:noFill/></a:ln></p:spPr></p:sp>'
+            f'<p:sp><p:nvSpPr><p:cNvPr id="{sid+3}" name="Play triangle">{link}</p:cNvPr><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm rot="5400000"><a:off x="{cx + 320040 - d//2 + 27432}" y="{cy + 320040 - d//2}"/><a:ext cx="{d}" cy="{d}"/></a:xfrm>'
+            f'<a:prstGeom prst="triangle"><a:avLst/></a:prstGeom><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:ln><a:noFill/></a:ln></p:spPr></p:sp></p:grpSp>')
+
+
+def strip_video(path, default_url="https://youtu.be/ozS_6vqnJ8w"):
+    """Remove embedded/linked video from the public pptx. The video and its poster frame (often a film
+    still) are replaced with a 'Watch the clip' link card. Returns the files removed."""
+    import re, zipfile, posixpath
     src = zipfile.ZipFile(path)
     items = {i.filename: src.read(i.filename) for i in src.infolist()}
     src.close()
@@ -59,18 +82,50 @@ def strip_video(path):
         return []
     for n in gone:
         del items[n]
+    posters = set()
+    for n in [k for k in items if re.fullmatch(r"ppt/slides/slide\d+\.xml", k)]:
+        t = items[n].decode("utf8")
+        if "<a:videoFile" not in t and "p14:media" not in t:
+            continue
+        rn = f"ppt/slides/_rels/{posixpath.basename(n)}.rels"
+        rels = items[rn].decode("utf8")
+        m = re.search(r"(https?://)?(youtu\.be/[\w-]+|(?:www\.)?youtube\.com/watch\?v=[\w-]+|vimeo\.com/\d+)", t)
+        url = ("https://" + m.group(2)) if m else default_url
+        ids = [int(i) for i in re.findall(r'<p:cNvPr id="(\d+)"', t)]
+
+        def repl(pm):
+            pic = pm.group(0)
+            if "<a:videoFile" not in pic and "p14:media" not in pic:
+                return pic
+            nonlocal rels, ids
+            bl = re.search(r'<a:blip r:embed="(rId\d+)"', pic)
+            if bl:
+                tg = re.search(rf'<Relationship Id="{bl.group(1)}"[^>]*Target="([^"]+)"', rels)
+                if tg:
+                    posters.add(posixpath.normpath(posixpath.join("ppt/slides", tg.group(1))))
+                rels = re.sub(rf'<Relationship Id="{bl.group(1)}"[^>]*/>', "", rels)
+            off = re.search(r'<a:off x="(\d+)" y="(\d+)"/><a:ext cx="(\d+)" cy="(\d+)"/>', pic)
+            px, py, pw, ph = map(int, off.groups())
+            x = max(px, px + pw - LINK_W); y = py + ph + 182880
+            rid = "rIdClip%d" % len(ids)
+            rels = rels.replace("</Relationships>", f'<Relationship Id="{rid}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="{url}" TargetMode="External"/></Relationships>')
+            sid = max(ids) + 1; ids += [sid, sid + 1, sid + 2, sid + 3]
+            return link_card(sid, x, y, rid, url)
+
+        t = re.sub(r"<p:pic>.*?</p:pic>", repl, t, flags=re.S)
+        t = re.sub(r"<a:t>Click the video to play[^<]*</a:t>", "<a:t>Link only: </a:t>", t)
+        t = re.sub(r"<p:timing>.*?</p:timing>", lambda m: "" if "<p:video" in m.group(0) else m.group(0), t, flags=re.S)
+        items[n] = t.encode("utf8"); items[rn] = rels.encode("utf8")
     for n in list(items):
         if n.endswith(".rels"):
             t = items[n].decode("utf8")
-            t2 = re.sub(r'<Relationship [^>]*Type="[^"]*/(?:video|media)"[^>]*/>', "", t)
-            t2 = re.sub(r'<Relationship [^>]*Target="[^"]*\.(?:mp4|mov|m4v|avi|wmv|webm|mkv|mpg|mpeg)"[^>]*/>', "", t2, flags=re.I)
-            items[n] = t2.encode("utf8")
-        elif n.startswith("ppt/slides/slide") and n.endswith(".xml"):
-            t = items[n].decode("utf8")
-            t = re.sub(r'<a:videoFile [^>]*/>', "", t)
-            t = re.sub(r'<p:extLst><p:ext uri="\{DAA4B4D4-6D71-4841-9C94-3DE7FCFB9230\}"><p14:media [^>]*/></p:ext></p:extLst>', "", t)
-            t = re.sub(r'<p:timing>.*?</p:timing>', lambda m: "" if "<p:video" in m.group(0) else m.group(0), t, flags=re.S)
+            t = re.sub(r'<Relationship [^>]*Type="[^"]*/(?:video|media)"[^>]*/>', "", t)
+            t = re.sub(r'<Relationship [^>]*Target="[^"]*\.(?:mp4|mov|m4v|avi|wmv|webm|mkv|mpg|mpeg)"[^>]*/>', "", t, flags=re.I)
             items[n] = t.encode("utf8")
+    for pth in posters:  # drop the poster file if nothing else uses it
+        base = posixpath.basename(pth)
+        if pth in items and not any(base.encode() in b for k, b in items.items() if k.endswith(".rels")):
+            del items[pth]; gone.append(pth)
     ct = items["[Content_Types].xml"].decode("utf8")
     items["[Content_Types].xml"] = re.sub(r'<Default Extension="(?:mp4|mov|m4v|avi|wmv|webm|mkv|mpg|mpeg)"[^>]*/>', "", ct, flags=re.I).encode("utf8")
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
