@@ -137,6 +137,8 @@ def downloads_block():
       <div class="hk-dl-card"><h3>Hackathon kickoff deck</h3><p>Hack the workflow: what a hack is, Efficiency vs Opportunity AI, the four challenges and the rules.</p>
         <div class="hk-btns">{dl("kickoff/AI-in-Action-Hackathon-Intro.pdf", "PDF", True)}{dl("kickoff/AI-in-Action-Hackathon-Intro.pptx", "PowerPoint (.pptx)")}</div></div>
       {f'<div class="hk-dl-card"><h3>Team map</h3><p>All four teams around their vertical hubs, one slide per team with every member.</p><div class="hk-btns">{dl(TEAMDECK + ".pdf", "PDF", True)}{dl(TEAMDECK + ".pptx", "PowerPoint (.pptx)")}</div></div>' if (FILES / (TEAMDECK + ".pdf")).exists() else ""}
+      <div class="hk-dl-card"><h3>Closing session slides</h3><p>Panel and audience questions for the Day 2 close (Moderator: Vivek). Notes stripped.</p>
+        <div class="hk-btns">{dl("closing/AI-in-Action-Closing-Session.pdf", "PDF", True)}{dl("closing/AI-in-Action-Closing-Session.pptx", "PowerPoint (.pptx)")}</div></div>
       <div class="hk-dl-card"><h3>Guides as Markdown</h3><p>For agents and for editing.</p><ul class="hk-mdlist">{"".join(f'<li><a href="{F(v[2])}">{E(v[2])}</a></li>' for v in VERTICALS)}<li><a href="{F("README.md")}">README.md</a></li></ul></div>
     </div>
   </div>

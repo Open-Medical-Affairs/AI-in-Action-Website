@@ -322,6 +322,9 @@ def paginate(files, cfg, graphs_path=HERE / "data/mission-graphs.json"):
         chunks["hero"] = re.sub(r'(<a class="btn-ghost" href="[^"]*optimizer">Optimize a prompt</a>)', r'<a class="btn-ghost" href="/hackathon">Hackathon guide</a>\1', chunks["hero"], count=1)
         chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Build the AI worker</span>', '<span class="ag-title">Build the AI worker</span><a class="ag-link" href="/hackathon">Hackathon guide: the afternoon flow and your vertical →</a>', 1)
         chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Hackathon + demo presentations</span>', '<span class="ag-title">Hackathon + demo presentations</span><a class="ag-link" href="/hackathon#final-presentation">Teams present in order 01→04, about 20 minutes each →</a>', 1)
+        chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Closing panel &amp; deployment commitment</span>', '<span class="ag-title">Closing panel &amp; deployment commitment</span><a class="ag-link" href="/hackathon#hackathon-downloads">Closing session slides →</a>', 1)
+        chunks["agenda"] = chunks["agenda"].replace('<span class="ag-title">Closing panel & deployment commitment</span>', '<span class="ag-title">Closing panel & deployment commitment</span><a class="ag-link" href="/hackathon#hackathon-downloads">Closing session slides →</a>', 1)
+
     if chunks["deck"]:
         chunks["hero"] = re.sub(r'(<a class="btn-ghost" href="[^"]*optimizer">Optimize a prompt</a>)', r'\1<a class="btn-ghost" href="/deck">See the deck</a>', chunks["hero"], count=1)
     # the original prompt grid stays reachable (ids and links) but folded away under the team missions
