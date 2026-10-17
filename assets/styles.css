@@ -535,3 +535,12 @@ html,body{overflow-x:clip}
 @media (max-width:560px){.pd-note{border-radius:14px;align-items:flex-start}.pd-dot{margin-top:6px}}
 .ag-link{display:block;margin-top:4px;font-size:13px;font-weight:600;color:#0F766E;text-decoration:none}
 .ag-link:hover{text-decoration:underline}
+
+/* Hero: Medical Affairs Reimagined */
+.hero h1.hero-title{font-size:clamp(52px,9vw,124px);line-height:.95;max-width:12ch;color:var(--navy,#0b2545)}
+.hero h1.hero-title em{display:inline-block;background:linear-gradient(90deg,var(--teal),#0b6e8a);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal}
+.hero-tagline{margin-top:22px;font-size:clamp(19px,2vw,26px);line-height:1.35;color:var(--ink);max-width:40ch;font-weight:500}
+.hero-tagline strong{color:var(--teal);font-weight:650}
+.hero-kicker{margin-top:14px;font-size:clamp(15px,1.3vw,18px);color:var(--ink-2);letter-spacing:.01em}
+.hero-kicker span{color:var(--teal);font-weight:600}
+@media (max-width:640px){.hero h1.hero-title{font-size:clamp(44px,13vw,68px)}}
